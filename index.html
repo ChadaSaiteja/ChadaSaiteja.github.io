@@ -1,549 +1,1502 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sai Teja - Building Scalable Backend Platforms</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sai Teja — Backend Architect</title>
+  <meta name="description" content="Sai Teja is a backend engineer specializing in distributed systems, microservices, and event-driven architectures at scale.">
+  <meta property="og:title" content="Sai Teja — Backend Architect">
+  <meta property="og:description" content="SDE-1 building scalable distributed systems, microservices, and event-driven architectures.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================
+       RESET & ROOT
+       ============================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-body:      #0d1117;
+      --bg-surface:   #161b22;
+      --bg-card:      rgba(22, 27, 34, 0.55);
+      --accent:       #64ffda;
+      --accent-dim:   rgba(100, 255, 218, 0.07);
+      --accent-mid:   rgba(100, 255, 218, 0.13);
+      --accent-glow:  rgba(100, 255, 218, 0.25);
+      --text-primary: #e6edf3;
+      --text-body:    #8b949e;
+      --text-muted:   #484f58;
+      --border:       rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(100, 255, 218, 0.18);
+      --purple: #a78bfa;
+      --blue:   #60a5fa;
+      --orange: #fb923c;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-body);
+      color: var(--text-body);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--accent); color: var(--bg-body); }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg-body); }
+    ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; }
+
+    /* ============================
+       BACKGROUND LAYERS
+       ============================ */
+    #matrix-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      opacity: 0.022; pointer-events: none;
+    }
+
+    #draw-canvas {
+      position: fixed; inset: 0; z-index: 3;
+      pointer-events: none;
+    }
+
+    #spotlight {
+      position: fixed; inset: 0; z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(600px circle at 50% 50%, rgba(100,255,218,0.04), transparent 80%);
+      transition: background 0.05s;
+    }
+
+    /* ============================
+       PAGE WRAPPER — TWO COLUMN
+       ============================ */
+    .page-wrapper {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ============================
+       LEFT SIDEBAR — STICKY
+       ============================ */
+    .sidebar {
+      width: 360px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 5.5rem 3rem 5.5rem 0;
+    }
+
+    .sidebar-main { flex: 1; }
+
+    /* Name & role */
+    .site-name {
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    .site-role {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .site-tagline {
+      font-size: 0.855rem;
+      color: var(--text-body);
+      max-width: 260px;
+      line-height: 1.7;
+    }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 1.6rem;
+      padding: 0.3rem 0.85rem;
+      background: rgba(100, 255, 218, 0.05);
+      border: 1px solid rgba(100, 255, 218, 0.14);
+      border-radius: 100px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.67rem;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+    }
+
+    .status-dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: dot-pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes dot-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(100,255,218,0.5); }
+      50%       { box-shadow: 0 0 0 5px rgba(100,255,218,0); }
+    }
+
+    /* Nav */
+    .sidebar-nav {
+      margin-top: 3.5rem;
+    }
+
+    .sidebar-nav ul { list-style: none; display: flex; flex-direction: column; }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.45rem 0;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+
+    .nav-line {
+      display: inline-block;
+      width: 2rem;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.3s cubic-bezier(0.4,0,0.2,1), background 0.25s;
+      flex-shrink: 0;
+    }
+
+    .sidebar-nav a:hover { color: var(--text-primary); }
+    .sidebar-nav a.active { color: var(--accent); }
+    .sidebar-nav a:hover .nav-line { width: 3.5rem; }
+    .sidebar-nav a.active .nav-line { width: 4rem; background: var(--accent); }
+
+    /* Socials */
+    .sidebar-socials {
+      display: flex;
+      align-items: center;
+      gap: 1.3rem;
+      margin-top: auto;
+      padding-top: 3rem;
+    }
+
+    .social-link {
+      display: flex;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .social-link:hover { color: var(--accent); transform: translateY(-3px); }
+    .social-link svg { width: 20px; height: 20px; }
+
+    /* ============================
+       RIGHT CONTENT — SCROLLABLE
+       ============================ */
+    .content {
+      flex: 1;
+      padding: 5.5rem 0 10rem 4.5rem;
+      min-width: 0;
+    }
+
+    section {
+      margin-bottom: 8rem;
+      scroll-margin-top: 5rem;
+    }
+
+    /* Mobile section label (hidden on desktop) */
+    .section-label {
+      display: none;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ============================
+       ABOUT
+       ============================ */
+    .about-body {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      line-height: 1.85;
+    }
+
+    .about-body p + p { margin-top: 1.25rem; }
+
+    .about-body strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .hl { color: var(--accent); font-weight: 500; }
+
+    /* ============================
+       BENTO GRID — SKILLS
+       ============================ */
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+    }
+
+    .tile {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .tile::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(220px circle at 0% 0%, var(--accent-dim), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      border-radius: 14px;
+    }
+
+    .tile:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+    .tile:hover::after { opacity: 1; }
+
+    .tile.span2 { grid-column: span 2; }
+    .tile.span3 { grid-column: span 3; }
+
+    .tile-badge {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      position: relative; z-index: 1;
+    }
+
+    .tile-heading {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.85rem;
+      position: relative; z-index: 1;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      position: relative; z-index: 1;
+    }
+
+    .tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.62rem;
+      padding: 0.22rem 0.6rem;
+      border-radius: 5px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .tag-teal    { background: rgba(100,255,218,0.07); border: 1px solid rgba(100,255,218,0.15); color: var(--accent); }
+    .tag-purple  { background: rgba(167,139,250,0.07); border: 1px solid rgba(167,139,250,0.18); color: var(--purple); }
+    .tag-blue    { background: rgba(96,165,250,0.07);  border: 1px solid rgba(96,165,250,0.18);  color: var(--blue); }
+    .tag-orange  { background: rgba(251,146,60,0.07);  border: 1px solid rgba(251,146,60,0.18);  color: var(--orange); }
+    .tag-grey    { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: var(--text-body); }
+
+    .tag-teal:hover   { background: rgba(100,255,218,0.13); }
+    .tag-purple:hover { background: rgba(167,139,250,0.13); }
+    .tag-blue:hover   { background: rgba(96,165,250,0.13); }
+    .tag-orange:hover { background: rgba(251,146,60,0.13); }
+
+    /* Stat tile */
+    .stats-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      position: relative; z-index: 1;
+    }
+
+    .stat-num {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-lbl {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Currently tile */
+    .current-company {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      position: relative; z-index: 1;
+    }
+
+    .current-meta {
+      font-size: 0.78rem;
+      color: var(--text-body);
+      margin-top: 0.2rem;
+      margin-bottom: 0.8rem;
+      position: relative; z-index: 1;
+    }
+
+    /* ============================
+       PROJECTS
+       ============================ */
+    .proj-card {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      padding: 1.4rem;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+      margin-bottom: 0.2rem;
+    }
+
+    .proj-card:hover {
+      background: var(--bg-card);
+      border-color: var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .proj-thumb {
+      aspect-ratio: 16/9;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      transition: border-color 0.3s;
+      overflow: hidden;
+    }
+
+    .proj-card:hover .proj-thumb { border-color: var(--border-hover); }
+
+    .proj-category {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+
+    .proj-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: color 0.2s;
+    }
+
+    .proj-card:hover .proj-title { color: var(--accent); }
+
+    .proj-arrow {
+      opacity: 0;
+      transform: translate(-4px, 4px);
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .proj-card:hover .proj-arrow { opacity: 1; transform: translate(0, 0); }
+
+    .proj-desc {
+      font-size: 0.82rem;
+      color: var(--text-body);
+      line-height: 1.75;
+      margin-bottom: 0.85rem;
+    }
+
+    /* ============================
+       EXPERIENCE
+       ============================ */
+    .exp-card {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      padding: 1.4rem;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+      margin-bottom: 0.2rem;
+    }
+
+    .exp-card:hover {
+      background: var(--bg-card);
+      border-color: var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .exp-date {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.63rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      padding-top: 0.2rem;
+      letter-spacing: 0.3px;
+    }
+
+    .exp-role {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.15rem;
+      transition: color 0.2s;
+    }
+
+    .exp-card:hover .exp-role { color: var(--accent); }
+
+    .exp-company {
+      font-size: 0.83rem;
+      color: var(--text-body);
+      margin-bottom: 0.6rem;
+    }
+
+    .exp-desc {
+      font-size: 0.82rem;
+      color: var(--text-body);
+      line-height: 1.75;
+    }
+
+    .exp-arrow {
+      opacity: 0;
+      transform: translate(-4px, 4px);
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .exp-card:hover .exp-arrow { opacity: 1; transform: translate(0, 0); }
+
+    /* ============================
+       CONTACT
+       ============================ */
+    .contact-head {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    .contact-copy {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      line-height: 1.8;
+      max-width: 440px;
+      margin-bottom: 2rem;
+    }
+
+    .contact-links { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text-body);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      background: var(--bg-card);
+      backdrop-filter: blur(8px);
+      transition: border-color 0.25s, color 0.25s, background 0.25s, transform 0.25s;
+    }
+
+    .contact-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-dim);
+      transform: translateY(-2px);
+    }
+
+    /* ============================
+       FOOTER
+       ============================ */
+    footer {
+      padding-bottom: 5rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    footer a { color: var(--text-body); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+
+    /* ============================
+       SCROLL REVEAL
+       ============================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ============================
+       ERASER BOT V2
+       ============================ */
+    #draw-hint {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(18px);
+      background: rgba(13, 17, 23, 0.9);
+      border: 1px solid rgba(100, 255, 218, 0.2);
+      border-radius: 100px;
+      padding: 7px 18px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.68rem;
+      color: var(--text-body);
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.5s, transform 0.5s;
+      backdrop-filter: blur(12px);
+      white-space: nowrap;
+    }
+
+    #draw-hint.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    #draw-hint .hint-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-right: 8px;
+      vertical-align: middle;
+      animation: hint-pulse 1.5s infinite;
+    }
+
+    @keyframes hint-pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 4px var(--accent); }
+      50%       { opacity: 0.4; box-shadow: none; }
+    }
+
+    #color-picker {
+      position: fixed;
+      bottom: 60px; right: 22px;
+      display: flex; flex-direction: column;
+      gap: 8px; z-index: 10;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.4s;
+    }
+
+    #color-picker.show { opacity: 1; pointer-events: all; }
+
+    .color-swatch {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .color-swatch:hover, .color-swatch.active {
+      transform: scale(1.25);
+      border-color: rgba(255,255,255,0.55);
+    }
+
+    .color-swatch.active { box-shadow: 0 0 10px currentColor; }
+
+    /* Bot */
+    .eraser-bot {
+      position: fixed;
+      width: 54px; height: 66px;
+      left: 20px; bottom: 20px;
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s;
+      transform-origin: center;
+      filter: drop-shadow(0 0 8px rgba(100,255,218,0.35));
+    }
+
+    .eraser-bot.active { opacity: 1; }
+
+    .bot-speech {
+      position: absolute;
+      top: -48px; left: 50%;
+      transform: translateX(-50%);
+      background: rgba(13,17,23,0.95);
+      border: 1px solid rgba(100,255,218,0.3);
+      border-radius: 10px;
+      padding: 5px 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.58rem;
+      color: var(--accent);
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 5;
+    }
+
+    .bot-speech::after {
+      content: '';
+      position: absolute; bottom: -7px; left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-top-color: rgba(100,255,218,0.3);
+    }
+
+    .bot-speech.show { opacity: 1; }
+
+    .robot-head {
+      width: 38px; height: 18px;
+      background: linear-gradient(160deg, #1e2d3d, #0d1117);
+      border: 1.5px solid rgba(100,255,218,0.3);
+      border-radius: 12px 12px 4px 4px;
+      position: absolute; top: 0; left: 8px;
+      box-shadow: 0 0 8px rgba(100,255,218,0.08);
+    }
+
+    .robot-eye {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: absolute; top: 4px;
+      box-shadow: 0 0 8px var(--accent), 0 0 16px rgba(100,255,218,0.4);
+      animation: bot-blink 4s infinite;
+    }
+
+    .robot-eye.left  { left: 6px; }
+    .robot-eye.right { right: 6px; }
+
+    @keyframes bot-blink {
+      0%, 88%, 100% { transform: scaleY(1); }
+      93%           { transform: scaleY(0.08); }
+    }
+
+    .robot-antenna {
+      width: 3px; height: 10px;
+      background: linear-gradient(to top, #3a4a5a, #7a8a9a);
+      position: absolute; top: -10px; left: 26px;
+      border-radius: 2px;
+    }
+
+    .robot-antenna::after {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--accent); border-radius: 50%;
+      position: absolute; top: -5px; left: -2px;
+      box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(100,255,218,0.5);
+      animation: ant-glow 0.9s ease-in-out infinite alternate;
+    }
+
+    @keyframes ant-glow {
+      0%   { opacity: 0.5; box-shadow: 0 0 4px var(--accent); }
+      100% { opacity: 1;   box-shadow: 0 0 14px var(--accent), 0 0 28px rgba(100,255,218,0.5); }
+    }
+
+    .robot-body {
+      width: 46px; height: 32px;
+      background: linear-gradient(160deg, #1a2d3d, #0d1117);
+      border: 1.5px solid rgba(100,150,200,0.35);
+      border-radius: 8px 8px 6px 6px;
+      position: absolute; top: 16px; left: 4px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .robot-body::before {
+      content: '';
+      position: absolute; top: 6px; left: 8px; right: 8px; height: 10px;
+      background: rgba(100,255,218,0.04);
+      border: 1px solid rgba(100,255,218,0.13);
+      border-radius: 3px;
+    }
+
+    .robot-body::after {
+      content: '';
+      position: absolute; bottom: 6px; left: 50%;
+      transform: translateX(-50%);
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 6px var(--accent);
+      animation: led-blink 1.8s ease-in-out infinite;
+    }
+
+    @keyframes led-blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.15; }
+    }
+
+    .robot-wheel {
+      width: 13px; height: 13px;
+      background: radial-gradient(circle at 40% 40%, #4a5568, #1a1a28);
+      border: 1.5px solid #3a4555;
+      border-radius: 50%;
+      position: absolute; bottom: -4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+
+    .robot-wheel.left  { left: 4px; }
+    .robot-wheel.right { right: 4px; }
+
+    .robot-wheel::after {
+      content: '';
+      position: absolute; top: 4px; left: 4px;
+      width: 5px; height: 1.5px;
+      background: #6a7a8a; border-radius: 2px;
+      animation: w-spin 0.25s linear infinite;
+      transform-origin: center;
+    }
+
+    @keyframes w-spin { to { transform: rotate(360deg); } }
+
+    .robot-brush {
+      position: absolute; bottom: -10px; left: 10px;
+      width: 28px; height: 8px;
+      display: flex; gap: 2px; align-items: flex-end;
+    }
+
+    .robot-brush span {
+      flex: 1; height: 8px; border-radius: 0 0 2px 2px;
+      animation: brush-wig 0.18s ease-in-out infinite alternate;
+      transition: background 0.3s;
+    }
+
+    .robot-brush span:nth-child(even) { animation-delay: 0.09s; height: 6px; }
+    .robot-brush span:nth-child(3)    { animation-delay: 0.04s; height: 10px; }
+
+    @keyframes brush-wig {
+      0%   { transform: skewX(-8deg) scaleY(0.9); }
+      100% { transform: skewX(8deg) scaleY(1.1); }
+    }
+
+    .clean-sparkle {
+      position: fixed; pointer-events: none; z-index: 3;
+      border-radius: 50%;
+      animation: sp-fade 0.7s ease-out forwards;
+    }
+
+    @keyframes sp-fade {
+      0%   { opacity: 0.9; transform: scale(1) translateY(0); }
+      100% { opacity: 0;   transform: scale(0.1) translateY(-12px); }
+    }
+
+    .clean-star {
+      position: fixed; pointer-events: none; z-index: 3;
+      font-size: 11px; line-height: 1;
+      animation: st-fade 0.8s ease-out forwards;
+    }
+
+    @keyframes st-fade {
+      0%   { opacity: 1; transform: scale(1) rotate(0deg) translateY(0); }
+      100% { opacity: 0; transform: scale(0.2) rotate(180deg) translateY(-20px); }
+    }
+
+    /* ============================
+       RESPONSIVE
+       ============================ */
+    @media (max-width: 1024px) {
+      .page-wrapper { flex-direction: column; padding: 0 1.5rem; }
+
+      .sidebar {
+        width: 100%; position: static; height: auto;
+        padding: 4rem 0 2rem;
+      }
+
+      .sidebar-nav { display: none; }
+      .content { padding: 2rem 0 6rem; }
+      .section-label { display: block; }
+
+      .bento { grid-template-columns: repeat(2, 1fr); }
+      .tile.span2 { grid-column: span 2; }
+      .tile.span3 { grid-column: span 2; }
+    }
+
+    @media (max-width: 680px) {
+      .bento { grid-template-columns: 1fr; }
+      .tile.span2, .tile.span3 { grid-column: span 1; }
+
+      .proj-card { grid-template-columns: 1fr; }
+      .proj-thumb { display: none; }
+
+      .exp-card { grid-template-columns: 1fr; }
+      .exp-date { padding-top: 0; }
+    }
+  </style>
 </head>
 
-<body class="bg-[#000000] text-[#ffffff] font-inter antialiased">
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-[#000000]/80 backdrop-blur-md z-50 border-b border-[#333333]">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <div class="w-6 h-6 bg-neutral-900 rounded-full"></div>
-                <span class="font-medium text-sm">Sai Teja</span>
-            </div>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#work" class="text-[#888888] hover:text-white transition-colors text-sm">Work</a>
-                <a href="#about" class="text-[#888888] hover:text-white transition-colors text-sm">About</a>
-                <a href="#contact" class="text-[#888888] hover:text-white transition-colors text-sm">Contact</a>
-            </div>
+<body>
+  <!-- Backgrounds -->
+  <canvas id="matrix-canvas"></canvas>
+  <canvas id="draw-canvas"></canvas>
+  <div id="spotlight"></div>
+
+  <!-- Eraser bot UI -->
+  <div id="draw-hint"><span class="hint-dot"></span>drag to draw anywhere · bot cleans it up · pick a color →</div>
+
+  <div id="color-picker">
+    <div class="color-swatch active" data-color="rgba(100,255,218,0.65)" data-glow="rgba(100,255,218,0.3)" style="background:#64ffda"></div>
+    <div class="color-swatch" data-color="rgba(255,255,255,0.5)" data-glow="rgba(255,255,255,0.2)" style="background:#ffffff"></div>
+    <div class="color-swatch" data-color="rgba(167,139,250,0.7)" data-glow="rgba(167,139,250,0.3)" style="background:#a78bfa"></div>
+    <div class="color-swatch" data-color="rgba(251,146,60,0.7)" data-glow="rgba(251,146,60,0.3)" style="background:#fb923c"></div>
+    <div class="color-swatch" data-color="rgba(255,107,107,0.7)" data-glow="rgba(255,107,107,0.3)" style="background:#ff6b6b"></div>
+    <div class="color-swatch" data-color="rgba(96,165,250,0.7)" data-glow="rgba(96,165,250,0.3)" style="background:#60a5fa"></div>
+  </div>
+
+  <!-- Eraser Bot -->
+  <div class="eraser-bot" id="eraser-bot">
+    <div class="bot-speech" id="bot-speech">beep boop! 🤖</div>
+    <div class="robot-antenna"></div>
+    <div class="robot-head">
+      <div class="robot-eye left"></div>
+      <div class="robot-eye right"></div>
+    </div>
+    <div class="robot-body"></div>
+    <div class="robot-wheel left"></div>
+    <div class="robot-wheel right"></div>
+    <div class="robot-brush">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       PAGE LAYOUT
+       ===================================================== -->
+  <div class="page-wrapper">
+
+    <!-- ── LEFT: STICKY SIDEBAR ── -->
+    <header class="sidebar">
+      <div class="sidebar-main">
+        <h1 class="site-name">Sai Teja</h1>
+        <p class="site-role">SDE-1 &mdash; Backend Architect</p>
+        <p class="site-tagline">Building distributed systems and event-driven architectures that scale.</p>
+
+        <div class="status-badge">
+          <span class="status-dot"></span>Currently @ Dhan AI
         </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="pt-32 pb-20 relative overflow-hidden"
-        style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s, transform 0.6s;">
-        <!-- Interactive Canvas Background (Removed as per request) -->
-        <div class="max-w-6xl mx-auto px-6 relative" style="z-index: 10;">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-8">
-                    <h1
-                        class="text-4xl md:text-6xl font-semibold tracking-tight bg-gradient-to-r from-white to-[#888888] bg-clip-text text-transparent">
-                        Building Scalable Backend Platforms
-                    </h1>
-                    <p class="text-xl text-[#888888] max-w-xl leading-relaxed">
-                        SDE-1 with <strong class="text-white font-medium">3+ years</strong> building scalable backend
-                        systems —
-                        microservices, event-driven architectures, and enterprise platforms that handle real traffic.
-                    </p>
-                    <div class="flex flex-col sm:flex-row items-start gap-4 pt-6">
-                        <a href="#work"
-                            class="bg-white text-black px-6 py-3 rounded-lg text-sm font-normal hover:bg-gray-200 transition-colors flex items-center space-x-2">
-                            <span>View Work</span>
-                            <iconify-icon icon="solar:arrow-right-linear" width="16" height="16"
-                                style="stroke-width: 1.5;"></iconify-icon>
-                        </a>
-                        <a href="#contact"
-                            class="border border-[#333333] px-6 py-3 rounded-lg text-sm font-normal hover:border-gray-400 transition-colors">
-                            Get in Touch
-                        </a>
-                    </div>
-                </div>
-                <div class="relative">
-                    <div class="bg-[#111111] border border-[#333333] rounded-xl p-8 relative overflow-hidden">
-                        <div class="absolute top-4 left-4 flex space-x-2">
-                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                        </div>
-                        <div class="mt-8 space-y-3 font-mono text-sm">
-                            <div class="text-purple-400">const developer = {</div>
-                            <div class="ml-4 text-[#888888]">name: <span class="text-green-400">'Sai Teja'</span>,</div>
-                            <div class="ml-4 text-[#888888]">focus: [<span class="text-blue-400">'Backend Systems',
-                                    'Architecture'</span>],</div>
-                            <div class="ml-4 text-[#888888]">experience: <span class="text-orange-400">3+</span>,</div>
-                            <div class="text-purple-400">};</div>
-                        </div>
-                    </div>
-                </div>
+        <nav class="sidebar-nav" aria-label="Page sections">
+          <ul>
+            <li><a href="#about"      class="nav-link active"><span class="nav-line"></span>About</a></li>
+            <li><a href="#skills"     class="nav-link"><span class="nav-line"></span>Skills</a></li>
+            <li><a href="#projects"   class="nav-link"><span class="nav-line"></span>Projects</a></li>
+            <li><a href="#experience" class="nav-link"><span class="nav-line"></span>Experience</a></li>
+            <li><a href="#contact"    class="nav-link"><span class="nav-line"></span>Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="sidebar-socials">
+        <a href="https://github.com/ChadaSaiteja" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/chada-saiteja/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:saiteja.chada2000@gmail.com" class="social-link" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9 6 9-6M3 8v10a2 2 0 002 2h14a2 2 0 002-2V8M3 8l9-4 9 4"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- ── RIGHT: SCROLLABLE CONTENT ── -->
+    <main class="content">
+
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="section-label">About</div>
+        <div class="about-body reveal">
+          <p>
+            I'm <strong>Sai Teja</strong> — a backend-focused engineer with <strong>3+ years</strong> building
+            distributed systems and enterprise-grade platforms. I care about writing clean, efficient code and
+            understanding the system end-to-end, not just the layer I own.
+          </p>
+          <p>
+            Currently at <span class="hl">Dhan AI</span>, I've shipped across customer portals, internal
+            operations tooling, and a large-scale multi-tenant CXP platform. I'm drawn to hard problems —
+            event-driven architectures, microservice coordination, and systems that need to be resilient at scale.
+          </p>
+          <p>
+            Outside of work, I'm deep into <strong>Generative AI</strong> and <strong>AI Agents</strong>,
+            tracking what's happening in open source, and solving problems on LeetCode. I also post about tech
+            on Instagram — because explaining something well is how I know I actually get it.
+          </p>
+        </div>
+      </section>
+
+      <!-- SKILLS / TECH STACK -->
+      <section id="skills">
+        <div class="section-label">Tech Stack</div>
+        <div class="bento reveal">
+
+          <!-- Languages — wide -->
+          <div class="tile span2">
+            <div class="tile-badge">01 — Languages</div>
+            <div class="tile-heading">What I code in</div>
+            <div class="tags">
+              <span class="tag tag-teal">TypeScript</span>
+              <span class="tag tag-teal">JavaScript</span>
+              <span class="tag tag-teal">Python</span>
+              <span class="tag tag-teal">Java</span>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- About Section -->
-    <section id="about" class="py-20 border-t border-[#333333]"
-        style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s, transform 0.6s;">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                <div class="lg:col-span-1">
-                    <h2 class="text-3xl font-semibold tracking-tight mb-6">About Me</h2>
-                    <div class="space-y-4 text-[#888888] leading-relaxed">
-                        <p class="">
-                            I'm <strong class="text-white font-medium">Sai Teja</strong>, a backend-focused SDE-1 who's
-                            spent 3+ years
-                            working on distributed systems and enterprise-grade platforms. I care about
-                            writing clean, efficient code — and about <strong
-                                class="text-white font-medium">understanding the system</strong>
-                            end to end, not just the layer I own.
-                        </p>
-                        <p class="">
-                            Currently at <strong class="text-white font-medium">Dhan AI</strong>, I've shipped across
-                            customer portals,
-                            internal operations tools, and large-scale CXP platforms. I'm drawn to
-                            hard problems: event-driven architectures, microservice coordination, and
-                            systems that need to be resilient at scale.
-                        </p>
-                        <p class="">
-                            Outside of work, I'm exploring <strong class="text-white font-medium">Generative
-                                AI</strong>, tracking what's
-                            happening in open source, and solving problems on LeetCode. I also post
-                            about tech on Instagram — because understanding something well enough
-                            to explain it is how I know I actually get it.
-                        </p>
-                    </div>
-                </div>
-                <div class="lg:col-span-2">
-                    <h3 class="text-xl font-medium mb-6 tracking-tight">Technologies &amp; Tools</h3>
-                    <div class="space-y-8">
-
-                        <!-- Languages -->
-                        <div>
-                            <div class="flex items-center space-x-3 mb-4">
-                                <div
-                                    class="w-8 h-8 rounded bg-[#111111] border border-[#333333] flex items-center justify-center text-[#888888]">
-                                    <iconify-icon icon="solar:code-circle-linear" width="18" height="18"></iconify-icon>
-                                </div>
-                                <h4 class="text-white font-medium">Languages</h4>
-                            </div>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">TypeScript</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">JavaScript</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">Python</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">Java</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">C
-                                    / C++</span>
-                            </div>
-                        </div>
-
-                        <!-- Backend & Frameworks -->
-                        <div>
-                            <div class="flex items-center space-x-3 mb-4">
-                                <div
-                                    class="w-8 h-8 rounded bg-[#111111] border border-[#333333] flex items-center justify-center text-[#888888]">
-                                    <iconify-icon icon="solar:server-square-linear" width="18"
-                                        height="18"></iconify-icon>
-                                </div>
-                                <h4 class="text-white font-medium">Backend & Frameworks</h4>
-                            </div>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">Node.js</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">Spring
-                                    Boot</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">GraphQL</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">REST
-                                    APIs</span>
-                            </div>
-                        </div>
-
-                        <!-- Databases -->
-                        <div>
-                            <div class="flex items-center space-x-3 mb-4">
-                                <div
-                                    class="w-8 h-8 rounded bg-[#111111] border border-[#333333] flex items-center justify-center text-[#888888]">
-                                    <iconify-icon icon="solar:database-linear" width="18" height="18"></iconify-icon>
-                                </div>
-                                <h4 class="text-white font-medium">Databases</h4>
-                            </div>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">MongoDB</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">PostgreSQL</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">MS
-                                    SQL</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">Redis</span>
-                            </div>
-                        </div>
-
-                        <!-- Infrastructure & Integrations -->
-                        <div>
-                            <div class="flex items-center space-x-3 mb-4">
-                                <div
-                                    class="w-8 h-8 rounded bg-[#111111] border border-[#333333] flex items-center justify-center text-[#888888]">
-                                    <iconify-icon icon="solar:cloud-square-linear" width="18"
-                                        height="18"></iconify-icon>
-                                </div>
-                                <h4 class="text-white font-medium">Infrastructure & Integrations</h4>
-                            </div>
-                            <div class="flex flex-wrap gap-2">
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">Kafka</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">AWS</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">Docker</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">Firebase</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">Dynamics
-                                    365</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">Salesforce</span>
-                                <span
-                                    class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">Microservices</span>
-                            </div>
-                        </div>
-
-                        <!-- CS Fundamentals & Exploring -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-                            <div>
-                                <div class="flex items-center space-x-3 mb-4">
-                                    <div
-                                        class="w-8 h-8 rounded bg-[#111111] border border-[#333333] flex items-center justify-center text-[#888888]">
-                                        <iconify-icon icon="solar:book-bookmark-linear" width="18"
-                                            height="18"></iconify-icon>
-                                    </div>
-                                    <h4 class="text-white font-medium">CS Fundamentals</h4>
-                                </div>
-                                <div class="flex flex-wrap gap-2">
-                                    <span
-                                        class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">DSA</span>
-                                    <span
-                                        class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">System
-                                        Design</span>
-                                    <span
-                                        class="px-3 py-1.5 bg-[#111111] border border-[#333333] text-sm text-[#cccccc] rounded-md hover:text-white hover:border-[#0070f3] transition-colors cursor-default">CyberSecurity</span>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex items-center space-x-3 mb-4">
-                                    <div
-                                        class="w-8 h-8 rounded bg-[#111111] border border-[#333333] flex items-center justify-center text-purple-400">
-                                        <iconify-icon icon="solar:lightbulb-bolt-linear" width="18"
-                                            height="18"></iconify-icon>
-                                    </div>
-                                    <h4 class="text-white font-medium">Currently Exploring</h4>
-                                </div>
-                                <div class="flex flex-wrap gap-2">
-                                    <span
-                                        class="px-3 py-1.5 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/30 text-sm text-purple-200 rounded-md cursor-default">Generative
-                                        AI</span>
-                                    <span
-                                        class="px-3 py-1.5 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/30 text-sm text-purple-200 rounded-md cursor-default">AI
-                                        Agents</span>
-                                    <span
-                                        class="px-3 py-1.5 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/30 text-sm text-purple-200 rounded-md cursor-default">LLM
-                                        Orchestration</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+          <!-- Currently working at -->
+          <div class="tile">
+            <div class="tile-badge">Currently</div>
+            <div class="current-company">Dhan AI</div>
+            <div class="current-meta">SDE-I &nbsp;·&nbsp; May 2023 – Present</div>
+            <div class="tags">
+              <span class="tag tag-teal">Backend</span>
+              <span class="tag tag-grey">Distributed Systems</span>
             </div>
-        </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- Work Section -->
-    <section id="work" class="py-20 border-t border-[#333333]"
-        style="opacity: 1; transform: translateY(0px); transition: opacity 0.6s, transform 0.6s;">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="space-y-12">
-                <h2 class="text-3xl font-semibold tracking-tight text-center">What I’ve shipped</h2>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Project 1 -->
-                    <div
-                        class="group bg-[#111111] border border-[#333333] rounded-xl overflow-hidden hover:border-[#0070f3] transition-all duration-300 hover:transform hover:scale-105">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 relative overflow-hidden">
-                            <div class="absolute inset-0 opacity-20"
-                                style="background-image: radial-gradient(circle, #333 1px, transparent 1px); background-size: 20px 20px;">
-                            </div>
-                            <div class="absolute bottom-4 left-4 right-4">
-                                <div class="bg-[#000000]/80 backdrop-blur-sm rounded-lg p-3">
-                                    <div class="text-xs text-[#888888]">Telecom Platform</div>
-                                    <div class="text-sm font-normal">Customer Self-Service Portal</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            <h3 class="text-lg font-medium">Customer Self-Service Portal</h3>
-                            <p class="text-[#888888] text-sm leading-relaxed">
-                                A customer-facing platform enabling users to view and manage their active services in
-                                real time. Architected as a middleware microservice layer, bridging the web frontend
-                                with multiple external service providers — handling auth, session management, and data
-                                orchestration.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">TypeScript</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Node.js</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Firebase</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">GraphQL</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Redis</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">MongoDB</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 2 -->
-                    <div
-                        class="group bg-[#111111] border border-[#333333] rounded-xl overflow-hidden hover:border-[#0070f3] transition-all duration-300 hover:transform hover:scale-105">
-                        <div
-                            class="h-48 bg-gradient-to-br from-green-500/20 to-emerald-500/20 relative overflow-hidden">
-                            <div class="absolute inset-0 opacity-20"
-                                style="background-image: radial-gradient(circle, #333 1px, transparent 1px); background-size: 20px 20px;">
-                            </div>
-                            <div class="absolute bottom-4 left-4 right-4">
-                                <div class="bg-[#000000]/80 backdrop-blur-sm rounded-lg p-3">
-                                    <div class="text-xs text-[#888888]">Internal Tooling</div>
-                                    <div class="text-sm font-normal">Agent Operations Platform</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            <h3 class="text-lg font-medium">Agent Operations Platform</h3>
-                            <p class="text-[#888888] text-sm leading-relaxed">
-                                Internal tooling for support agents to manage services and handle trouble tickets
-                                end-to-end. Built a proactive network diagnostics engine that detects and resolves
-                                infrastructure issues before customers are impacted — reducing technician dispatches and
-                                cutting resolution costs.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Node.js</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Kafka</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">MongoDB</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">PostgreSQL</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Angular</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Microservices</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 3 -->
-                    <div
-                        class="group bg-[#111111] border border-[#333333] rounded-xl overflow-hidden hover:border-[#0070f3] transition-all duration-300 hover:transform hover:scale-105">
-                        <div class="h-48 bg-gradient-to-br from-orange-500/20 to-red-500/20 relative overflow-hidden">
-                            <div class="absolute inset-0 opacity-20"
-                                style="background-image: radial-gradient(circle, #333 1px, transparent 1px); background-size: 20px 20px;">
-                            </div>
-                            <div class="absolute bottom-4 left-4 right-4">
-                                <div class="bg-[#000000]/80 backdrop-blur-sm rounded-lg p-3">
-                                    <div class="text-xs text-[#888888]">Enterprise Software</div>
-                                    <div class="text-sm font-normal">Enterprise CXP Platform</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            <h3 class="text-lg font-medium">Enterprise CXP Platform</h3>
-                            <p class="text-[#888888] text-sm leading-relaxed">
-                                Modernized a large-scale customer experience platform with 15+ microservices powering
-                                onboarding, billing, payments, and order lifecycle. Delivered a 30% improvement in API
-                                response times via TypeScript migration and service orchestration. Integrated
-                                Salesforce, Dynamics 365, and Firebase RBAC for enterprise identity and workflow
-                                management.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Node.js</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">TypeScript</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Python</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Kafka</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Firebase</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Dynamics 365</span>
-                                <span class="px-2 py-1 bg-[#000000] text-xs rounded-md">Salesforce</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <!-- Backend frameworks -->
+          <div class="tile">
+            <div class="tile-badge">02 — Backend</div>
+            <div class="tile-heading">Frameworks & Runtime</div>
+            <div class="tags">
+              <span class="tag tag-teal">Node.js</span>
+              <span class="tag tag-teal">Spring Boot</span>
+              <span class="tag tag-teal">GraphQL</span>
+              <span class="tag tag-teal">Kafka</span>
+              <span class="tag tag-teal">REST APIs</span>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- Experience Section -->
-    <section class="py-20 border-t border-[#333333]"
-        style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                <div>
-                    <h2 class="text-3xl font-semibold tracking-tight mb-8">Where I’ve worked</h2>
-                    <div class="space-y-8">
-                        <div class="bg-[#111111] border border-[#333333] rounded-xl p-6">
-                            <div class="flex items-start justify-between mb-4">
-                                <div>
-                                    <h3 class="text-lg font-medium">SDE — I @ Dhan AI</h3>
-                                    <div class="text-[#0070f3]">May 2023 — Present</div>
-                                </div>
-                            </div>
-                            <p class="text-[#888888] text-sm leading-relaxed">
-                                Building and maintaining distributed backend systems serving enterprise and consumer
-                                clients across customer portals, internal operations tooling, and a large-scale
-                                multi-tenant CXP platform.
-                            </p>
-                        </div>
-
-                        <div class="bg-[#111111] border border-[#333333] rounded-xl p-6">
-                            <div class="flex items-start justify-between mb-4">
-                                <div>
-                                    <h3 class="text-lg font-medium">Python Developer @ Loginsoft</h3>
-                                    <div class="text-[#888888] text-sm mt-1">Aug 2022 — Aug 2022</div>
-                                </div>
-                            </div>
-                            <p class="text-[#888888] text-sm leading-relaxed">
-                                Worked on Python scripting and cybersecurity tooling during a focused internship.
-                                Applied Python automation to security workflows and vulnerability assessments.
-                            </p>
-                        </div>
-
-                        <div class="bg-[#111111] border border-[#333333] rounded-xl p-6">
-                            <div class="flex items-start justify-between mb-4">
-                                <div>
-                                    <h3 class="text-lg font-medium">Student — DSA Track @ Smart Interviews</h3>
-                                    <div class="text-[#888888] text-sm mt-1">Oct 2021 — Jul 2022</div>
-                                </div>
-                            </div>
-                            <p class="text-[#888888] text-sm leading-relaxed">
-                                Completed intensive full-time Data Structures & Algorithms training programme. Built
-                                strong foundations in problem-solving, competitive programming, and algorithmic
-                                thinking.
-                            </p>
-                        </div>
-
-                        <div class="bg-[#111111] border border-[#333333] rounded-xl p-6">
-                            <div class="flex items-start justify-between mb-4">
-                                <div>
-                                    <h3 class="text-lg font-medium">Cybersecurity Intern @ Supraja Technologies</h3>
-                                    <div class="text-[#888888] text-sm mt-1">Aug 2020 — Oct 2020</div>
-                                </div>
-                            </div>
-                            <p class="text-[#888888] text-sm leading-relaxed">
-                                Gained hands-on experience in cybersecurity concepts, threat analysis, and security
-                                tooling. Completed foundational cybersecurity certification alongside the internship.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <h2 class="text-3xl font-semibold tracking-tight mb-8">Stats</h2>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-[#111111] border border-[#333333] rounded-xl p-6 text-center">
-                            <div class="text-3xl font-semibold tracking-tight text-[#0070f3] mb-2">3+</div>
-                            <div class="text-sm text-[#888888]">Years Experience</div>
-                        </div>
-                        <div class="bg-[#111111] border border-[#333333] rounded-xl p-6 text-center">
-                            <div class="text-3xl font-semibold tracking-tight text-[#0070f3] mb-2">3+</div>
-                            <div class="text-sm text-[#888888]">Enterprise Projects</div>
-                        </div>
-                        <div class="bg-[#111111] border border-[#333333] rounded-xl p-6 text-center">
-                            <div class="text-3xl font-semibold tracking-tight text-[#0070f3] mb-2">15</div>
-                            <div class="text-sm text-[#888888]">Microservices Built</div>
-                        </div>
-                        <div class="bg-[#111111] border border-[#333333] rounded-xl p-6 text-center">
-                            <div class="text-3xl font-semibold tracking-tight text-[#0070f3] mb-2">12</div>
-                            <div class="text-sm text-[#888888]">Technologies Used</div>
-                        </div>
-                    </div>
-                </div>
+          <!-- Databases -->
+          <div class="tile">
+            <div class="tile-badge">03 — Data Layer</div>
+            <div class="tile-heading">Databases & Caching</div>
+            <div class="tags">
+              <span class="tag tag-blue">PostgreSQL</span>
+              <span class="tag tag-blue">MongoDB</span>
+              <span class="tag tag-blue">Redis</span>
+              <span class="tag tag-blue">Firebase</span>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 border-t border-[#333333]"
-        style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="bg-[#111111] border border-[#333333] rounded-2xl p-12 text-center">
-                <h2 class="text-3xl font-semibold tracking-tight mb-6">Let’s build something great.</h2>
-                <p class="text-xl text-[#888888] max-w-2xl mx-auto mb-8">
-                    Open for contribution and collaboration.
-                </p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-                    <a href="mailto:saiteja.chada2000@gmail.com"
-                        class="bg-white text-black px-6 py-3 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors flex items-center gap-2">
-                        <iconify-icon icon="solar:letter-linear" width="20" height="20"></iconify-icon>
-                        Email Me
-                    </a>
-                    <a href="https://github.com/ChadaSaiteja" target="_blank"
-                        class="bg-[#111111] border border-[#333333] px-6 py-3 rounded-lg text-white hover:border-white transition-colors flex items-center gap-2 text-sm font-medium">
-                        <iconify-icon icon="mingcute:github-line" width="20" height="20"></iconify-icon>
-                        GitHub
-                    </a>
-                    <a href="https://linkedin.com/in/chada-saiteja/" target="_blank"
-                        class="bg-[#111111] border border-[#333333] px-6 py-3 rounded-lg text-white hover:border-[#0077b5] hover:text-[#0077b5] transition-colors flex items-center gap-2 text-sm font-medium">
-                        <iconify-icon icon="mingcute:linkedin-line" width="20" height="20"></iconify-icon>
-                        LinkedIn
-                    </a>
-                </div>
+          <!-- Stats -->
+          <div class="tile">
+            <div class="tile-badge">By the numbers</div>
+            <div class="stats-col">
+              <div>
+                <div class="stat-num">3+</div>
+                <div class="stat-lbl">Years Experience</div>
+              </div>
+              <div>
+                <div class="stat-num">15</div>
+                <div class="stat-lbl">Microservices Shipped</div>
+              </div>
+              <div>
+                <div class="stat-num">30%</div>
+                <div class="stat-lbl">API Response Speedup</div>
+              </div>
             </div>
-        </div>
-    </section>
+          </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-[#333333] py-12">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                <div class="text-sm text-[#888888]">© 2026 Sai Teja</div>
+          <!-- Cloud & DevOps -->
+          <div class="tile">
+            <div class="tile-badge">04 — Cloud & DevOps</div>
+            <div class="tile-heading">Infrastructure</div>
+            <div class="tags">
+              <span class="tag tag-orange">AWS</span>
+              <span class="tag tag-orange">Docker</span>
+              <span class="tag tag-orange">Kubernetes</span>
+              <span class="tag tag-orange">CI/CD</span>
             </div>
-        </div>
-    </footer>
+          </div>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+          <!-- Concepts & AI — full width -->
+          <div class="tile span3">
+            <div class="tile-badge">05 — Architecture & AI</div>
+            <div class="tile-heading">What I think about</div>
+            <div class="tags">
+              <span class="tag tag-purple">System Design</span>
+              <span class="tag tag-purple">Microservices</span>
+              <span class="tag tag-purple">Event-Driven Architecture</span>
+              <span class="tag tag-purple">GenAI</span>
+              <span class="tag tag-purple">AI Agents</span>
+              <span class="tag tag-purple">LLM Integration</span>
+              <span class="tag tag-grey">Salesforce</span>
+              <span class="tag tag-grey">Dynamics 365</span>
+              <span class="tag tag-grey">Angular</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects">
+        <div class="section-label">Projects</div>
+
+        <!-- Project 01 -->
+        <div class="proj-card reveal">
+          <div class="proj-thumb">🌐</div>
+          <div class="proj-body">
+            <div class="proj-category">Telecom Platform</div>
+            <h3 class="proj-title">
+              Customer Self-Service Portal
+              <svg class="proj-arrow" width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+            </h3>
+            <p class="proj-desc">A customer-facing platform enabling users to view and manage active services in real time. Architected as a middleware microservice layer, bridging the frontend with multiple external service providers — handling auth, session management, and data orchestration.</p>
+            <div class="tags">
+              <span class="tag tag-teal">TypeScript</span>
+              <span class="tag tag-teal">Node.js</span>
+              <span class="tag tag-teal">GraphQL</span>
+              <span class="tag tag-blue">Redis</span>
+              <span class="tag tag-blue">MongoDB</span>
+              <span class="tag tag-grey">Firebase</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 02 -->
+        <div class="proj-card reveal">
+          <div class="proj-thumb">⚙️</div>
+          <div class="proj-body">
+            <div class="proj-category">Internal Tooling</div>
+            <h3 class="proj-title">
+              Agent Operations Platform
+              <svg class="proj-arrow" width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+            </h3>
+            <p class="proj-desc">Internal tooling for support agents to manage services and handle trouble tickets end-to-end. Built a proactive network diagnostics engine that detects and resolves infrastructure issues before customers are impacted — reducing dispatches and cutting resolution costs.</p>
+            <div class="tags">
+              <span class="tag tag-teal">Node.js</span>
+              <span class="tag tag-teal">Kafka</span>
+              <span class="tag tag-blue">MongoDB</span>
+              <span class="tag tag-blue">PostgreSQL</span>
+              <span class="tag tag-grey">Angular</span>
+              <span class="tag tag-grey">Microservices</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 03 -->
+        <div class="proj-card reveal">
+          <div class="proj-thumb">🏢</div>
+          <div class="proj-body">
+            <div class="proj-category">Enterprise Software</div>
+            <h3 class="proj-title">
+              Enterprise CXP Platform
+              <svg class="proj-arrow" width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+            </h3>
+            <p class="proj-desc">Modernized a large-scale customer experience platform with 15+ microservices powering onboarding, billing, payments, and order lifecycle. Delivered 30% improvement in API response times. Integrated Salesforce, Dynamics 365, and Firebase RBAC.</p>
+            <div class="tags">
+              <span class="tag tag-teal">Node.js</span>
+              <span class="tag tag-teal">TypeScript</span>
+              <span class="tag tag-teal">Python</span>
+              <span class="tag tag-teal">Kafka</span>
+              <span class="tag tag-grey">Firebase</span>
+              <span class="tag tag-grey">Salesforce</span>
+              <span class="tag tag-grey">Dynamics 365</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section id="experience">
+        <div class="section-label">Experience</div>
+
+        <div class="exp-card reveal">
+          <div class="exp-date">May 2023<br>— Present</div>
+          <div>
+            <div class="exp-role">
+              SDE — I
+              <svg class="exp-arrow" width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+            </div>
+            <div class="exp-company">Dhan AI</div>
+            <p class="exp-desc">Building distributed backend systems serving enterprise and consumer clients across customer portals, internal operations tooling, and a large-scale multi-tenant CXP platform.</p>
+            <div class="tags" style="margin-top: 0.75rem;">
+              <span class="tag tag-teal">TypeScript</span>
+              <span class="tag tag-teal">Node.js</span>
+              <span class="tag tag-teal">Kafka</span>
+              <span class="tag tag-teal">GraphQL</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-card reveal">
+          <div class="exp-date">Aug 2022</div>
+          <div>
+            <div class="exp-role">Python Developer</div>
+            <div class="exp-company">Loginsoft</div>
+            <p class="exp-desc">Python scripting and cybersecurity tooling. Applied automation to security workflows and vulnerability assessments.</p>
+            <div class="tags" style="margin-top: 0.75rem;">
+              <span class="tag tag-teal">Python</span>
+              <span class="tag tag-grey">Automation</span>
+              <span class="tag tag-grey">Cybersecurity</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exp-card reveal">
+          <div class="exp-date">Oct 2021<br>— Jul 2022</div>
+          <div>
+            <div class="exp-role">DSA Track Student</div>
+            <div class="exp-company">Smart Interviews</div>
+            <p class="exp-desc">Intensive Data Structures &amp; Algorithms training. Built strong foundations in problem-solving and algorithmic thinking that underpin every system I design today.</p>
+          </div>
+        </div>
+
+        <div class="exp-card reveal">
+          <div class="exp-date">Aug 2020<br>— Oct 2020</div>
+          <div>
+            <div class="exp-role">Cybersecurity Intern</div>
+            <div class="exp-company">Supraja Technologies</div>
+            <p class="exp-desc">Hands-on experience in threat analysis, security tooling, and foundational cybersecurity certification.</p>
+            <div class="tags" style="margin-top: 0.75rem;">
+              <span class="tag tag-grey">Threat Analysis</span>
+              <span class="tag tag-grey">Security Tooling</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="section-label">Contact</div>
+        <div class="reveal">
+          <h2 class="contact-head">Let's build something great.</h2>
+          <p class="contact-copy">
+            Open for collaboration, interesting backend problems, and conversations about distributed systems or AI agents.
+            Whether it's a new role, a side project, or just a good engineering discussion — my inbox is always open.
+          </p>
+          <div class="contact-links">
+            <a href="mailto:saiteja.chada2000@gmail.com" class="contact-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8l9 6 9-6M3 8v10a2 2 0 002 2h14a2 2 0 002-2V8M3 8l9-4 9 4"/></svg>
+              email()
+            </a>
+            <a href="https://github.com/ChadaSaiteja" target="_blank" rel="noopener" class="contact-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              github()
+            </a>
+            <a href="https://linkedin.com/in/chada-saiteja/" target="_blank" rel="noopener" class="contact-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              linkedin()
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <p>Designed &amp; built by <a href="#">Sai Teja</a> &nbsp;&middot;&nbsp; Inspired by great portfolios across the web &nbsp;&middot;&nbsp; &copy; 2026</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    /* ==================================================
+       SPOTLIGHT CURSOR
+       ================================================== */
+    const spotlight = document.getElementById('spotlight');
+    document.addEventListener('mousemove', e => {
+      spotlight.style.background =
+        `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(100,255,218,0.045), transparent 80%)`;
+    });
+
+    /* ==================================================
+       MATRIX RAIN
+       ================================================== */
+    const mc = document.getElementById('matrix-canvas');
+    const mx = mc.getContext('2d');
+
+    function resizeMc() { mc.width = innerWidth; mc.height = innerHeight; }
+    resizeMc();
+    addEventListener('resize', resizeMc);
+
+    const chars = 'アイウエオカキクケコサシスセソ0123456789ABCDEF';
+    const fs = 13;
+    let cols = Math.floor(mc.width / fs);
+    let drops = Array(cols).fill(1);
+
+    function drawMatrix() {
+      mx.fillStyle = 'rgba(13,17,23,0.05)';
+      mx.fillRect(0, 0, mc.width, mc.height);
+      mx.fillStyle = '#64ffda';
+      mx.font = fs + 'px monospace';
+      for (let i = 0; i < drops.length; i++) {
+        mx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fs, drops[i] * fs);
+        if (drops[i] * fs > mc.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(drawMatrix, 60);
+    addEventListener('resize', () => { cols = Math.floor(mc.width / fs); drops = Array(cols).fill(1); });
+
+    /* ==================================================
+       ACTIVE NAV — IntersectionObserver
+       ================================================== */
+    const navLinks = document.querySelectorAll('.nav-link');
+    const secs     = document.querySelectorAll('section[id]');
+
+    new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const lnk = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+          if (lnk) lnk.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-25% 0px -65% 0px' }).observe ? secs.forEach(s =>
+      new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            navLinks.forEach(a => a.classList.remove('active'));
+            const lnk = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+            if (lnk) lnk.classList.add('active');
+          }
         });
+      }, { rootMargin: '-25% 0px -65% 0px' }).observe(s)
+    ) : null;
 
-        // Add intersection observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+    /* ==================================================
+       SCROLL REVEAL
+       ================================================== */
+    new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 }).observe
+      ? document.querySelectorAll('.reveal').forEach(el =>
+          new IntersectionObserver((entries, obs) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+          }, { threshold: 0.08 }).observe(el)
+        )
+      : null;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+    /* ==================================================
+       SMOOTH SCROLL
+       ================================================== */
+    document.querySelectorAll('a[href^="#"]').forEach(a =>
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      })
+    );
 
-        // Observe all sections
-        document.querySelectorAll('section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(20px)';
-            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(section);
-        });
-    </script>
+    /* ==================================================
+       ERASER BOT v2
+       ================================================== */
+    const drawCanvas = document.getElementById('draw-canvas');
+    const dc         = drawCanvas.getContext('2d');
+    const bot        = document.getElementById('eraser-bot');
+    const speech     = document.getElementById('bot-speech');
+    const hint       = document.getElementById('draw-hint');
+    const picker     = document.getElementById('color-picker');
 
+    let drawing = false, stroke = [], pending = [], path = [];
+    let etimer = null, active = false, idx = 0, parked = false;
+    let stimer = null, hintShown = false;
+
+    let color = 'rgba(100,255,218,0.65)', glow = 'rgba(100,255,218,0.3)', lw = 2.5;
+
+    const msgs = {
+      clean: ['cleaning! ✨','on it! 🧹','zap! 🌀','spotless! ⚡','beep boop 🤖','100% clean! 💫','on it! 🫧'],
+      done:  ['all done! 🎉','squeaky clean ✨','spotless! 💎','mission complete 🏁','beep! 👍'],
+      idle:  ['draw something! ✏️',"I'm bored... 😴",'try drawing! 🎨','I love erasing 🤩'],
+    };
+
+    function say(msg, ms = 2200) {
+      if (stimer) clearTimeout(stimer);
+      speech.textContent = msg; speech.classList.add('show');
+      stimer = setTimeout(() => speech.classList.remove('show'), ms);
+    }
+
+    function resizeDc() { drawCanvas.width = innerWidth; drawCanvas.height = innerHeight; }
+    resizeDc(); addEventListener('resize', resizeDc);
+
+    function syncBrush() {
+      bot.querySelectorAll('.robot-brush span').forEach(s => s.style.background = color);
+    }
+
+    picker.querySelectorAll('.color-swatch').forEach(sw => {
+      sw.addEventListener('click', () => {
+        picker.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+        sw.classList.add('active');
+        color = sw.dataset.color; glow = sw.dataset.glow; syncBrush();
+      });
+    });
+    syncBrush();
+
+    setTimeout(() => {
+      hint.classList.add('show'); picker.classList.add('show'); hintShown = true;
+      setTimeout(() => hint.classList.remove('show'), 5500);
+    }, 2500);
+
+    function park() {
+      bot.classList.add('active');
+      bot.style.transition = 'left 1.2s cubic-bezier(0.4,0,0.2,1),top 1.2s cubic-bezier(0.4,0,0.2,1),transform 0.5s ease';
+      bot.style.left = '20px';
+      bot.style.top  = (innerHeight - 86) + 'px';
+      bot.style.transform = 'rotate(0deg)';
+      parked = true;
+      setTimeout(() => { if (parked) say(msgs.idle[Math.floor(Math.random() * msgs.idle.length)], 2500); }, 1400);
+    }
+
+    function beginStroke(p) {
+      drawing = true; stroke = [p];
+      if (hintShown) hint.classList.remove('show');
+      dc.beginPath(); dc.moveTo(p.x, p.y);
+      dc.strokeStyle = color; dc.lineWidth = lw;
+      dc.lineCap = 'round'; dc.lineJoin = 'round';
+      dc.shadowColor = glow; dc.shadowBlur = 8;
+    }
+
+    function moveStroke(p) {
+      if (!drawing) return;
+      stroke.push(p); dc.lineTo(p.x, p.y); dc.stroke();
+    }
+
+    function stopStroke() {
+      if (!drawing) return;
+      drawing = false; dc.closePath();
+      if (stroke.length > 2) {
+        pending.push([...stroke]);
+        if (!parked && !active) park();
+        if (!active) { if (etimer) clearTimeout(etimer); etimer = setTimeout(startErase, 1200); }
+      }
+      stroke = [];
+    }
+
+    document.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      if (e.target.closest('a,button,nav,.contact-btn,#color-picker,.sidebar-nav')) return;
+      beginStroke({ x: e.clientX, y: e.clientY });
+    });
+    document.addEventListener('mousemove', e => moveStroke({ x: e.clientX, y: e.clientY }));
+    document.addEventListener('mouseup',   () => stopStroke());
+
+    drawCanvas.addEventListener('touchstart', e => { e.preventDefault(); const t = e.touches[0]; beginStroke({ x: t.clientX, y: t.clientY }); }, { passive: false });
+    drawCanvas.addEventListener('touchmove',  e => { e.preventDefault(); const t = e.touches[0]; moveStroke({ x: t.clientX, y: t.clientY }); }, { passive: false });
+    drawCanvas.addEventListener('touchend',   () => stopStroke());
+
+    function startErase() {
+      if (!pending.length) { park(); return; }
+      path = pending.flat(); pending = [];
+      active = true; idx = 0; bot.classList.add('active'); parked = false;
+      say(msgs.clean[Math.floor(Math.random() * msgs.clean.length)]);
+      setTimeout(tick, 150);
+    }
+
+    function angle(a, b) { return Math.atan2(b.y - a.y, b.x - a.x) * (180 / Math.PI); }
+
+    function spark(x, y, t = 'dot') {
+      const el = document.createElement('div');
+      if (t === 'star') {
+        el.className = 'clean-star';
+        el.textContent = ['✦','✧','⋆','·','★'][Math.floor(Math.random() * 5)];
+        el.style.cssText = `left:${x+(Math.random()-.5)*30}px;top:${y+(Math.random()-.5)*30}px;color:${color}`;
+      } else {
+        el.className = 'clean-sparkle';
+        const sz = 4 + Math.random() * 6;
+        el.style.cssText = `width:${sz}px;height:${sz}px;left:${x+(Math.random()-.5)*24}px;top:${y+(Math.random()-.5)*24}px;background:${color};box-shadow:0 0 ${sz}px ${color}`;
+      }
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 800);
+    }
+
+    function tick() {
+      if (!active || idx >= path.length) {
+        dc.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+        active = false;
+        if (pending.length) {
+          pending.forEach(seg => {
+            dc.beginPath(); dc.strokeStyle = color; dc.lineWidth = lw;
+            dc.lineCap = 'round'; dc.lineJoin = 'round';
+            dc.shadowColor = glow; dc.shadowBlur = 8;
+            dc.moveTo(seg[0].x, seg[0].y);
+            seg.slice(1).forEach(p => dc.lineTo(p.x, p.y));
+            dc.stroke(); dc.closePath();
+          });
+          etimer = setTimeout(startErase, 600);
+        } else {
+          say(msgs.done[Math.floor(Math.random() * msgs.done.length)]);
+          park();
+        }
+        return;
+      }
+
+      const pt = path[idx];
+      let a = 0;
+      if (idx < path.length - 1) a = angle(pt, path[idx + 1]);
+      else if (idx > 0) a = angle(path[idx - 1], pt);
+
+      bot.style.transition = 'left 0.06s linear,top 0.06s linear,transform 0.08s linear';
+      bot.style.left = (pt.x - 27) + 'px';
+      bot.style.top  = (pt.y - 33) + 'px';
+      bot.style.transform = `rotate(${a + 90}deg)`;
+
+      dc.globalCompositeOperation = 'destination-out';
+      const r = 42;
+      const g = dc.createRadialGradient(pt.x, pt.y, 0, pt.x, pt.y, r);
+      g.addColorStop(0, 'rgba(0,0,0,1)');
+      g.addColorStop(0.7, 'rgba(0,0,0,0.95)');
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      dc.fillStyle = g;
+      dc.beginPath(); dc.arc(pt.x, pt.y, r, 0, Math.PI * 2); dc.fill();
+
+      if (idx > 0) {
+        const pv = path[idx - 1];
+        dc.fillStyle = 'rgba(0,0,0,1)';
+        dc.beginPath();
+        dc.moveTo(pv.x - 24, pv.y - 24); dc.lineTo(pv.x + 24, pv.y + 24);
+        dc.lineTo(pt.x + 24, pt.y + 24); dc.lineTo(pt.x - 24, pt.y - 24);
+        dc.closePath(); dc.fill();
+      }
+      dc.globalCompositeOperation = 'source-over';
+
+      if (idx % 3 === 0) spark(pt.x, pt.y, 'dot');
+      if (idx % 9 === 0) spark(pt.x, pt.y, 'star');
+
+      idx++;
+      setTimeout(tick, 50);
+    }
+  </script>
 </body>
-
 </html>
