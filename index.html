@@ -34,9 +34,9 @@
       --orange: #fb923c;
     }
 
-    html { scroll-behavior: smooth; }
+     html { }
 
-    body {
+     body {
       background: var(--bg-body);
       color: var(--text-body);
       font-family: 'Inter', system-ui, sans-serif;
@@ -571,14 +571,32 @@
        ============================ */
     .reveal {
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
+      transform: translateY(30px) scale(0.98);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .reveal.in { opacity: 1; transform: translateY(0); }
 
+    .burst {
+      position: fixed;
+      pointer-events: none;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      animation: burst-anim 0.6s ease-out forwards;
+    }
+
+    @keyframes burst-anim {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    }
+
     /* ============================
        ERASER BOT V2
+       ============================ */
+    /* ============================
+       DRAW HINT
        ============================ */
     #draw-hint {
       position: fixed;
@@ -617,217 +635,37 @@
       50%       { opacity: 0.4; box-shadow: none; }
     }
 
-    #color-picker {
+    /* ============================
+       VASUDEV-STYLE ERASER BOT
+       ============================ */
+
+    /* The Bot Icon — Lucide Bot SVG wrapper */
+    #eraser-bot {
       position: fixed;
-      bottom: 60px; right: 22px;
-      display: flex; flex-direction: column;
-      gap: 8px; z-index: 10;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.4s;
-    }
-
-    #color-picker.show { opacity: 1; pointer-events: all; }
-
-    .color-swatch {
-      width: 26px; height: 26px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.1);
-      cursor: pointer;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .color-swatch:hover, .color-swatch.active {
-      transform: scale(1.25);
-      border-color: rgba(255,255,255,0.55);
-    }
-
-    .color-swatch.active { box-shadow: 0 0 10px currentColor; }
-
-    /* Bot */
-    .eraser-bot {
-      position: fixed;
-      width: 54px; height: 66px;
-      left: 20px; bottom: 20px;
-      z-index: 4;
+      width: 32px; height: 32px;
+      left: 48px; top: 48px;
+      z-index: 20;
       pointer-events: none;
       opacity: 0;
-      transition: opacity 0.5s;
-      transform-origin: center;
-      filter: drop-shadow(0 0 8px rgba(100,255,218,0.35));
-    }
-
-    .eraser-bot.active { opacity: 1; }
-
-    .bot-speech {
-      position: absolute;
-      top: -48px; left: 50%;
-      transform: translateX(-50%);
-      background: rgba(13,17,23,0.95);
-      border: 1px solid rgba(100,255,218,0.3);
-      border-radius: 10px;
-      padding: 5px 10px;
-      font-family: 'Fira Code', monospace;
-      font-size: 0.58rem;
       color: var(--accent);
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s;
-      z-index: 5;
+      filter: drop-shadow(0 0 8px rgba(100,255,218,0.6));
+      /* transition controlled by JS */
     }
 
-    .bot-speech::after {
-      content: '';
-      position: absolute; bottom: -7px; left: 50%;
-      transform: translateX(-50%);
-      border: 4px solid transparent;
-      border-top-color: rgba(100,255,218,0.3);
+    #eraser-bot svg {
+      width: 100%; height: 100%;
+      display: block;
     }
 
-    .bot-speech.show { opacity: 1; }
-
-    .robot-head {
-      width: 38px; height: 18px;
-      background: linear-gradient(160deg, #1e2d3d, #0d1117);
-      border: 1.5px solid rgba(100,255,218,0.3);
-      border-radius: 12px 12px 4px 4px;
-      position: absolute; top: 0; left: 8px;
-      box-shadow: 0 0 8px rgba(100,255,218,0.08);
-    }
-
-    .robot-eye {
-      width: 8px; height: 8px;
-      background: var(--accent);
+    /* Paint dot particles spawned on canvas by JS (DOM divs) */
+    .paint-dot {
+      position: fixed;
       border-radius: 50%;
-      position: absolute; top: 4px;
-      box-shadow: 0 0 8px var(--accent), 0 0 16px rgba(100,255,218,0.4);
-      animation: bot-blink 4s infinite;
-    }
-
-    .robot-eye.left  { left: 6px; }
-    .robot-eye.right { right: 6px; }
-
-    @keyframes bot-blink {
-      0%, 88%, 100% { transform: scaleY(1); }
-      93%           { transform: scaleY(0.08); }
-    }
-
-    .robot-antenna {
-      width: 3px; height: 10px;
-      background: linear-gradient(to top, #3a4a5a, #7a8a9a);
-      position: absolute; top: -10px; left: 26px;
-      border-radius: 2px;
-    }
-
-    .robot-antenna::after {
-      content: '';
-      width: 7px; height: 7px;
-      background: var(--accent); border-radius: 50%;
-      position: absolute; top: -5px; left: -2px;
-      box-shadow: 0 0 10px var(--accent), 0 0 20px rgba(100,255,218,0.5);
-      animation: ant-glow 0.9s ease-in-out infinite alternate;
-    }
-
-    @keyframes ant-glow {
-      0%   { opacity: 0.5; box-shadow: 0 0 4px var(--accent); }
-      100% { opacity: 1;   box-shadow: 0 0 14px var(--accent), 0 0 28px rgba(100,255,218,0.5); }
-    }
-
-    .robot-body {
-      width: 46px; height: 32px;
-      background: linear-gradient(160deg, #1a2d3d, #0d1117);
-      border: 1.5px solid rgba(100,150,200,0.35);
-      border-radius: 8px 8px 6px 6px;
-      position: absolute; top: 16px; left: 4px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03);
-    }
-
-    .robot-body::before {
-      content: '';
-      position: absolute; top: 6px; left: 8px; right: 8px; height: 10px;
-      background: rgba(100,255,218,0.04);
-      border: 1px solid rgba(100,255,218,0.13);
-      border-radius: 3px;
-    }
-
-    .robot-body::after {
-      content: '';
-      position: absolute; bottom: 6px; left: 50%;
-      transform: translateX(-50%);
-      width: 6px; height: 6px; border-radius: 50%;
+      pointer-events: none;
+      z-index: 4;
       background: var(--accent);
       box-shadow: 0 0 6px var(--accent);
-      animation: led-blink 1.8s ease-in-out infinite;
-    }
-
-    @keyframes led-blink {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.15; }
-    }
-
-    .robot-wheel {
-      width: 13px; height: 13px;
-      background: radial-gradient(circle at 40% 40%, #4a5568, #1a1a28);
-      border: 1.5px solid #3a4555;
-      border-radius: 50%;
-      position: absolute; bottom: -4px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    }
-
-    .robot-wheel.left  { left: 4px; }
-    .robot-wheel.right { right: 4px; }
-
-    .robot-wheel::after {
-      content: '';
-      position: absolute; top: 4px; left: 4px;
-      width: 5px; height: 1.5px;
-      background: #6a7a8a; border-radius: 2px;
-      animation: w-spin 0.25s linear infinite;
-      transform-origin: center;
-    }
-
-    @keyframes w-spin { to { transform: rotate(360deg); } }
-
-    .robot-brush {
-      position: absolute; bottom: -10px; left: 10px;
-      width: 28px; height: 8px;
-      display: flex; gap: 2px; align-items: flex-end;
-    }
-
-    .robot-brush span {
-      flex: 1; height: 8px; border-radius: 0 0 2px 2px;
-      animation: brush-wig 0.18s ease-in-out infinite alternate;
-      transition: background 0.3s;
-    }
-
-    .robot-brush span:nth-child(even) { animation-delay: 0.09s; height: 6px; }
-    .robot-brush span:nth-child(3)    { animation-delay: 0.04s; height: 10px; }
-
-    @keyframes brush-wig {
-      0%   { transform: skewX(-8deg) scaleY(0.9); }
-      100% { transform: skewX(8deg) scaleY(1.1); }
-    }
-
-    .clean-sparkle {
-      position: fixed; pointer-events: none; z-index: 3;
-      border-radius: 50%;
-      animation: sp-fade 0.7s ease-out forwards;
-    }
-
-    @keyframes sp-fade {
-      0%   { opacity: 0.9; transform: scale(1) translateY(0); }
-      100% { opacity: 0;   transform: scale(0.1) translateY(-12px); }
-    }
-
-    .clean-star {
-      position: fixed; pointer-events: none; z-index: 3;
-      font-size: 11px; line-height: 1;
-      animation: st-fade 0.8s ease-out forwards;
-    }
-
-    @keyframes st-fade {
-      0%   { opacity: 1; transform: scale(1) rotate(0deg) translateY(0); }
-      100% { opacity: 0; transform: scale(0.2) rotate(180deg) translateY(-20px); }
+      transition: opacity 0.15s;
     }
 
     /* ============================
@@ -861,6 +699,7 @@
       .exp-date { padding-top: 0; }
     }
   </style>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 </head>
 
 <body>
@@ -881,20 +720,18 @@
     <div class="color-swatch" data-color="rgba(96,165,250,0.7)" data-glow="rgba(96,165,250,0.3)" style="background:#60a5fa"></div>
   </div>
 
-  <!-- Eraser Bot -->
-  <div class="eraser-bot" id="eraser-bot">
-    <div class="bot-speech" id="bot-speech">beep boop! 🤖</div>
-    <div class="robot-antenna"></div>
-    <div class="robot-head">
-      <div class="robot-eye left"></div>
-      <div class="robot-eye right"></div>
-    </div>
-    <div class="robot-body"></div>
-    <div class="robot-wheel left"></div>
-    <div class="robot-wheel right"></div>
-    <div class="robot-brush">
-      <span></span><span></span><span></span><span></span><span></span><span></span>
-    </div>
+  <!-- Vasudev-style Eraser Bot: Lucide Bot SVG icon -->
+  <div id="eraser-bot" aria-hidden="true">
+    <!-- Lucide Bot icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 8V4H8"/>
+      <rect width="16" height="12" x="4" y="8" rx="2"/>
+      <path d="M2 14h2"/>
+      <path d="M20 14h2"/>
+      <path d="M15 13v2"/>
+      <path d="M9 13v2"/>
+    </svg>
   </div>
 
   <!-- =====================================================
@@ -1231,6 +1068,16 @@
 
   <script>
     /* ==================================================
+       LENIS SMOOTH SCROLL
+       ================================================== */
+    const lenis = new Lenis();
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    /* ==================================================
        SPOTLIGHT CURSOR
        ================================================== */
     const spotlight = document.getElementById('spotlight');
@@ -1240,8 +1087,22 @@
     });
 
     /* ==================================================
-       MATRIX RAIN
+       RADIAL CLICK BURST
        ================================================== */
+    document.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      if (e.target.closest('a,button,nav,.contact-btn,#color-picker,.sidebar-nav')) return;
+      const burst = document.createElement('div');
+      burst.className = 'burst';
+      burst.style.left = e.clientX + 'px';
+      burst.style.top = e.clientY + 'px';
+      burst.style.width = '100px';
+      burst.style.height = '100px';
+      document.body.appendChild(burst);
+      setTimeout(() => burst.remove(), 600);
+    });
+
+    /* ==================================================
     const mc = document.getElementById('matrix-canvas');
     const mx = mc.getContext('2d');
 
@@ -1321,181 +1182,188 @@
     );
 
     /* ==================================================
-       ERASER BOT v2
+       VASUDEV-STYLE ERASER BOT
+       Bot lives at home (48, 48) top-left.
+       Drawing spawns white paint-dot particles.
+       On mouseup: bot flies to trail start, eats
+       each dot (rotating to face next), flies home.
        ================================================== */
     const drawCanvas = document.getElementById('draw-canvas');
-    const dc         = drawCanvas.getContext('2d');
-    const bot        = document.getElementById('eraser-bot');
-    const speech     = document.getElementById('bot-speech');
     const hint       = document.getElementById('draw-hint');
-    const picker     = document.getElementById('color-picker');
+    const bot        = document.getElementById('eraser-bot');
 
-    let drawing = false, stroke = [], pending = [], path = [];
-    let etimer = null, active = false, idx = 0, parked = false;
-    let stimer = null, hintShown = false;
+    // Home position (top-left, where bot parks)
+    const HOME = { x: 48, y: 48 };
 
-    let color = 'rgba(100,255,218,0.65)', glow = 'rgba(100,255,218,0.3)', lw = 2.5;
+    // All paint dots spawned on this stroke
+    let paintDots = [];      // array of { el, x, y }
+    let allDots   = [];      // all dots across strokes queued for eating
+    let isDrawing = false;
+    let botBusy   = false;
+    let hintShown = false;
+    let drawTimer = null;
 
-    const msgs = {
-      clean: ['cleaning! ✨','on it! 🧹','zap! 🌀','spotless! ⚡','beep boop 🤖','100% clean! 💫','on it! 🫧'],
-      done:  ['all done! 🎉','squeaky clean ✨','spotless! 💎','mission complete 🏁','beep! 👍'],
-      idle:  ['draw something! ✏️',"I'm bored... 😴",'try drawing! 🎨','I love erasing 🤩'],
-    };
-
-    function say(msg, ms = 2200) {
-      if (stimer) clearTimeout(stimer);
-      speech.textContent = msg; speech.classList.add('show');
-      stimer = setTimeout(() => speech.classList.remove('show'), ms);
-    }
-
+    // Resize draw canvas (used for nothing drawn now, just kept for spotlight/matrix)
     function resizeDc() { drawCanvas.width = innerWidth; drawCanvas.height = innerHeight; }
     resizeDc(); addEventListener('resize', resizeDc);
 
-    function syncBrush() {
-      bot.querySelectorAll('.robot-brush span').forEach(s => s.style.background = color);
-    }
-
-    picker.querySelectorAll('.color-swatch').forEach(sw => {
-      sw.addEventListener('click', () => {
-        picker.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-        sw.classList.add('active');
-        color = sw.dataset.color; glow = sw.dataset.glow; syncBrush();
-      });
-    });
-    syncBrush();
-
+    // Show hint after 2.5s
     setTimeout(() => {
-      hint.classList.add('show'); picker.classList.add('show'); hintShown = true;
+      hint.classList.add('show'); hintShown = true;
       setTimeout(() => hint.classList.remove('show'), 5500);
     }, 2500);
 
-    function park() {
-      bot.classList.add('active');
-      bot.style.transition = 'left 1.2s cubic-bezier(0.4,0,0.2,1),top 1.2s cubic-bezier(0.4,0,0.2,1),transform 0.5s ease';
-      bot.style.left = '20px';
-      bot.style.top  = (innerHeight - 86) + 'px';
-      bot.style.transform = 'rotate(0deg)';
-      parked = true;
-      setTimeout(() => { if (parked) say(msgs.idle[Math.floor(Math.random() * msgs.idle.length)], 2500); }, 1400);
+    // Position the bot absolutely (fixed coords)
+    function setBotPos(x, y, angleDeg, transition) {
+      bot.style.transition = transition || 'none';
+      bot.style.left = (x - 16) + 'px';   // center 32px icon
+      bot.style.top  = (y - 16) + 'px';
+      bot.style.transform = `rotate(${angleDeg}deg)`;
     }
 
-    function beginStroke(p) {
-      drawing = true; stroke = [p];
-      if (hintShown) hint.classList.remove('show');
-      dc.beginPath(); dc.moveTo(p.x, p.y);
-      dc.strokeStyle = color; dc.lineWidth = lw;
-      dc.lineCap = 'round'; dc.lineJoin = 'round';
-      dc.shadowColor = glow; dc.shadowBlur = 8;
+    // Angle between two points in degrees
+    function angleTo(a, b) {
+      return Math.atan2(b.y - a.y, b.x - a.x) * (180 / Math.PI);
     }
 
-    function moveStroke(p) {
-      if (!drawing) return;
-      stroke.push(p); dc.lineTo(p.x, p.y); dc.stroke();
-    }
-
-    function stopStroke() {
-      if (!drawing) return;
-      drawing = false; dc.closePath();
-      if (stroke.length > 2) {
-        pending.push([...stroke]);
-        if (!parked && !active) park();
-        if (!active) { if (etimer) clearTimeout(etimer); etimer = setTimeout(startErase, 1200); }
-      }
-      stroke = [];
-    }
-
-    document.addEventListener('mousedown', e => {
-      if (e.button !== 0) return;
-      if (e.target.closest('a,button,nav,.contact-btn,#color-picker,.sidebar-nav')) return;
-      beginStroke({ x: e.clientX, y: e.clientY });
-    });
-    document.addEventListener('mousemove', e => moveStroke({ x: e.clientX, y: e.clientY }));
-    document.addEventListener('mouseup',   () => stopStroke());
-
-    drawCanvas.addEventListener('touchstart', e => { e.preventDefault(); const t = e.touches[0]; beginStroke({ x: t.clientX, y: t.clientY }); }, { passive: false });
-    drawCanvas.addEventListener('touchmove',  e => { e.preventDefault(); const t = e.touches[0]; moveStroke({ x: t.clientX, y: t.clientY }); }, { passive: false });
-    drawCanvas.addEventListener('touchend',   () => stopStroke());
-
-    function startErase() {
-      if (!pending.length) { park(); return; }
-      path = pending.flat(); pending = [];
-      active = true; idx = 0; bot.classList.add('active'); parked = false;
-      say(msgs.clean[Math.floor(Math.random() * msgs.clean.length)]);
-      setTimeout(tick, 150);
-    }
-
-    function angle(a, b) { return Math.atan2(b.y - a.y, b.x - a.x) * (180 / Math.PI); }
-
-    function spark(x, y, t = 'dot') {
+    // Spawn a paint dot div at (x, y)
+    function spawnDot(x, y) {
+      const size = 5 + Math.random() * 3;   // 5–8 px like vasudev
       const el = document.createElement('div');
-      if (t === 'star') {
-        el.className = 'clean-star';
-        el.textContent = ['✦','✧','⋆','·','★'][Math.floor(Math.random() * 5)];
-        el.style.cssText = `left:${x+(Math.random()-.5)*30}px;top:${y+(Math.random()-.5)*30}px;color:${color}`;
-      } else {
-        el.className = 'clean-sparkle';
-        const sz = 4 + Math.random() * 6;
-        el.style.cssText = `width:${sz}px;height:${sz}px;left:${x+(Math.random()-.5)*24}px;top:${y+(Math.random()-.5)*24}px;background:${color};box-shadow:0 0 ${sz}px ${color}`;
-      }
+      el.className = 'paint-dot';
+      el.style.cssText =
+        `width:${size}px;height:${size}px;` +
+        `left:${x - size/2}px;top:${y - size/2}px;` +
+        `background:var(--accent);box-shadow:0 0 6px var(--accent);opacity:1;`;
       document.body.appendChild(el);
-      setTimeout(() => el.remove(), 800);
+      return { el, x, y };
     }
 
-    function tick() {
-      if (!active || idx >= path.length) {
-        dc.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
-        active = false;
-        if (pending.length) {
-          pending.forEach(seg => {
-            dc.beginPath(); dc.strokeStyle = color; dc.lineWidth = lw;
-            dc.lineCap = 'round'; dc.lineJoin = 'round';
-            dc.shadowColor = glow; dc.shadowBlur = 8;
-            dc.moveTo(seg[0].x, seg[0].y);
-            seg.slice(1).forEach(p => dc.lineTo(p.x, p.y));
-            dc.stroke(); dc.closePath();
-          });
-          etimer = setTimeout(startErase, 600);
-        } else {
-          say(msgs.done[Math.floor(Math.random() * msgs.done.length)]);
-          park();
+    // ── DRAWING ──
+    let lastDot = null;
+    const DOT_SPACING = 12; // px between spawned dots
+
+    function onMouseDown(e) {
+      if (e.button !== 0) return;
+      if (e.target.closest('a,button,nav,.contact-btn,.sidebar-nav,#eraser-bot')) return;
+      isDrawing = true;
+      if (hintShown) hint.classList.remove('show');
+      lastDot = null;
+      const pt = { x: e.clientX, y: e.clientY };
+      const dot = spawnDot(pt.x, pt.y);
+      paintDots.push(dot);
+      lastDot = pt;
+    }
+
+    function onMouseMove(e) {
+      if (!isDrawing) return;
+      const pt = { x: e.clientX, y: e.clientY };
+      if (lastDot) {
+        const dx = pt.x - lastDot.x, dy = pt.y - lastDot.y;
+        if (Math.sqrt(dx*dx + dy*dy) >= DOT_SPACING) {
+          const dot = spawnDot(pt.x, pt.y);
+          paintDots.push(dot);
+          lastDot = pt;
         }
+      } else {
+        lastDot = pt;
+      }
+    }
+
+    function onMouseUp() {
+      if (!isDrawing) return;
+      isDrawing = false;
+      if (paintDots.length === 0) return;
+
+      // Queue all dots and trigger bot after brief pause
+      allDots = allDots.concat(paintDots);
+      paintDots = [];
+      lastDot = null;
+
+      if (!botBusy) {
+        clearTimeout(drawTimer);
+        drawTimer = setTimeout(startEating, 400);
+      }
+    }
+
+    // Touch support
+    function onTouchStart(e) {
+      e.preventDefault();
+      const t = e.touches[0];
+      onMouseDown({ button: 0, clientX: t.clientX, clientY: t.clientY,
+        target: e.target });
+    }
+    function onTouchMove(e) {
+      e.preventDefault();
+      const t = e.touches[0];
+      onMouseMove({ clientX: t.clientX, clientY: t.clientY });
+    }
+    function onTouchEnd() { onMouseUp(); }
+
+    document.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup',   onMouseUp);
+    document.addEventListener('touchstart', onTouchStart, { passive: false });
+    document.addEventListener('touchmove',  onTouchMove,  { passive: false });
+    document.addEventListener('touchend',   onTouchEnd);
+
+    // ── BOT EATING SEQUENCE ──
+    // Phase 1: fly from home to first dot  (0.8s ease-in-out)
+    // Phase 2: eat each dot (remove el), rotate toward next
+    // Phase 3: fly back home               (0.8s ease-in-out)
+    // Phase 4: hide bot
+
+    function startEating() {
+      if (allDots.length === 0) return;
+      botBusy = true;
+
+      // Show bot at home
+      setBotPos(HOME.x, HOME.y, 0, 'none');
+      bot.style.opacity = '1';
+
+      const dots = allDots.slice(); // snapshot
+      allDots = [];
+
+      // Phase 1: fly to first dot
+      const first = dots[0];
+      const flyAngle = angleTo(HOME, first);
+      setTimeout(() => {
+        setBotPos(first.x, first.y, flyAngle, 'left 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.4s ease');
+        // Phase 2: eat dots one by one after fly-in completes
+        setTimeout(() => eatDot(dots, 0), 1250);
+      }, 30);
+    }
+
+    function eatDot(dots, i) {
+      if (i >= dots.length) {
+        // Phase 3: fly back home
+        const last = dots[dots.length - 1];
+        const homeAngle = angleTo(last, HOME);
+        setBotPos(HOME.x, HOME.y, homeAngle, 'left 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.4s ease');
+        // Phase 4: hide
+        setTimeout(() => {
+          bot.style.opacity = '0';
+          botBusy = false;
+          // Start another batch if drawn while eating
+          if (allDots.length > 0) setTimeout(startEating, 200);
+        }, 1100);
         return;
       }
 
-      const pt = path[idx];
-      let a = 0;
-      if (idx < path.length - 1) a = angle(pt, path[idx + 1]);
-      else if (idx > 0) a = angle(path[idx - 1], pt);
+      const dot = dots[i];
 
-      bot.style.transition = 'left 0.06s linear,top 0.06s linear,transform 0.08s linear';
-      bot.style.left = (pt.x - 27) + 'px';
-      bot.style.top  = (pt.y - 33) + 'px';
-      bot.style.transform = `rotate(${a + 90}deg)`;
+      // Remove the paint dot from DOM
+      dot.el.style.opacity = '0';
+      setTimeout(() => { if (dot.el.parentNode) dot.el.remove(); }, 220);
 
-      dc.globalCompositeOperation = 'destination-out';
-      const r = 42;
-      const g = dc.createRadialGradient(pt.x, pt.y, 0, pt.x, pt.y, r);
-      g.addColorStop(0, 'rgba(0,0,0,1)');
-      g.addColorStop(0.7, 'rgba(0,0,0,0.95)');
-      g.addColorStop(1, 'rgba(0,0,0,0)');
-      dc.fillStyle = g;
-      dc.beginPath(); dc.arc(pt.x, pt.y, r, 0, Math.PI * 2); dc.fill();
-
-      if (idx > 0) {
-        const pv = path[idx - 1];
-        dc.fillStyle = 'rgba(0,0,0,1)';
-        dc.beginPath();
-        dc.moveTo(pv.x - 24, pv.y - 24); dc.lineTo(pv.x + 24, pv.y + 24);
-        dc.lineTo(pt.x + 24, pt.y + 24); dc.lineTo(pt.x - 24, pt.y - 24);
-        dc.closePath(); dc.fill();
+      // Compute next position & angle
+      const next = dots[i + 1];
+      if (next) {
+        const a = angleTo(dot, next);
+        setBotPos(next.x, next.y, a, 'left 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.14s ease-out');
       }
-      dc.globalCompositeOperation = 'source-over';
 
-      if (idx % 3 === 0) spark(pt.x, pt.y, 'dot');
-      if (idx % 9 === 0) spark(pt.x, pt.y, 'star');
-
-      idx++;
-      setTimeout(tick, 50);
+      setTimeout(() => eatDot(dots, i + 1), 110);
     }
   </script>
 </body>
