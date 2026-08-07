@@ -9,6 +9,7 @@
   <meta property="og:title" content="Sai Teja — Backend Architect">
   <meta property="og:description" content="SDE-1 building scalable distributed systems, microservices, and event-driven architectures.">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tj-assistant.css">
 
   <style>
     /* ============================
@@ -700,6 +701,8 @@
     }
   </style>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+    <script src="tj-assistant.js" defer></script>
 </head>
 
 <body>
@@ -1066,6 +1069,69 @@
     </main>
   </div>
 
+  <!-- TJ Assistant UI -->
+  <div id="tj-assistant-container" role="complementary" aria-label="TJ Assistant Chat">
+    <!-- Chat Window -->
+    <div id="tj-assistant-window" role="dialog" aria-modal="true" aria-label="TJ Assistant">
+
+      <!-- Header -->
+      <div class="tj-assistant-header">
+        <div class="tj-assistant-header-info">
+          <div class="tj-assistant-avatar" aria-hidden="true">TJ</div>
+          <div>
+            <div class="tj-assistant-header-title">TJ Assistant</div>
+          </div>
+        </div>
+        <div class="tj-assistant-controls">
+          <button id="tj-assistant-clear" class="tj-assistant-clear" aria-label="Clear conversation" title="Clear chat">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+          </button>
+          <button id="tj-assistant-close" class="tj-assistant-close" aria-label="Close chat" title="Close">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="tj-assistant-messages" id="tj-assistant-messages" role="log" aria-live="polite" aria-label="Chat messages">
+        <!-- Populated by chat.js -->
+      </div>
+
+      <!-- Input -->
+      <form class="tj-assistant-input-container" id="tj-assistant-form" autocomplete="off">
+        <input
+          type="text"
+          class="tj-assistant-input"
+          id="tj-assistant-input"
+          placeholder="Ask me anything..."
+          autocomplete="off"
+          aria-label="Message TJ Assistant"
+          maxlength="500"
+        >
+        <button type="submit" class="tj-assistant-send" aria-label="Send message" title="Send (Enter)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <!-- FAB Trigger -->
+    <button
+      id="tj-assistant-trigger"
+      aria-label="Open TJ Assistant"
+      aria-expanded="false"
+      aria-controls="tj-assistant-window"
+      title="Chat with TJ Assistant"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+      </svg>
+    </button>
+  </div>
+
   <script>
     /* ==================================================
        LENIS SMOOTH SCROLL
@@ -1245,6 +1311,14 @@
 
     function onMouseDown(e) {
       if (e.button !== 0) return;
+      
+      // Do not draw if click is inside the TJ Assistant container, or if the chat window is currently open
+      const assistantContainer = document.getElementById('tj-assistant-container');
+      if (assistantContainer) {
+        if (assistantContainer.classList.contains('tja-open')) return;
+        if (assistantContainer.contains(e.target)) return;
+      }
+
       if (e.target.closest('a,button,nav,.contact-btn,.sidebar-nav,#eraser-bot')) return;
       isDrawing = true;
       if (hintShown) hint.classList.remove('show');
@@ -1288,12 +1362,21 @@
 
     // Touch support
     function onTouchStart(e) {
+      const assistantContainer = document.getElementById('tj-assistant-container');
+      if (assistantContainer) {
+        if (assistantContainer.classList.contains('tja-open')) return;
+        if (assistantContainer.contains(e.target)) return;
+      }
+      if (e.target.closest('a,button,nav,.contact-btn,.sidebar-nav,#eraser-bot')) return;
+
       e.preventDefault();
       const t = e.touches[0];
       onMouseDown({ button: 0, clientX: t.clientX, clientY: t.clientY,
         target: e.target });
     }
+    
     function onTouchMove(e) {
+      if (!isDrawing) return;
       e.preventDefault();
       const t = e.touches[0];
       onMouseMove({ clientX: t.clientX, clientY: t.clientY });

@@ -1,0 +1,182 @@
+{
+  "about": {
+    "id": "about",
+    "section": "about",
+    "title": "About Sai Teja",
+    "content": "I'm Sai Teja — a backend-focused engineer with 3+ years building distributed systems and enterprise-grade platforms. I care about writing clean, efficient code and understanding the system end-to-end, not just the layer I own. Currently at Dhan AI, I've shipped across customer portals, internal operations tooling, and a large-scale multi-tenant CXP platform. I'm drawn to hard problems — event-driven architectures, microservice coordination, and systems that need to be resilient at scale. Outside of work, I'm deep into Generative AI and AI Agents, tracking what's happening in open source, and solving problems on LeetCode. I also post about tech on Instagram — because explaining something well is how I know I actually get it.",
+    "keywords": ["backend", "distributed systems", "microservices", "event-driven", "generative ai", "ai agents", "leetcode", "node.js", "typescript", "sde-1"]
+  },
+
+  "experience": [
+    {
+      "id": "exp-dhan-ai",
+      "section": "experience",
+      "company": "Dhan AI",
+      "role": "SDE-I (Software Development Engineer)",
+      "period": "May 2023 – Present",
+      "type": "Full-time",
+      "description": "Building distributed backend systems serving enterprise and consumer clients across customer portals, internal operations tooling, and a large-scale multi-tenant CXP platform. Working with Node.js, TypeScript, Kafka, GraphQL, PostgreSQL, MongoDB, Redis, AWS.",
+      "highlights": [
+        "Shipped 15+ microservices across the CXP platform",
+        "30% improvement in API response times",
+        "Architected event-driven systems using Apache Kafka",
+        "Integrated Salesforce, Dynamics 365, and Firebase RBAC",
+        "Built proactive network diagnostics engine"
+      ],
+      "technologies": ["TypeScript", "Node.js", "Kafka", "GraphQL", "PostgreSQL", "MongoDB", "Redis", "Firebase", "AWS", "Docker", "Microservices"],
+      "keywords": ["dhan ai", "sde", "backend", "current job", "current company", "distributed", "kafka", "microservices", "typescript", "node.js", "graphql"]
+    },
+    {
+      "id": "exp-loginsoft",
+      "section": "experience",
+      "company": "Loginsoft",
+      "role": "Python Developer",
+      "period": "Aug 2022",
+      "type": "Full-time",
+      "description": "Python scripting and cybersecurity tooling. Applied automation to security workflows and vulnerability assessments.",
+      "highlights": [
+        "Python scripting for security automation",
+        "Cybersecurity tooling and vulnerability assessments"
+      ],
+      "technologies": ["Python", "Automation", "Cybersecurity"],
+      "keywords": ["loginsoft", "python", "cybersecurity", "automation", "security", "vulnerability"]
+    },
+    {
+      "id": "exp-smart-interviews",
+      "section": "experience",
+      "company": "Smart Interviews",
+      "role": "DSA Track Student",
+      "period": "Oct 2021 – Jul 2022",
+      "type": "Training",
+      "description": "Intensive Data Structures & Algorithms training. Built strong foundations in problem-solving and algorithmic thinking that underpin every system I design today.",
+      "highlights": [
+        "Intensive DSA curriculum",
+        "Problem-solving and algorithmic thinking",
+        "Foundation for system design"
+      ],
+      "technologies": ["Data Structures", "Algorithms", "Problem Solving"],
+      "keywords": ["smart interviews", "dsa", "algorithms", "data structures", "problem solving", "training"]
+    },
+    {
+      "id": "exp-supraja",
+      "section": "experience",
+      "company": "Supraja Technologies",
+      "role": "Cybersecurity Intern",
+      "period": "Aug 2020 – Oct 2020",
+      "type": "Internship",
+      "description": "Hands-on experience in threat analysis, security tooling, and foundational cybersecurity certification.",
+      "highlights": [
+        "Threat analysis",
+        "Security tooling",
+        "Cybersecurity certification"
+      ],
+      "technologies": ["Threat Analysis", "Security Tooling"],
+      "keywords": ["supraja", "cybersecurity", "intern", "internship", "threat analysis", "security"]
+    }
+  ],
+
+  "projects": [
+    {
+      "id": "proj-customer-portal",
+      "section": "projects",
+      "title": "Customer Self-Service Portal",
+      "category": "Telecom Platform",
+      "emoji": "🌐",
+      "description": "A customer-facing platform enabling users to view and manage active services in real time. Architected as a middleware microservice layer, bridging the frontend with multiple external service providers — handling auth, session management, and data orchestration.",
+      "impact": "Real-time service management for enterprise telecom customers",
+      "technologies": ["TypeScript", "Node.js", "GraphQL", "Redis", "MongoDB", "Firebase"],
+      "keywords": ["customer portal", "self service", "telecom", "middleware", "microservice", "auth", "session", "graphql", "redis", "mongodb", "real time"]
+    },
+    {
+      "id": "proj-agent-ops",
+      "section": "projects",
+      "title": "Agent Operations Platform",
+      "category": "Internal Tooling",
+      "emoji": "⚙️",
+      "description": "Internal tooling for support agents to manage services and handle trouble tickets end-to-end. Built a proactive network diagnostics engine that detects and resolves infrastructure issues before customers are impacted — reducing dispatches and cutting resolution costs.",
+      "impact": "Reduced support dispatches and infrastructure resolution costs",
+      "technologies": ["Node.js", "Kafka", "MongoDB", "PostgreSQL", "Angular", "Microservices"],
+      "keywords": ["agent operations", "internal tooling", "support", "tickets", "network diagnostics", "kafka", "proactive", "infrastructure", "microservices"]
+    },
+    {
+      "id": "proj-cxp-platform",
+      "section": "projects",
+      "title": "Enterprise CXP Platform",
+      "category": "Enterprise Software",
+      "emoji": "🏢",
+      "description": "Modernized a large-scale customer experience platform with 15+ microservices powering onboarding, billing, payments, and order lifecycle. Delivered 30% improvement in API response times. Integrated Salesforce, Dynamics 365, and Firebase RBAC.",
+      "impact": "30% improvement in API response times; 15+ microservices shipped",
+      "technologies": ["Node.js", "TypeScript", "Python", "Kafka", "Firebase", "Salesforce", "Dynamics 365"],
+      "keywords": ["cxp platform", "customer experience", "enterprise", "onboarding", "billing", "payments", "order lifecycle", "salesforce", "dynamics 365", "firebase", "rbac", "microservices", "performance"]
+    }
+  ],
+
+  "skills": {
+    "id": "skills",
+    "section": "skills",
+    "languages": {
+      "title": "Languages",
+      "items": ["TypeScript", "JavaScript", "Python", "Java"],
+      "keywords": ["typescript", "javascript", "python", "java", "programming languages", "coding languages"]
+    },
+    "backend": {
+      "title": "Backend Frameworks & Runtime",
+      "items": ["Node.js", "Spring Boot", "GraphQL", "Apache Kafka", "REST APIs"],
+      "keywords": ["node.js", "spring boot", "graphql", "kafka", "rest", "api", "backend", "frameworks", "runtime"]
+    },
+    "databases": {
+      "title": "Databases & Caching",
+      "items": ["PostgreSQL", "MongoDB", "Redis", "Firebase"],
+      "keywords": ["postgresql", "postgres", "mongodb", "redis", "firebase", "database", "caching", "data layer", "sql", "nosql"]
+    },
+    "cloud": {
+      "title": "Cloud & DevOps",
+      "items": ["AWS", "Docker", "Kubernetes", "CI/CD"],
+      "keywords": ["aws", "amazon web services", "docker", "kubernetes", "k8s", "ci/cd", "devops", "cloud", "infrastructure", "deployment"]
+    },
+    "architecture": {
+      "title": "Architecture & AI",
+      "items": ["System Design", "Microservices", "Event-Driven Architecture", "GenAI", "AI Agents", "LLM Integration", "Salesforce", "Dynamics 365", "Angular"],
+      "keywords": ["system design", "microservices", "event-driven", "genai", "generative ai", "ai agents", "llm", "salesforce", "dynamics", "angular", "architecture", "distributed systems"]
+    },
+    "stats": {
+      "years_experience": "3+",
+      "microservices_shipped": 15,
+      "api_speedup": "30%",
+      "keywords": ["years", "experience", "microservices", "api", "performance", "stats", "metrics"]
+    }
+  },
+
+  "education": [
+    {
+      "id": "edu-btech",
+      "section": "education",
+      "degree": "B.Tech",
+      "field": "Computer Science Engineering",
+      "institution": "Vignan's Institute of Information Technology",
+      "period": "2018 – 2022",
+      "keywords": ["btech", "computer science", "engineering", "college", "degree", "university", "vignan"]
+    }
+  ],
+
+  "contact": {
+    "id": "contact",
+    "section": "contact",
+    "email": "saiteja.chada2000@gmail.com",
+    "github": "https://github.com/ChadaSaiteja",
+    "linkedin": "https://linkedin.com/in/chada-saiteja/",
+    "availability": "Open for collaboration, interesting backend problems, and conversations about distributed systems or AI agents. Whether it's a new role, a side project, or just a good engineering discussion — my inbox is always open.",
+    "keywords": ["contact", "email", "github", "linkedin", "hire", "reach out", "connect", "collaboration", "opportunity", "job", "role"]
+  },
+
+  "certifications": [
+    {
+      "id": "cert-cybersec",
+      "section": "certifications",
+      "title": "Cybersecurity Certification",
+      "issuer": "Supraja Technologies",
+      "year": "2020",
+      "keywords": ["certification", "cybersecurity", "cert", "supraja"]
+    }
+  ]
+}
