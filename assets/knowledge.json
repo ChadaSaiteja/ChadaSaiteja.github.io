@@ -4,7 +4,7 @@
     "section": "about",
     "title": "About Sai Teja",
     "content": "I'm Sai Teja — a backend-focused engineer with 3+ years building distributed systems and enterprise-grade platforms. I care about writing clean, efficient code and understanding the system end-to-end, not just the layer I own. Currently at Dhan AI, I've shipped across customer portals, internal operations tooling, and a large-scale multi-tenant CXP platform. I'm drawn to hard problems — event-driven architectures, microservice coordination, and systems that need to be resilient at scale. Outside of work, I'm deep into Generative AI and AI Agents, tracking what's happening in open source, and solving problems on LeetCode. I also post about tech on Instagram — because explaining something well is how I know I actually get it.",
-    "keywords": ["backend", "distributed systems", "microservices", "event-driven", "generative ai", "ai agents", "leetcode", "node.js", "typescript", "sde-1"]
+    "keywords": ["backend", "distributed systems", "microservices", "event-driven", "generative ai", "ai agents", "leetcode", "node.js", "typescript", "sde-1", "professional", "engineer", "software"]
   },
 
   "experience": [
@@ -15,16 +15,16 @@
       "role": "SDE-I (Software Development Engineer)",
       "period": "May 2023 – Present",
       "type": "Full-time",
-      "description": "Building distributed backend systems serving enterprise and consumer clients across customer portals, internal operations tooling, and a large-scale multi-tenant CXP platform. Working with Node.js, TypeScript, Kafka, GraphQL, PostgreSQL, MongoDB, Redis, AWS.",
+      "description": "Leading the development of highly scalable distributed backend systems. I work on a variety of critical platforms including customer-facing portals, internal operations management tools, and a complex multi-tenant Customer Experience (CXP) platform. My work involves architecting microservices that handle high throughput and ensuring system reliability through event-driven patterns.",
       "highlights": [
-        "Shipped 15+ microservices across the CXP platform",
-        "30% improvement in API response times",
-        "Architected event-driven systems using Apache Kafka",
-        "Integrated Salesforce, Dynamics 365, and Firebase RBAC",
-        "Built proactive network diagnostics engine"
+        "Shipped 15+ high-impact microservices across the enterprise CXP platform",
+        "Optimized system performance, achieving a 30% improvement in API response times",
+        "Architected and implemented event-driven systems using Apache Kafka for seamless service coordination",
+        "Integrated enterprise-grade solutions including Salesforce, Microsoft Dynamics 365, and Firebase RBAC",
+        "Built a proactive network diagnostics engine to detect and resolve infrastructure issues automatically"
       ],
       "technologies": ["TypeScript", "Node.js", "Kafka", "GraphQL", "PostgreSQL", "MongoDB", "Redis", "Firebase", "AWS", "Docker", "Microservices"],
-      "keywords": ["dhan ai", "sde", "backend", "current job", "current company", "distributed", "kafka", "microservices", "typescript", "node.js", "graphql"]
+      "keywords": ["dhan ai", "sde", "backend", "current job", "current company", "distributed", "kafka", "microservices", "typescript", "node.js", "graphql", "work experience", "professional experience", "employment", "career"]
     },
     {
       "id": "exp-loginsoft",
@@ -33,13 +33,13 @@
       "role": "Python Developer",
       "period": "Aug 2022",
       "type": "Full-time",
-      "description": "Python scripting and cybersecurity tooling. Applied automation to security workflows and vulnerability assessments.",
+      "description": "Focused on Python-based automation and security tooling. I developed scripts to streamline security workflows and performed vulnerability assessments to enhance system integrity.",
       "highlights": [
-        "Python scripting for security automation",
-        "Cybersecurity tooling and vulnerability assessments"
+        "Developed Python scripting for automated security workflows",
+        "Conducted vulnerability assessments and security tooling development"
       ],
       "technologies": ["Python", "Automation", "Cybersecurity"],
-      "keywords": ["loginsoft", "python", "cybersecurity", "automation", "security", "vulnerability"]
+      "keywords": ["loginsoft", "python", "cybersecurity", "automation", "security", "vulnerability", "work", "job", "previous experience"]
     },
     {
       "id": "exp-smart-interviews",
@@ -48,14 +48,14 @@
       "role": "DSA Track Student",
       "period": "Oct 2021 – Jul 2022",
       "type": "Training",
-      "description": "Intensive Data Structures & Algorithms training. Built strong foundations in problem-solving and algorithmic thinking that underpin every system I design today.",
+      "description": "Completed an intensive Data Structures and Algorithms (DSA) training program. This period was foundational in building the algorithmic thinking and problem-solving skills I apply to complex system design today.",
       "highlights": [
-        "Intensive DSA curriculum",
-        "Problem-solving and algorithmic thinking",
-        "Foundation for system design"
+        "Completed intensive DSA curriculum covering advanced topics",
+        "Developed strong problem-solving and algorithmic reasoning capabilities",
+        "Built the foundation for efficient software engineering and system design"
       ],
       "technologies": ["Data Structures", "Algorithms", "Problem Solving"],
-      "keywords": ["smart interviews", "dsa", "algorithms", "data structures", "problem solving", "training"]
+      "keywords": ["smart interviews", "dsa", "algorithms", "data structures", "problem solving", "training", "education", "learning"]
     },
     {
       "id": "exp-supraja",
@@ -64,14 +64,14 @@
       "role": "Cybersecurity Intern",
       "period": "Aug 2020 – Oct 2020",
       "type": "Internship",
-      "description": "Hands-on experience in threat analysis, security tooling, and foundational cybersecurity certification.",
+      "description": "Gained practical experience in threat analysis and security tooling during a hands-on internship. Learned the fundamentals of cybersecurity and how to apply them in a professional setting.",
       "highlights": [
-        "Threat analysis",
-        "Security tooling",
-        "Cybersecurity certification"
+        "Conducted threat analysis and identified potential security risks",
+        "Gained experience with security-focused tooling",
+        "Earned foundational cybersecurity certification"
       ],
       "technologies": ["Threat Analysis", "Security Tooling"],
-      "keywords": ["supraja", "cybersecurity", "intern", "internship", "threat analysis", "security"]
+      "keywords": ["supraja", "cybersecurity", "intern", "internship", "threat analysis", "security", "early career", "work"]
     }
   ],
 
