@@ -3,8 +3,8 @@
     "id": "about",
     "section": "about",
     "title": "About Sai Teja",
-    "content": "I'm Sai Teja — a backend-focused engineer with 3+ years building distributed systems and enterprise-grade platforms. I care about writing clean, efficient code and understanding the system end-to-end, not just the layer I own. Currently at Dhan AI, I've shipped across customer portals, internal operations tooling, and a large-scale multi-tenant CXP platform. I'm drawn to hard problems — event-driven architectures, microservice coordination, and systems that need to be resilient at scale. Outside of work, I'm deep into Generative AI and AI Agents, tracking what's happening in open source, and solving problems on LeetCode. I also post about tech on Instagram — because explaining something well is how I know I actually get it.",
-    "keywords": ["backend", "distributed systems", "microservices", "event-driven", "generative ai", "ai agents", "leetcode", "node.js", "typescript", "sde-1", "professional", "engineer", "software"]
+    "content": "I'm Sai Teja — a backend and AI engineer with 3+ years building distributed systems, enterprise platforms, and AI-powered products. I care about writing clean, efficient code and understanding the system end-to-end, not just the layer I own. Currently at Dhan AI, I've shipped across customer portals, internal operations tooling, and a large-scale multi-tenant CXP platform. I'm drawn to hard problems — event-driven architectures, microservice coordination, and systems that need to be resilient at scale. I'm equally deep into AI engineering — building with LLMs, RAG pipelines, and autonomous agents. I've worked with retrieval-augmented systems, prompt-engineered production workflows, and I actively track the frontier of open-source AI. For me, the most exciting work happens where backend systems meet AI — building the infrastructure that makes models useful in the real world.",
+    "keywords": ["backend", "ai engineer", "distributed systems", "microservices", "event-driven", "generative ai", "ai agents", "llm", "rag", "prompt engineering", "langchain", "vector database", "ai ml", "leetcode", "node.js", "typescript", "sde-2", "professional", "engineer", "software"]
   },
 
   "experience": [
@@ -12,10 +12,10 @@
       "id": "exp-dhan-ai",
       "section": "experience",
       "company": "Dhan AI",
-      "role": "SDE-I (Software Development Engineer)",
+      "role": "SDE-II (Software Development Engineer)",
       "period": "May 2023 – Present",
       "type": "Full-time",
-      "description": "Leading the development of highly scalable distributed backend systems. I work on a variety of critical platforms including customer-facing portals, internal operations management tools, and a complex multi-tenant Customer Experience (CXP) platform. My work involves architecting microservices that handle high throughput and ensuring system reliability through event-driven patterns.",
+      "description": "Leading the development of highly scalable distributed backend systems and AI-powered features. I work on a variety of critical platforms including customer-facing portals, internal operations management tools, and a complex multi-tenant Customer Experience (CXP) platform. My work involves architecting microservices that handle high throughput, designing LLM-integrated workflows, and ensuring system reliability through event-driven patterns.",
       "highlights": [
         "Shipped 15+ high-impact microservices across the enterprise CXP platform",
         "Optimized system performance, achieving a 30% improvement in API response times",
@@ -23,8 +23,8 @@
         "Integrated enterprise-grade solutions including Salesforce, Microsoft Dynamics 365, and Firebase RBAC",
         "Built a proactive network diagnostics engine to detect and resolve infrastructure issues automatically"
       ],
-      "technologies": ["TypeScript", "Node.js", "Kafka", "GraphQL", "PostgreSQL", "MongoDB", "Redis", "Firebase", "AWS", "Docker", "Microservices"],
-      "keywords": ["dhan ai", "sde", "backend", "current job", "current company", "distributed", "kafka", "microservices", "typescript", "node.js", "graphql", "work experience", "professional experience", "employment", "career"]
+      "technologies": ["TypeScript", "Node.js", "Kafka", "GraphQL", "PostgreSQL", "MongoDB", "Redis", "Firebase", "AWS", "Docker", "Microservices", "LLMs", "AI Agents"],
+      "keywords": ["dhan ai", "sde", "backend", "ai engineer", "current job", "current company", "distributed", "kafka", "microservices", "typescript", "node.js", "graphql", "llm", "ai agents", "work experience", "professional experience", "employment", "career"]
     },
     {
       "id": "exp-loginsoft",
@@ -135,9 +135,14 @@
       "keywords": ["aws", "amazon web services", "docker", "kubernetes", "k8s", "ci/cd", "devops", "cloud", "infrastructure", "deployment"]
     },
     "architecture": {
-      "title": "Architecture & AI",
-      "items": ["System Design", "Microservices", "Event-Driven Architecture", "GenAI", "AI Agents", "LLM Integration", "Salesforce", "Dynamics 365", "Angular"],
-      "keywords": ["system design", "microservices", "event-driven", "genai", "generative ai", "ai agents", "llm", "salesforce", "dynamics", "angular", "architecture", "distributed systems"]
+      "title": "Architecture & Patterns",
+      "items": ["System Design", "Microservices", "Event-Driven Architecture", "Salesforce", "Dynamics 365", "Angular"],
+      "keywords": ["system design", "microservices", "event-driven", "salesforce", "dynamics", "angular", "architecture", "distributed systems"]
+    },
+    "ai_ml": {
+      "title": "AI & ML",
+      "items": ["LLMs", "RAG", "Prompt Engineering", "AI Agents", "LangChain", "OpenAI API", "Vector Databases", "Hugging Face", "Python ML"],
+      "keywords": ["llm", "large language model", "rag", "retrieval augmented generation", "prompt engineering", "ai agents", "langchain", "openai", "vector database", "hugging face", "python ml", "genai", "generative ai", "machine learning", "artificial intelligence", "ai engineer"]
     },
     "stats": {
       "years_experience": "3+",
@@ -165,7 +170,7 @@
     "email": "saiteja.chada2000@gmail.com",
     "github": "https://github.com/ChadaSaiteja",
     "linkedin": "https://linkedin.com/in/chada-saiteja/",
-    "availability": "Open for collaboration, interesting backend problems, and conversations about distributed systems or AI agents. Whether it's a new role, a side project, or just a good engineering discussion — my inbox is always open.",
+    "availability": "Open for backend engineering, AI/ML engineering, and full-stack AI roles. Whether it's building production LLM systems, distributed architectures, or something at the intersection — my inbox is always open.",
     "keywords": ["contact", "email", "github", "linkedin", "hire", "reach out", "connect", "collaboration", "opportunity", "job", "role"]
   },
 
