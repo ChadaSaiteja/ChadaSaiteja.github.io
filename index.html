@@ -283,6 +283,13 @@
     .social-link:hover { color: var(--accent); transform: translateY(-3px); }
     .social-link svg { width: 20px; height: 20px; }
 
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+
     /* ============================
        RIGHT CONTENT — SCROLLABLE
        ============================ */
@@ -311,7 +318,17 @@
     /* ============================
        ABOUT
        ============================ */
+    .section-label.is-visible { display: block; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(250px, 1fr);
+      gap: 0.85rem;
+      align-items: start;
+    }
+
     .about-body {
+      max-width: 68ch;
       font-size: 0.9rem;
       color: var(--text-body);
       line-height: 1.85;
@@ -322,6 +339,37 @@
     .about-body strong {
       color: var(--text-primary);
       font-weight: 500;
+    }
+
+    .about-panel {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .about-list {
+      list-style: none;
+      display: grid;
+      gap: 0.85rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-list li {
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .about-list li:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .about-list strong {
+      display: block;
+      margin-bottom: 0.2rem;
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      font-weight: 600;
     }
 
     .hl { color: var(--accent); font-weight: 500; }
@@ -844,6 +892,7 @@
       .sidebar-nav { display: none; }
       .content { padding: 2rem 0 6rem; }
       .section-label { display: block; }
+      .about-grid { grid-template-columns: 1fr; }
 
       .bento { grid-template-columns: repeat(2, 1fr); }
       .tile.span2 { grid-column: span 2; }
@@ -936,30 +985,46 @@
 
       <!-- ABOUT -->
       <section id="about" aria-labelledby="about-heading">
-        <div class="section-label">About</div>
+        <div class="section-label is-visible">About</div>
         <h2 id="about-heading" class="visually-hidden">About Sai Teja — Backend & AI Engineer</h2>
-        <div class="about-body reveal">
-          <p>
-            I'm <strong>Sai Teja</strong> — a backend and AI engineer with <strong>3+ years</strong> building
-            distributed systems, enterprise platforms, and AI-powered products. I care about writing clean,
-            efficient code and understanding the system end-to-end, not just the layer I own.
-          </p>
-          <p>
-            Currently at <span class="hl">Dhan AI</span>, I've shipped across customer portals, internal
-            operations tooling, and a large-scale multi-tenant CXP platform. I'm drawn to hard problems —
-            event-driven architectures, microservice coordination, and systems that need to be resilient at scale.
-          </p>
-          <p>
-            I'm equally deep into <strong>AI engineering</strong> — building with <strong>LLMs</strong>,
-            <strong>RAG pipelines</strong>, and <strong>autonomous agents</strong>. I've worked with retrieval-augmented
-            systems, prompt-engineered production workflows, and I actively track the frontier of open-source AI.
-            For me, the most exciting work happens where backend systems meet AI — building the infrastructure
-            that makes models useful in the real world.
-          </p>
-          <p>
-            Outside of work, I'm solving problems on LeetCode and posting about tech on Instagram — because
-            explaining something well is how I know I actually get it.
-          </p>
+        <div class="about-grid reveal">
+          <div class="about-body">
+            <p>
+              I'm <strong>Sai Teja Chada</strong> — a backend and AI engineer with <strong>3+ years</strong> of
+              experience building scalable distributed systems, enterprise platforms, and AI-powered products.
+              I care about clean architecture, reliable APIs, and understanding how the full system works together.
+            </p>
+            <p>
+              At <span class="hl">Dhan AI</span>, I work across backend services and product workflows where
+              performance, maintainability, and thoughtful integration matter. The problems I enjoy most sit in
+              event-driven systems, microservice coordination, and the operational details that help software scale well.
+            </p>
+            <p>
+              I'm especially interested in the overlap between <strong>backend engineering</strong> and
+              <strong>AI systems</strong> — from LLM features and RAG pipelines to the production tooling that
+              helps models deliver real value. Outside of project work, I keep sharpening my fundamentals through
+              system design and hands-on problem solving.
+            </p>
+          </div>
+
+          <aside class="tile about-panel" aria-label="About highlights">
+            <div class="tile-badge">Quick Snapshot</div>
+            <h3 class="tile-heading">What I enjoy building</h3>
+            <ul class="about-list">
+              <li>
+                <strong>Backend systems</strong>
+                Reliable APIs, microservices, and event-driven workflows.
+              </li>
+              <li>
+                <strong>AI-powered products</strong>
+                LLM features, RAG pipelines, and practical agent workflows.
+              </li>
+              <li>
+                <strong>Engineering foundations</strong>
+                System design, data structures, and scalable architecture.
+              </li>
+            </ul>
+          </aside>
         </div>
       </section>
 
