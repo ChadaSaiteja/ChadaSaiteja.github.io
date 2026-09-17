@@ -11,6 +11,7 @@
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#0d1117">
   <link rel="canonical" href="https://chadasaiteja.github.io/">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Chada Sai Teja — Portfolio">
@@ -18,9 +19,16 @@
   <meta property="og:description" content="SDE-2 building scalable distributed systems, AI-powered products, and production LLM infrastructure.">
   <meta property="og:url" content="https://chadasaiteja.github.io/">
   <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://chadasaiteja.github.io/assets/social-preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sai Teja Chada — Backend and AI Engineer. Distributed systems, microservices, and LLM-powered products.">
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://chadasaiteja.github.io/assets/social-preview.png">
+  <meta name="twitter:image:alt" content="Sai Teja Chada — Backend and AI Engineer. Distributed systems, microservices, and LLM-powered products.">
   <meta name="twitter:title" content="Sai Teja | Chada Saiteja — Backend & AI Engineer">
   <meta name="twitter:description" content="SDE-2 building scalable distributed systems, AI-powered products, and production LLM infrastructure.">
 
@@ -62,7 +70,9 @@
   }
   </script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 
   <style>
@@ -635,13 +645,21 @@
     /* ============================
        SCROLL REVEAL
        ============================ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px) scale(0.98);
-      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    .reveal { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+      #spotlight, #draw-hint, #eraser-bot, #color-picker { display: none !important; }
     }
 
-    .reveal.in { opacity: 1; transform: translateY(0); }
+    @media (hover: none), (pointer: coarse) {
+      #spotlight, #draw-hint, #eraser-bot, #color-picker { display: none; }
+      .tile, .contact-btn { backdrop-filter: none; -webkit-backdrop-filter: none; }
+    }
 
     .burst {
       position: fixed;
@@ -765,8 +783,7 @@
       .exp-date { padding-top: 0; }
     }
   </style>
-    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+
 
 </head>
 
@@ -1164,30 +1181,28 @@
 
 
   <script>
-    /* ==================================================
-       LENIS SMOOTH SCROLL
-       ================================================== */
-    const lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 
     /* ==================================================
        SPOTLIGHT CURSOR
        ================================================== */
     const spotlight = document.getElementById('spotlight');
+    let spotlightFrame = null;
     document.addEventListener('mousemove', e => {
-      spotlight.style.background =
-        `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(100,255,218,0.045), transparent 80%)`;
+      if (reducedMotion.matches || !finePointer.matches || spotlightFrame !== null) return;
+      spotlightFrame = requestAnimationFrame(() => {
+        spotlight.style.background =
+          `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, rgba(100,255,218,0.045), transparent 80%)`;
+        spotlightFrame = null;
+      });
     });
 
     /* ==================================================
        RADIAL CLICK BURST
        ================================================== */
     document.addEventListener('mousedown', e => {
-      if (e.button !== 0) return;
+      if (e.button !== 0 || reducedMotion.matches || !finePointer.matches) return;
       if (e.target.closest('a,button,nav,.contact-btn,#color-picker,.sidebar-nav')) return;
       const burst = document.createElement('div');
       burst.className = 'burst';
@@ -1232,51 +1247,28 @@
     const navLinks = document.querySelectorAll('.nav-link');
     const secs     = document.querySelectorAll('section[id]');
 
-    new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          navLinks.forEach(a => a.classList.remove('active'));
-          const lnk = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
-          if (lnk) lnk.classList.add('active');
-        }
-      });
-    }, { rootMargin: '-25% 0px -65% 0px' }).observe ? secs.forEach(s =>
-      new IntersectionObserver(entries => {
+    if ('IntersectionObserver' in window) {
+      const navObserver = new IntersectionObserver(entries => {
         entries.forEach(e => {
-          if (e.isIntersecting) {
-            navLinks.forEach(a => a.classList.remove('active'));
-            const lnk = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
-            if (lnk) lnk.classList.add('active');
-          }
+          if (!e.isIntersecting) return;
+          navLinks.forEach(a => {
+            const active = a.getAttribute('href') === `#${e.target.id}`;
+            a.classList.toggle('active', active);
+            if (active) a.setAttribute('aria-current', 'location');
+            else a.removeAttribute('aria-current');
+          });
         });
-      }, { rootMargin: '-25% 0px -65% 0px' }).observe(s)
-    ) : null;
-
-    /* ==================================================
-       SCROLL REVEAL
-       ================================================== */
-    new IntersectionObserver((entries, obs) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 }).observe
-      ? document.querySelectorAll('.reveal').forEach(el =>
-          new IntersectionObserver((entries, obs) => {
-            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
-          }, { threshold: 0.08 }).observe(el)
-        )
-      : null;
+      }, { rootMargin: '-25% 0px -65% 0px' });
+      secs.forEach(s => navObserver.observe(s));
+    }
 
     /* ==================================================
        SMOOTH SCROLL
        ================================================== */
-    document.querySelectorAll('a[href^="#"]').forEach(a =>
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      })
-    );
+    document.documentElement.style.scrollBehavior = reducedMotion.matches ? 'auto' : 'smooth';
+    reducedMotion.addEventListener('change', e => {
+      document.documentElement.style.scrollBehavior = e.matches ? 'auto' : 'smooth';
+    });
 
     /* ==================================================
        VASUDEV-STYLE ERASER BOT  (desktop only)
@@ -1366,7 +1358,7 @@
     }
 
     function onMouseDown(e) {
-      if (e.button !== 0) return;
+      if (e.button !== 0 || reducedMotion.matches || !finePointer.matches) return;
       
       if (e.target.closest('a,button,nav,.contact-btn,.sidebar-nav,#eraser-bot')) return;
       // Don't draw when clicking on text — let the browser handle text selection
