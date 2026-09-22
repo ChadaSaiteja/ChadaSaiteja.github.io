@@ -1,9 +1,9 @@
 /* ================================================================
-   TJ ASSISTANT — Premium Glassmorphism Chat UI
+   TJ ASSISTANT - Premium Glassmorphism Chat UI
    Dark theme · Floating bottom-right · Smooth animations
    ================================================================ */
 
-/* ── Variables ─────────────────────────────────────────────── */
+/* -- Variables ----------------------------------------------- */
 :root {
   --tja-accent:        #64ffda;
   --tja-accent-dim:    rgba(100, 255, 218, 0.07);
@@ -48,7 +48,7 @@
   pointer-events: none; /* Make the container box click-through when closed */
 }
 
-/* ── Trigger FAB ──────────────────────────────────────────── */
+/* -- Trigger FAB -------------------------------------------- */
 #tj-assistant-trigger {
   width: 56px;
   height: 56px;
@@ -173,7 +173,7 @@
   opacity: 0.5;
 }
 
-/* ── Header ───────────────────────────────────────────────── */
+/* -- Header ------------------------------------------------- */
 .tj-assistant-header {
   display: flex;
   align-items: center;
@@ -256,7 +256,7 @@
 .tj-assistant-clear:hover { background: rgba(255, 255, 255, 0.06); color: var(--tja-text); }
 .tj-assistant-close:hover { background: rgba(255, 100, 100, 0.1); color: #f87171; }
 
-/* ── Messages Area ────────────────────────────────────────── */
+/* -- Messages Area ------------------------------------------ */
 .tj-assistant-messages {
   flex: 1;
   overflow-y: auto;
@@ -272,7 +272,7 @@
 .tj-assistant-messages::-webkit-scrollbar-track { background: transparent; }
 .tj-assistant-messages::-webkit-scrollbar-thumb { background: var(--tja-text-dim); border-radius: 4px; }
 
-/* ── Input ────────────────────────────────────────────────── */
+/* -- Input -------------------------------------------------- */
 .tj-assistant-input-container {
   display: flex;
   align-items: center;
@@ -334,7 +334,7 @@
 .tj-assistant-send:active { transform: scale(0.96); }
 
 /* ================================================================
-   MESSAGES — BUBBLES
+   MESSAGES - BUBBLES
    ================================================================ */
 
 .tja-message {
@@ -348,13 +348,13 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* User message — right aligned */
+/* User message - right aligned */
 .tja-message.tja-user {
   flex-direction: column;
   align-items: flex-end;
 }
 
-/* Bot message — left aligned */
+/* Bot message - left aligned */
 .tja-message.tja-bot {
   flex-direction: row;
   align-items: flex-start;
@@ -386,7 +386,7 @@
   gap: 6px;
 }
 
-/* ── Bubble Styles ────────────────────────────────────────── */
+/* -- Bubble Styles ------------------------------------------ */
 .tja-bubble {
   padding: 11px 14px;
   border-radius: 14px;
@@ -494,7 +494,7 @@
 
 .tja-copy-btn:hover { background: rgba(100, 255, 218, 0.1); color: var(--tja-accent); }
 
-/* ── Timestamp ────────────────────────────────────────────── */
+/* -- Timestamp ---------------------------------------------- */
 .tja-timestamp {
   font-family: 'Fira Code', monospace;
   font-size: 0.62rem;
@@ -605,7 +605,7 @@
 
 .tja-welcome-sub em { color: var(--tja-text); font-style: normal; }
 
-/* ── Suggestion Chips ─────────────────────────────────────── */
+/* -- Suggestion Chips --------------------------------------- */
 .tja-suggestions {
   display: flex;
   flex-wrap: wrap;
@@ -634,7 +634,7 @@
 }
 
 /* ================================================================
-   RICH CONTENT — PROJECT CARDS
+   RICH CONTENT - PROJECT CARDS
    ================================================================ */
 
 .tja-rich-content {
@@ -650,7 +650,7 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Projects Grid ────────────────────────────────────────── */
+/* -- Projects Grid ------------------------------------------ */
 .tja-projects-grid {
   display: flex;
   flex-direction: column;
@@ -705,7 +705,7 @@
   margin-bottom: 8px;
 }
 
-/* ── Skills Badges ────────────────────────────────────────── */
+/* -- Skills Badges ------------------------------------------ */
 .tja-skills-container {
   display: flex;
   flex-direction: column;
@@ -761,7 +761,7 @@
   text-align: center;
 }
 
-/* ── Tags shared ──────────────────────────────────────────── */
+/* -- Tags shared -------------------------------------------- */
 .tja-tag {
   font-family: 'Fira Code', monospace;
   font-size: 0.62rem;
@@ -785,7 +785,7 @@
   transform: translateY(-1px);
 }
 
-/* ── Experience Timeline ──────────────────────────────────── */
+/* -- Experience Timeline ------------------------------------ */
 .tja-experience-list {
   display: flex;
   flex-direction: column;
@@ -852,7 +852,7 @@
   gap: 4px;
 }
 
-/* ── Contact Buttons ──────────────────────────────────────── */
+/* -- Contact Buttons ---------------------------------------- */
 .tja-contact-grid {
   display: flex;
   flex-direction: column;
@@ -946,7 +946,7 @@
 }
 
 /* ================================================================
-   RESPONSIVE — MOBILE
+   RESPONSIVE - MOBILE
    ================================================================ */
 
 @media (max-width: 480px) {
@@ -1005,7 +1005,7 @@
   border: 0;
 }
 
-/* Color picker for the drawing feature — keep existing styles */
+/* Color picker for the drawing feature - keep existing styles */
 #color-picker {
   position: fixed;
   bottom: 24px;

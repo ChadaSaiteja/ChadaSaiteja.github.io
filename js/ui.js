@@ -1,12 +1,12 @@
 /**
- * ui.js — Rich UI Renderer for TJ Assistant
+ * ui.js - Rich UI Renderer for TJ Assistant
  * Renders project cards, skill badges, timeline cards, contact buttons,
  * markdown text, source tags, and all interactive chat elements.
  */
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // Markdown renderer (no external deps)
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 /**
  * Very lightweight markdown → HTML renderer.
@@ -62,9 +62,9 @@ window.tjaCopyCode = function (btn) {
   });
 };
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // Rich Response Renderers
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 /**
  * Render project cards.
@@ -212,9 +212,9 @@ export function renderContactButtons(contact) {
   return container;
 }
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // Source Tags
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 /**
  * Render source tags that scroll to portfolio sections on click.
@@ -259,9 +259,9 @@ export function renderSources(sections) {
   return container;
 }
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // Timestamp
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 /**
  * Get a formatted timestamp string for messages.
@@ -271,9 +271,9 @@ export function getTimestamp() {
   return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // Suggestion Chips
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 /**
  * Render quick action suggestion chips.

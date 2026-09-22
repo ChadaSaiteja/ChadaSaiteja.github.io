@@ -1,5 +1,5 @@
 /**
- * knowledge.js — Portfolio Knowledge Loader & Indexer
+ * knowledge.js - Portfolio Knowledge Loader & Indexer
  * Loads knowledge.json and flattens it into a searchable document array.
  */
 
@@ -11,7 +11,7 @@ let _documents = [];
 
 /**
  * Load and initialize the knowledge base.
- * Call once at startup — subsequent calls return cached data.
+ * Call once at startup - subsequent calls return cached data.
  * @returns {Promise<{ raw: Object, documents: Array<Object> }>}
  */
 export async function loadKnowledge() {
@@ -41,7 +41,7 @@ export function getRawKnowledge() {
 function flattenKnowledge(k) {
   const docs = [];
 
-  // ── About ──
+  // -- About --
   docs.push({
     id: 'about',
     section: 'about',
@@ -52,7 +52,7 @@ function flattenKnowledge(k) {
     data: k.about,
   });
 
-  // ── Experience ──
+  // -- Experience --
   for (const exp of k.experience) {
     docs.push({
       id: exp.id,
@@ -65,7 +65,7 @@ function flattenKnowledge(k) {
     });
   }
 
-  // ── Projects ──
+  // -- Projects --
   for (const proj of k.projects) {
     docs.push({
       id: proj.id,
@@ -78,7 +78,7 @@ function flattenKnowledge(k) {
     });
   }
 
-  // ── Skills — one doc per skill group ──
+  // -- Skills - one doc per skill group --
   const skillGroups = ['languages', 'backend', 'databases', 'cloud', 'architecture'];
   for (const group of skillGroups) {
     const sg = k.skills[group];
@@ -93,7 +93,7 @@ function flattenKnowledge(k) {
     });
   }
 
-  // ── Education ──
+  // -- Education --
   for (const edu of k.education) {
     docs.push({
       id: edu.id,
@@ -106,7 +106,7 @@ function flattenKnowledge(k) {
     });
   }
 
-  // ── Contact ──
+  // -- Contact --
   docs.push({
     id: 'contact',
     section: 'contact',
@@ -117,7 +117,7 @@ function flattenKnowledge(k) {
     data: k.contact,
   });
 
-  // ── Certifications ──
+  // -- Certifications --
   for (const cert of k.certifications) {
     docs.push({
       id: cert.id,

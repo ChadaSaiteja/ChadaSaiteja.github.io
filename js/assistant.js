@@ -1,5 +1,5 @@
 /**
- * assistant.js — Answer Engine
+ * assistant.js - Answer Engine
  * Converts search results into natural, conversational responses.
  * Never invents information. Falls back gracefully when no results found.
  */
@@ -35,22 +35,22 @@ export function generateAnswer(userMessage, history = []) {
     };
   }
 
-  // ── Context-aware follow-up resolution ──
+  // -- Context-aware follow-up resolution --
   // If the user refers to something like "it", "that", "the project" etc.,
   // inject context from the previous assistant turn.
   const resolvedQuery = resolveFollowUp(userMessage, history);
 
-  // ── Search ──
+  // -- Search --
   const results = search(resolvedQuery, { maxResults: 6, minConfidence: 0.12 });
   const intent  = detectIntent(resolvedQuery, results);
   const sources = getSourceSections(results);
 
-  // ── No results ──
+  // -- No results --
   if (!results.length) {
     return { text: FALLBACK_MESSAGE, sources: [], richType: null, richData: null, confidence: 0 };
   }
 
-  // ── Route to intent-specific generators ──
+  // -- Route to intent-specific generators --
   const bestConfidence = results[0].confidence;
   const ctx = { results, raw, sources, resolvedQuery, intent, bestConfidence };
 
@@ -65,9 +65,9 @@ export function generateAnswer(userMessage, history = []) {
   }
 }
 
-// ────────────────────────────────────────────────────────────
+// ------------------------------------------------------------
 // Follow-up Resolution
-// ────────────────────────────────────────────────────────────
+// ------------------------------------------------------------
 
 /**
  * Detect pronoun/vague references and expand the query using recent context.
@@ -87,9 +87,9 @@ function resolveFollowUp(query, history) {
   return `${query} ${lastCtx.contextKeywords.join(' ')}`;
 }
 
-// ────────────────────────────────────────────────────────────
+// ------------------------------------------------------------
 // Intent Generators
-// ────────────────────────────────────────────────────────────
+// ------------------------------------------------------------
 
 function generateProjectsAnswer({ results, raw, sources }) {
   // Collect project documents from results + fallback to all projects
@@ -133,7 +133,7 @@ function generateExperienceAnswer({ results, raw, sources }) {
   let text = intro;
   if (experience.some(e => e.id === 'exp-dhan-ai') && experience.length === 1) {
     const exp = experience[0];
-    text = `Sai Teja is currently working as a **${exp.role}** at **${exp.company}** (${exp.period}). He's been building distributed backend systems — including customer portals, internal tooling, and a large-scale multi-tenant CXP platform — using ${exp.technologies.slice(0, 5).join(', ')}, and more.`;
+    text = `Sai Teja is currently working as a **${exp.role}** at **${exp.company}** (${exp.period}). He's been building distributed backend systems - including customer portals, internal tooling, and a large-scale multi-tenant CXP platform - using ${exp.technologies.slice(0, 5).join(', ')}, and more.`;
   }
 
   return {
@@ -171,7 +171,7 @@ function generateSkillsAnswer({ results, raw, sources }) {
     const g = skills[groupsToShow[0]];
     text = `Sai Teja's ${g.title.toLowerCase()} include: **${g.items.join(', ')}**.`;
   } else {
-    text = `Sai Teja's core technical skills span multiple areas — from backend engineering to cloud infrastructure:`;
+    text = `Sai Teja's core technical skills span multiple areas - from backend engineering to cloud infrastructure:`;
   }
 
   return {
@@ -202,9 +202,9 @@ function generateAboutAnswer({ results, raw, sources }) {
   const about = raw.about;
   const topKeywords = extractTopKeywords(results);
 
-  const text = `I'm **Sai Teja** — a backend-focused engineer with **3+ years** building distributed systems and enterprise-grade platforms.
+  const text = `I'm **Sai Teja** - a backend-focused engineer with **3+ years** building distributed systems and enterprise-grade platforms.
 
-Currently at **Dhan AI**, I've shipped across customer portals, internal operations tooling, and a large-scale multi-tenant CXP platform. I'm drawn to hard problems — event-driven architectures, microservice coordination, and systems that need to be resilient at scale.
+Currently at **Dhan AI**, I've shipped across customer portals, internal operations tooling, and a large-scale multi-tenant CXP platform. I'm drawn to hard problems - event-driven architectures, microservice coordination, and systems that need to be resilient at scale.
 
 Outside of work, I'm deep into **Generative AI** and **AI Agents**, tracking open source, and solving problems on LeetCode.`;
 
@@ -220,7 +220,7 @@ Outside of work, I'm deep into **Generative AI** and **AI Agents**, tracking ope
 
 function generateEducationAnswer({ results, raw, sources }) {
   const edu = raw.education[0];
-  const text = `Sai Teja holds a **${edu.degree}** in **${edu.field}** from **${edu.institution}** (${edu.period}). He complemented his formal education with intensive DSA training at Smart Interviews (Oct 2021 – Jul 2022).`;
+  const text = `Sai Teja holds a **${edu.degree}** in **${edu.field}** from **${edu.institution}** (${edu.period}). He complemented his formal education with intensive DSA training at Smart Interviews (Oct 2021 - Jul 2022).`;
 
   return {
     text,
@@ -264,9 +264,9 @@ function generateGeneralAnswer({ results, raw, sources, resolvedQuery }) {
   }
 }
 
-// ────────────────────────────────────────────────────────────
+// ------------------------------------------------------------
 // Helpers
-// ────────────────────────────────────────────────────────────
+// ------------------------------------------------------------
 
 /**
  * Extract the most common meaningful keywords from search result titles.

@@ -3,7 +3,7 @@
     "id": "about",
     "section": "about",
     "title": "About Sai Teja",
-    "content": "I'm Sai Teja — a backend and AI engineer with 3+ years building distributed systems, enterprise platforms, and AI-powered products. I care about writing clean, efficient code and understanding the system end-to-end, not just the layer I own. Currently at Dhan AI, I've shipped across customer portals, internal operations tooling, and a large-scale multi-tenant CXP platform. I'm drawn to hard problems — event-driven architectures, microservice coordination, and systems that need to be resilient at scale. I'm equally deep into AI engineering — building with LLMs, RAG pipelines, and autonomous agents. I've worked with retrieval-augmented systems, prompt-engineered production workflows, and I actively track the frontier of open-source AI. For me, the most exciting work happens where backend systems meet AI — building the infrastructure that makes models useful in the real world.",
+    "content": "I'm Sai Teja - a backend and AI engineer with 3+ years building distributed systems, enterprise platforms, and AI-powered products. I care about writing clean, efficient code and understanding the system end-to-end, not just the layer I own. Currently at Dhan AI, I've shipped across customer portals, internal operations tooling, and a large-scale multi-tenant CXP platform. I'm drawn to hard problems - event-driven architectures, microservice coordination, and systems that need to be resilient at scale. I'm equally deep into AI engineering - building with LLMs, RAG pipelines, and autonomous agents. I've worked with retrieval-augmented systems, prompt-engineered production workflows, and I actively track the frontier of open-source AI. For me, the most exciting work happens where backend systems meet AI - building the infrastructure that makes models useful in the real world.",
     "keywords": ["backend", "ai engineer", "distributed systems", "microservices", "event-driven", "generative ai", "ai agents", "llm", "rag", "prompt engineering", "langchain", "vector database", "ai ml", "leetcode", "node.js", "typescript", "sde-2", "professional", "engineer", "software"]
   },
 
@@ -13,7 +13,7 @@
       "section": "experience",
       "company": "Dhan AI",
       "role": "SDE-II (Software Development Engineer)",
-      "period": "May 2023 – Present",
+      "period": "May 2023 - Present",
       "type": "Full-time",
       "description": "Leading the development of highly scalable distributed backend systems and AI-powered features. I work on a variety of critical platforms including customer-facing portals, internal operations management tools, and a complex multi-tenant Customer Experience (CXP) platform. My work involves architecting microservices that handle high throughput, designing LLM-integrated workflows, and ensuring system reliability through event-driven patterns.",
       "highlights": [
@@ -46,7 +46,7 @@
       "section": "experience",
       "company": "Smart Interviews",
       "role": "DSA Track Student",
-      "period": "Oct 2021 – Jul 2022",
+      "period": "Oct 2021 - Jul 2022",
       "type": "Training",
       "description": "Completed an intensive Data Structures and Algorithms (DSA) training program. This period was foundational in building the algorithmic thinking and problem-solving skills I apply to complex system design today.",
       "highlights": [
@@ -62,7 +62,7 @@
       "section": "experience",
       "company": "Supraja Technologies",
       "role": "Cybersecurity Intern",
-      "period": "Aug 2020 – Oct 2020",
+      "period": "Aug 2020 - Oct 2020",
       "type": "Internship",
       "description": "Gained practical experience in threat analysis and security tooling during a hands-on internship. Learned the fundamentals of cybersecurity and how to apply them in a professional setting.",
       "highlights": [
@@ -82,7 +82,7 @@
       "title": "Customer Self-Service Portal",
       "category": "Telecom Platform",
       "emoji": "🌐",
-      "description": "A customer-facing platform enabling users to view and manage active services in real time. Architected as a middleware microservice layer, bridging the frontend with multiple external service providers — handling auth, session management, and data orchestration.",
+      "description": "A customer-facing platform enabling users to view and manage active services in real time. Architected as a middleware microservice layer, bridging the frontend with multiple external service providers - handling auth, session management, and data orchestration.",
       "impact": "Real-time service management for enterprise telecom customers",
       "technologies": ["TypeScript", "Node.js", "GraphQL", "Redis", "MongoDB", "Firebase"],
       "keywords": ["customer portal", "self service", "telecom", "middleware", "microservice", "auth", "session", "graphql", "redis", "mongodb", "real time"]
@@ -93,7 +93,7 @@
       "title": "Agent Operations Platform",
       "category": "Internal Tooling",
       "emoji": "⚙️",
-      "description": "Internal tooling for support agents to manage services and handle trouble tickets end-to-end. Built a proactive network diagnostics engine that detects and resolves infrastructure issues before customers are impacted — reducing dispatches and cutting resolution costs.",
+      "description": "Internal tooling for support agents to manage services and handle trouble tickets end-to-end. Built a proactive network diagnostics engine that detects and resolves infrastructure issues before customers are impacted - reducing dispatches and cutting resolution costs.",
       "impact": "Reduced support dispatches and infrastructure resolution costs",
       "technologies": ["Node.js", "Kafka", "MongoDB", "PostgreSQL", "Angular", "Microservices"],
       "keywords": ["agent operations", "internal tooling", "support", "tickets", "network diagnostics", "kafka", "proactive", "infrastructure", "microservices"]
@@ -159,7 +159,7 @@
       "degree": "B.Tech",
       "field": "Computer Science Engineering",
       "institution": "Vignan's Institute of Information Technology",
-      "period": "2018 – 2022",
+      "period": "2018 - 2022",
       "keywords": ["btech", "computer science", "engineering", "college", "degree", "university", "vignan"]
     }
   ],
@@ -170,7 +170,7 @@
     "email": "saiteja.chada2000@gmail.com",
     "github": "https://github.com/ChadaSaiteja",
     "linkedin": "https://linkedin.com/in/chada-saiteja/",
-    "availability": "Open for backend engineering, AI/ML engineering, and full-stack AI roles. Whether it's building production LLM systems, distributed architectures, or something at the intersection — my inbox is always open.",
+    "availability": "Open for backend engineering, AI/ML engineering, and full-stack AI roles. Whether it's building production LLM systems, distributed architectures, or something at the intersection - my inbox is always open.",
     "keywords": ["contact", "email", "github", "linkedin", "hire", "reach out", "connect", "collaboration", "opportunity", "job", "role"]
   },
 

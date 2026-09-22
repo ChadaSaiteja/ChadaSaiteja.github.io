@@ -1,5 +1,5 @@
 /**
- * chat.js — Chat Controller
+ * chat.js - Chat Controller
  * Manages conversation history, message rendering, typewriter streaming,
  * typing indicator, and all chat interaction lifecycle events.
  */
@@ -16,9 +16,9 @@ import {
   getTimestamp,
 } from './ui.js';
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // State
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 /** Conversation history (session only, no persistence) */
 const _history = [];
@@ -36,9 +36,9 @@ let _inputEl      = null;
 let _formEl       = null;
 let _clearBtn     = null;
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // Public API
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 /**
  * Initialize the chat controller. Must be called once after DOM is ready.
@@ -78,7 +78,7 @@ export function initChat() {
 }
 
 /**
- * Handle a user's message — can also be called programmatically
+ * Handle a user's message - can also be called programmatically
  * (e.g., when a suggestion chip is clicked).
  * @param {string} text
  */
@@ -87,9 +87,9 @@ export function sendMessage(text) {
   handleUserMessage(text.trim());
 }
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // Core Chat Flow
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 async function handleUserMessage(text) {
   _busy = true;
@@ -133,9 +133,9 @@ async function handleUserMessage(text) {
   _inputEl.focus();
 }
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // Message Rendering
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 function appendUserMessage(text) {
   const msg = document.createElement('div');
@@ -224,9 +224,9 @@ async function appendAssistantMessage(response) {
   scrollToBottom();
 }
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // Welcome Message
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 function _showWelcome() {
   // Clear existing content
@@ -250,18 +250,18 @@ function _showWelcome() {
   _messagesEl.appendChild(suggestions);
 }
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // Clear Chat
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 function clearChat() {
   _history.length = 0;
   _showWelcome();
 }
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // Typewriter Effect
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 /**
  * Stream text into an element character by character.
@@ -293,9 +293,9 @@ async function typewriterEffect(el, text) {
   el.innerHTML = renderMarkdown(text);
 }
 
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 // Utilities
-// ──────────────────────────────────────────────────────────
+// ----------------------------------------------------------
 
 function scrollToBottom() {
   if (_messagesEl) {

@@ -1,4 +1,4 @@
-# Sai Teja Chada — Portfolio
+# Sai Teja Chada - Portfolio
 
 Welcome to my portfolio website!  
 This site showcases my experience as a **Backend & AI Engineer**, my key projects, and the technologies I work with.
@@ -7,7 +7,7 @@ This site showcases my experience as a **Backend & AI Engineer**, my key project
 
 ## 👤 About Me
 
-Hi, I'm **Sai Teja Chada**, a Backend & AI Engineer (SDE-2 at Dhan AI) with 3+ years building scalable distributed systems — including microservices, event-driven architectures, and enterprise platforms. I care about writing clean, efficient code, and understanding the system end-to-end.
+Hi, I'm **Sai Teja Chada**, a Backend & AI Engineer (SDE-2 at Dhan AI) with 3+ years building scalable distributed systems - including microservices, event-driven architectures, and enterprise platforms. I care about writing clean, efficient code, and understanding the system end-to-end.
 
 - Currently **SDE-2 at Dhan AI**
 - Previously: Python Developer (Loginsoft), Cybersecurity Intern (Supraja Technologies)
@@ -38,10 +38,10 @@ Modernized a customer experience platform (15+ microservices for onboarding, bil
 
 ## 🏢 Work Experience
 
-- **SDE-2 @ Dhan AI** (May 2023 — Present): Distributed backend systems and LLM-powered features for enterprise and consumer clients.
+- **SDE-2 @ Dhan AI** (May 2023 - Present): Distributed backend systems and LLM-powered features for enterprise and consumer clients.
 - **Python Developer @ Loginsoft** (Aug 2022): Python scripting and cybersecurity automation.
-- **DSA Track Student @ Smart Interviews** (Oct 2021 — Jul 2022): Intensive DSA and algorithms training.
-- **Cybersecurity Intern @ Supraja Technologies** (Aug 2020 — Oct 2020): Hands-on cybersecurity, threat analysis, and certification.
+- **DSA Track Student @ Smart Interviews** (Oct 2021 - Jul 2022): Intensive DSA and algorithms training.
+- **Cybersecurity Intern @ Supraja Technologies** (Aug 2020 - Oct 2020): Hands-on cybersecurity, threat analysis, and certification.
 
 ## 📈 Stats
 
