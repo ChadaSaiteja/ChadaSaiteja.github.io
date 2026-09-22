@@ -1,5 +1,5 @@
 /**
- * search.js — Semantic Search Engine powered by Fuse.js
+ * search.js - Semantic Search Engine powered by Fuse.js
  * Provides fuzzy, typo-tolerant, ranked semantic search over the knowledge base.
  * No hardcoded if-else keyword checks.
  */
@@ -18,7 +18,7 @@ let _documents = [];
 export function initSearch(documents) {
   _documents = documents;
 
-  // Fuse.js is loaded via CDN script tag — available on window.Fuse
+  // Fuse.js is loaded via CDN script tag - available on window.Fuse
   const Fuse = window.Fuse;
   if (!Fuse) throw new Error('Fuse.js is not loaded. Add the CDN script to index.html.');
 
@@ -47,7 +47,7 @@ export function initSearch(documents) {
 
 /**
  * Search the knowledge base for the given query.
- * Returns results sorted by relevance with a confidence score (0–1, higher = better).
+ * Returns results sorted by relevance with a confidence score (0-1, higher = better).
  *
  * @param {string} query
  * @param {{ maxResults?: number, minConfidence?: number }} [opts]
@@ -60,7 +60,7 @@ export function search(query, opts = {}) {
 
   const rawResults = _fuse.search(query, { limit: maxResults });
 
-  // Fuse score is 0 = perfect, 1 = worst. Invert to get confidence 0–1.
+  // Fuse score is 0 = perfect, 1 = worst. Invert to get confidence 0-1.
   return rawResults
     .map(r => ({
       document: r.item,

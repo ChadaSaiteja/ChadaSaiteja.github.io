@@ -1,5 +1,5 @@
 /**
- * tj-assistant.js — entry point (classic script)
+ * tj-assistant.js - entry point (classic script)
  * Handles fallback behavior for file:// protocol and boots ES modules for http://
  */
 (function bootstrap() {
@@ -58,7 +58,7 @@
   });
 
   if (isFileProtocol) {
-    // ── File Protocol Mode (CORS warning fallback) ──
+    // -- File Protocol Mode (CORS warning fallback) --
     const messagesEl = document.getElementById('tj-assistant-messages');
     if (messagesEl) {
       messagesEl.innerHTML = `
@@ -87,7 +87,7 @@
     if (inputEl) inputEl.disabled = true;
     if (formEl) formEl.style.opacity = '0.5';
   } else {
-    // ── HTTP/HTTPS Mode (Load real ES Module Assistant) ──
+    // -- HTTP/HTTPS Mode (Load real ES Module Assistant) --
     const moduleScript = document.createElement('script');
     moduleScript.type = 'module';
     moduleScript.textContent = `
