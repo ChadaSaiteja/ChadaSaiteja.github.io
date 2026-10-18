@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chadasaiteja.github.io/sitemap.xml
+Sitemap: https://chadasaiteja.is-a.dev/sitemap.xml
