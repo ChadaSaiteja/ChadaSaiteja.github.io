@@ -3,7 +3,7 @@
 Welcome to my portfolio website!  
 This site showcases my experience as a **Backend & AI Engineer**, my key projects, and the technologies I work with.
 
-🔗 **Live site:** [chadasaiteja.github.io](https://chadasaiteja.github.io/)
+🔗 **Live site:** [chadasaiteja.is-a.dev](https://chadasaiteja.is-a.dev/)
 
 ## 👤 About Me
 
