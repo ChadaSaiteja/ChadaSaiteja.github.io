@@ -1,0 +1,200 @@
+{
+  "simpleIconsVersion": "16.30.0",
+  "groups": [
+    {
+      "title": "Languages",
+      "items": [
+        {
+          "name": "TypeScript",
+          "icon": "typescript",
+          "color": "#3178C6"
+        },
+        {
+          "name": "JavaScript",
+          "icon": "javascript",
+          "color": "#F7DF1E"
+        },
+        {
+          "name": "Python",
+          "icon": "python",
+          "color": "#3776AB"
+        },
+        {
+          "name": "Java",
+          "icon": "openjdk",
+          "color": "#c9d1d9"
+        }
+      ]
+    },
+    {
+      "title": "AI & ML",
+      "items": [
+        {
+          "name": "LLMs",
+          "generic": "chip",
+          "color": "#a78bfa"
+        },
+        {
+          "name": "RAG",
+          "generic": "search-doc",
+          "color": "#a78bfa"
+        },
+        {
+          "name": "AI Agents",
+          "generic": "bot",
+          "color": "#a78bfa"
+        },
+        {
+          "name": "Prompt Engineering",
+          "generic": "terminal",
+          "color": "#a78bfa"
+        },
+        {
+          "name": "LangChain",
+          "icon": "langchain",
+          "color": "#7FC8FF"
+        },
+        {
+          "name": "OpenAI API",
+          "generic": "sparkles",
+          "color": "#e6edf3"
+        },
+        {
+          "name": "Vector Databases",
+          "generic": "vector",
+          "color": "#a78bfa"
+        },
+        {
+          "name": "Hugging Face",
+          "icon": "huggingface",
+          "color": "#FFD21E"
+        },
+        {
+          "name": "Python ML",
+          "icon": "python",
+          "color": "#3776AB"
+        }
+      ]
+    },
+    {
+      "title": "Backend",
+      "items": [
+        {
+          "name": "Node.js",
+          "icon": "nodedotjs",
+          "color": "#5FA04E"
+        },
+        {
+          "name": "Spring Boot",
+          "icon": "springboot",
+          "color": "#6DB33F"
+        },
+        {
+          "name": "GraphQL",
+          "icon": "graphql",
+          "color": "#E10098"
+        },
+        {
+          "name": "Kafka",
+          "icon": "apachekafka",
+          "color": "#c9d1d9"
+        },
+        {
+          "name": "REST APIs",
+          "icon": "openapiinitiative",
+          "color": "#6BA539"
+        }
+      ]
+    },
+    {
+      "title": "Data",
+      "items": [
+        {
+          "name": "PostgreSQL",
+          "icon": "postgresql",
+          "color": "#4169E1"
+        },
+        {
+          "name": "MongoDB",
+          "icon": "mongodb",
+          "color": "#47A248"
+        },
+        {
+          "name": "Redis",
+          "icon": "redis",
+          "color": "#FF4438"
+        },
+        {
+          "name": "Firebase",
+          "icon": "firebase",
+          "color": "#DD2C00"
+        }
+      ]
+    },
+    {
+      "title": "Cloud & DevOps",
+      "items": [
+        {
+          "name": "AWS",
+          "generic": "cloud",
+          "color": "#FF9900"
+        },
+        {
+          "name": "Docker",
+          "icon": "docker",
+          "color": "#2496ED"
+        },
+        {
+          "name": "Kubernetes",
+          "icon": "kubernetes",
+          "color": "#326CE5"
+        },
+        {
+          "name": "CI/CD",
+          "generic": "workflow",
+          "color": "#64ffda"
+        }
+      ]
+    },
+    {
+      "title": "Architecture",
+      "items": [
+        {
+          "name": "System Design",
+          "generic": "layout",
+          "color": "#64ffda"
+        },
+        {
+          "name": "Microservices",
+          "generic": "boxes",
+          "color": "#64ffda"
+        },
+        {
+          "name": "Event-Driven Architecture",
+          "generic": "zap",
+          "color": "#64ffda"
+        }
+      ]
+    },
+    {
+      "title": "Platforms & Frontend",
+      "items": [
+        {
+          "name": "Salesforce",
+          "generic": "cloud",
+          "color": "#00A1E0"
+        },
+        {
+          "name": "Dynamics 365",
+          "generic": "grid",
+          "color": "#0078D4"
+        },
+        {
+          "name": "Angular",
+          "icon": "angular",
+          "color": "#c9d1d9"
+        }
+      ]
+    }
+  ]
+}

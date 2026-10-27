@@ -1,0 +1,138 @@
+{
+  "posts": [
+    {
+      "title": "RAG From Scratch: Every Step From Raw Documents to a Cited Answer",
+      "url": "https://chadasaiteja.is-a.dev/blog/rag-from-scratch/",
+      "date": "2026-10-18",
+      "readMinutes": 24,
+      "tags": [
+        "rag",
+        "llm",
+        "embeddings",
+        "vector-database",
+        "hybrid-search",
+        "reranking",
+        "retrieval"
+      ],
+      "description": "A beginner-friendly walkthrough of RAG: cleaning, chunking, embedding and storing data, then multi-query, hybrid search, fusion, reranking and cited answers."
+    },
+    {
+      "title": "Stop Guessing: Master AI Coding with Spec-Driven Development",
+      "url": "https://chadasaiteja.is-a.dev/blog/spec-driven-development-guide/",
+      "date": "2026-10-05",
+      "readMinutes": 16,
+      "tags": [
+        "ai",
+        "github",
+        "spec-kit",
+        "software engineering"
+      ],
+      "description": "A guide to Spec-Driven Development with GitHub Spec Kit: the workflow, setup for new and existing repos, every speckit command, and agent integrations."
+    },
+    {
+      "title": "HyperLogLog: How Google and Reddit Count Billions of Unique Users Using Just 12 KB",
+      "url": "https://chadasaiteja.is-a.dev/blog/hyperloglog-counting-billions-of-users/",
+      "date": "2026-10-04",
+      "readMinutes": 7,
+      "tags": [
+        "hyperloglog",
+        "redis",
+        "algorithms",
+        "cardinality",
+        "probabilistic-data-structures",
+        "system-design"
+      ],
+      "description": "How HyperLogLog counts billions of unique users in 12 KB, why it beats sets and Bloom filters for cardinality, and when you should not use it."
+    },
+    {
+      "title": "Cut Your Coding Agent's Token Bill in Three Places: Graphify, Ponytail, Caveman",
+      "url": "https://chadasaiteja.is-a.dev/blog/cut-coding-agent-token-bill/",
+      "date": "2026-09-26",
+      "readMinutes": 12,
+      "tags": [
+        "llm-tokens",
+        "ai-agents",
+        "claude-code",
+        "codex",
+        "opencode",
+        "graphify",
+        "ponytail",
+        "caveman",
+        "context-engineering",
+        "cost-optimization"
+      ],
+      "description": "Where an agent's tokens actually go, one tool for each of the three leaks, and what an independent benchmark measured versus what each tool advertises."
+    },
+    {
+      "title": "The Google File System: How Google Stores Petabytes on Cheap, Unreliable Machines",
+      "url": "https://chadasaiteja.is-a.dev/blog/google-file-system-explained/",
+      "date": "2026-09-10",
+      "readMinutes": 6,
+      "tags": [
+        "gfs",
+        "distributed-systems",
+        "hadoop",
+        "hdfs",
+        "system-design",
+        "file-systems"
+      ],
+      "description": "How the Google File System stores petabytes on cheap, unreliable machines: chunking, replication and heartbeats across thousands of disks."
+    },
+    {
+      "title": "Understanding and Implementing OAuth 2.0: A Complete Developer's Guide",
+      "url": "https://chadasaiteja.is-a.dev/blog/oauth2-implementation-guide/",
+      "date": "2026-08-15",
+      "readMinutes": 13,
+      "tags": [
+        "oauth2",
+        "authentication",
+        "security",
+        "pkce",
+        "architecture"
+      ],
+      "description": "A complete OAuth 2.0 implementation guide: PKCE generation, single-use authorization code tickets, secure token storage, and the full interaction flow."
+    },
+    {
+      "title": "Designing a Scalable Instagram Comment-to-DM Automation System: A Backend Architecture Deep Dive",
+      "url": "https://chadasaiteja.is-a.dev/blog/instagram-dm-automation-system-design/",
+      "date": "2026-08-15",
+      "readMinutes": 14,
+      "tags": [
+        "system-design",
+        "instagram-api",
+        "webhooks",
+        "rate-limiting",
+        "event-driven",
+        "redis",
+        "architecture"
+      ],
+      "description": "System design for a high-throughput, Meta-compliant Instagram Comment-to-DM platform: webhook ingestion, event-driven queues, rate limiting, token security."
+    },
+    {
+      "title": "Mastering Go Concurrency Patterns",
+      "url": "https://chadasaiteja.is-a.dev/blog/go-concurrency/",
+      "date": "2026-08-10",
+      "readMinutes": 2,
+      "tags": [
+        "golang",
+        "backend",
+        "patterns"
+      ],
+      "description": "A deep dive into Go concurrency patterns: channels, select blocks, and worker pools for writing highly concurrent programs without data races."
+    },
+    {
+      "title": "Running Free AI Coding Models in Your Terminal with OpenCode & Cloudflare",
+      "url": "https://chadasaiteja.is-a.dev/blog/free-ai-opencode-cloudflare/",
+      "date": "2026-08-10",
+      "readMinutes": 3,
+      "tags": [
+        "opencode",
+        "cloudflare",
+        "llm",
+        "gemma",
+        "terminal"
+      ],
+      "description": "Run free AI coding models in your terminal. Connect OpenCode CLI to Cloudflare Workers AI using the free 10,000 Neurons per day quota, step by step."
+    }
+  ]
+}

@@ -359,59 +359,110 @@
     .hl { color: var(--accent); font-weight: 500; }
 
     /* ============================
-       BENTO GRID - SKILLS
+       TECH STACK
        ============================ */
-    .bento {
+    .stack-stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.85rem;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1rem;
     }
 
-    .tile {
-      background: var(--bg-card);
+    .stack-stats > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding: 0.9rem 1rem;
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.5rem;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s, transform 0.3s;
+      border-radius: 12px;
+      background: var(--bg-card);
     }
 
-    .tile::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(220px circle at 0% 0%, var(--accent-dim), transparent 70%);
-      opacity: 0;
-      transition: opacity 0.4s;
-      border-radius: 14px;
+    .stack-stat-num {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
     }
 
-    .tile:hover { border-color: var(--border-hover); transform: translateY(-2px); }
-    .tile:hover::after { opacity: 1; }
+    .stack-stat-lbl { font-size: 0.7rem; color: var(--text-muted); }
 
-    .tile.span2 { grid-column: span 2; }
-    .tile.span3 { grid-column: span 3; }
+    .stack {
+      columns: 2;
+      column-gap: 0.75rem;
+    }
 
-    .tile-badge {
+    .stack-group {
+      break-inside: avoid;
+      margin-bottom: 0.75rem;
+      padding: 1rem 1.05rem 1.05rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg-card);
+      transition: border-color 0.3s;
+    }
+
+    .stack-group:hover { border-color: rgba(255,255,255,0.1); }
+
+    .stack-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .stack-title {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-body);
+    }
+
+    .stack-count {
       font-family: 'Fira Code', monospace;
       font-size: 0.62rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-      position: relative; z-index: 1;
+      color: var(--text-muted);
     }
 
-    .tile-heading {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 0.85rem;
-      position: relative; z-index: 1;
+    .stack-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      list-style: none;
     }
+
+    .stack-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.7rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      color: var(--text-body);
+      font-size: 0.74rem;
+      font-weight: 500;
+      cursor: default;
+      transition: border-color 0.25s, background 0.25s, box-shadow 0.25s, color 0.25s;
+    }
+
+    .stack-icon {
+      width: 14px; height: 14px;
+      flex-shrink: 0;
+      color: var(--brand);
+      transition: transform 0.25s;
+    }
+
+    .stack-item:hover {
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.05);
+      border-color: color-mix(in srgb, var(--brand) 45%, transparent);
+      box-shadow: 0 0 14px -4px var(--brand);
+    }
+
+    .stack-item:hover .stack-icon { transform: scale(1.12); }
 
     .tags {
       display: flex;
@@ -439,44 +490,6 @@
     .tag-purple:hover { background: rgba(167,139,250,0.13); }
     .tag-blue:hover   { background: rgba(96,165,250,0.13); }
     .tag-orange:hover { background: rgba(251,146,60,0.13); }
-
-    /* Stat tile */
-    .stats-col {
-      display: flex;
-      flex-direction: column;
-      gap: 1.1rem;
-      position: relative; z-index: 1;
-    }
-
-    .stat-num {
-      font-family: 'Fira Code', monospace;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--accent);
-      line-height: 1;
-    }
-
-    .stat-lbl {
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      margin-top: 0.2rem;
-    }
-
-    /* Currently tile */
-    .current-company {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      position: relative; z-index: 1;
-    }
-
-    .current-meta {
-      font-size: 0.78rem;
-      color: var(--text-body);
-      margin-top: 0.2rem;
-      margin-bottom: 0.8rem;
-      position: relative; z-index: 1;
-    }
 
     /* ============================
        PROJECTS
@@ -661,6 +674,512 @@
     }
 
     /* ============================
+       OPEN SOURCE
+       ============================ */
+    .oss-intro {
+      font-size: 0.85rem;
+      color: var(--text-body);
+      margin-bottom: 1.5rem;
+    }
+
+    .oss-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Featured: tab list + panel */
+    .oss-featured {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--bg-card);
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+    }
+
+    .oss-tabs {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+    }
+
+    .oss-tab {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: none;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-body);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.3s;
+    }
+
+    .oss-tab:last-child { border-bottom: 0; }
+    .oss-tab:hover { background: rgba(255,255,255,0.02); }
+
+    .oss-tab[aria-selected="true"] { background: var(--accent-dim); }
+
+    .oss-tab[aria-selected="true"]::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .oss-tab:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+
+    .oss-tab-num {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      padding-top: 0.1rem;
+    }
+
+    .oss-tab[aria-selected="true"] .oss-tab-num { color: var(--accent); }
+
+    .oss-tab-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.15rem; }
+
+    .oss-tab-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+
+    .oss-tab-sub {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .oss-stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+
+    .oss-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+      min-width: 0;
+    }
+
+    .oss-panel[hidden] { display: none; }
+
+    .oss-term {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.7rem;
+      line-height: 1.8;
+      color: var(--text-body);
+      background: rgba(1, 4, 9, 0.55);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .oss-term-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.5rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .oss-term-bar i {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .oss-term-bar span { margin-left: 0.4rem; }
+
+    .oss-term-body {
+      padding: 0.75rem 0.9rem 0.85rem;
+      overflow-wrap: anywhere;
+    }
+
+    .oss-term-prompt { color: var(--accent); }
+    .oss-term-head { color: var(--text-primary); margin-top: 0.3rem; }
+    .oss-term-arrow { color: var(--accent); }
+
+    .oss-panel-body { padding: 1.1rem 1.2rem 1.2rem; }
+
+    .oss-panel-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.45rem;
+    }
+
+    .oss-panel-title a,
+    .oss-card-title a,
+    .post-title a {
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .oss-panel-title a:hover,
+    .oss-card-title a:hover,
+    .post-title a:hover { color: var(--accent); }
+
+    .oss-meta,
+    .oss-card-foot,
+    .post-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4rem 0.9rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .oss-meta { margin-top: 0.9rem; }
+
+    .oss-lang-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--text-body);
+    }
+
+    .oss-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.9rem;
+    }
+
+    .oss-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.68rem;
+      color: var(--text-body);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .oss-link svg { width: 12px; height: 12px; }
+    .oss-link:hover { color: var(--accent); }
+    .oss-link-accent { color: var(--accent); }
+
+    .oss-links .oss-link {
+      padding: 0.35rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .oss-links .oss-link:hover { border-color: var(--border-hover); }
+    .oss-links .oss-link-accent { border-color: rgba(100,255,218,0.2); background: var(--accent-dim); }
+
+    /* Filters */
+    .oss-controls {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--bg-card);
+      padding: 1rem 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .oss-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    .oss-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: none;
+      color: var(--text-body);
+      font: inherit;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .oss-chip:hover { color: var(--text-primary); }
+
+    .oss-chip[aria-pressed="true"] {
+      color: var(--text-primary);
+      border-color: rgba(100,255,218,0.35);
+      background: var(--accent-dim);
+    }
+
+    .oss-count {
+      font-size: 0.62rem;
+      padding: 0 0.35rem;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text-muted);
+    }
+
+    .oss-lang {
+      margin-top: 1rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .oss-lang-head {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .oss-lang-head span:last-child { letter-spacing: 0; text-transform: none; }
+
+    .oss-bar {
+      display: flex;
+      gap: 3px;
+      height: 8px;
+    }
+
+    .oss-bar-seg {
+      flex-basis: 0;
+      cursor: pointer;
+      transition: opacity 0.3s, filter 0.2s;
+    }
+
+    .oss-bar-seg:first-child { border-radius: 99px 0 0 99px; }
+    .oss-bar-seg:last-child { border-radius: 0 99px 99px 0; }
+    .oss-bar-seg:only-child { border-radius: 99px; }
+    .oss-bar-seg:hover { filter: brightness(1.25); }
+
+    .oss-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .oss-legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.1rem 0;
+      background: none;
+      border: 0;
+      color: var(--text-body);
+      font: inherit;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: color 0.2s, opacity 0.3s;
+    }
+
+    .oss-legend-item:hover,
+    .oss-legend-item.is-active { color: var(--text-primary); }
+    .oss-legend-item[aria-pressed="true"] { color: var(--text-primary); font-weight: 600; }
+    .oss-legend-item[aria-pressed="true"] .oss-dot { box-shadow: 0 0 0 2px var(--bg-body), 0 0 0 3px currentColor; }
+    .oss-legend-item:focus-visible,
+    .oss-chip:focus-visible,
+    .oss-more:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+    .oss-pct { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+    .oss-summary {
+      margin-top: 0.75rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .oss-summary button {
+      background: none;
+      border: 0;
+      padding: 0;
+      font: inherit;
+      color: var(--accent);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* Grid */
+    .oss-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .oss-card {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg-card);
+      transition: opacity 0.3s, border-color 0.3s, transform 0.3s;
+    }
+
+    .oss-card[hidden] { display: none; }
+    .oss-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+
+    .is-dim { opacity: 0.25; }
+    .oss-card.is-dim:hover { opacity: 0.6; }
+
+    .oss-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .oss-card-cat {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .oss-card-cat .oss-dot { width: 6px; height: 6px; }
+
+    .oss-card-gh { color: var(--text-muted); display: inline-flex; transition: color 0.2s; }
+    .oss-card-gh:hover { color: var(--text-primary); }
+
+    .oss-card-title { font-size: 0.88rem; font-weight: 600; line-height: 1.35; }
+
+    .oss-card-repo {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      margin: 0.2rem 0 0.55rem;
+    }
+
+    .oss-card-desc {
+      font-size: 0.78rem;
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+
+    .oss-card .tags { margin-bottom: 0.85rem; }
+    .oss-card-foot { margin-top: auto; }
+    .oss-card-foot .oss-link { margin-left: auto; }
+    .oss-card-foot .oss-link + .oss-link { margin-left: 0; }
+
+    .oss-note {
+      margin-top: 0.85rem;
+      font-size: 0.78rem;
+      color: var(--text-body);
+    }
+
+    .oss-note[hidden] { display: none; }
+
+    .oss-note button {
+      background: none;
+      border: 0;
+      padding: 0;
+      font: inherit;
+      color: var(--accent);
+      cursor: pointer;
+    }
+
+    .oss-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .oss-more {
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: none;
+      color: var(--text-body);
+      font: inherit;
+      font-size: 0.72rem;
+      cursor: pointer;
+    }
+
+    .oss-more:hover { color: var(--text-primary); border-color: var(--border-hover); }
+    .oss-more[hidden] { display: none; }
+
+    .oss-all,
+    .writing-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-left: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .oss-all:hover,
+    .writing-all:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ============================
+       WRITING
+       ============================ */
+    .writing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .post-card {
+      display: flex;
+      flex-direction: column;
+      padding: 1.1rem 1.15rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg-card);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .post-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+
+    .post-card .tags { margin-bottom: 0.7rem; }
+
+    .post-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 0.45rem;
+    }
+
+    .post-desc {
+      font-size: 0.78rem;
+      line-height: 1.65;
+      margin-bottom: 0.85rem;
+    }
+
+    .post-meta { margin-top: auto; }
+
+    .writing-all { margin-left: 0; }
+
+    /* ============================
        FOOTER
        ============================ */
     footer {
@@ -690,7 +1209,7 @@
 
     @media (hover: none), (pointer: coarse) {
       #spotlight, #draw-hint, #eraser-bot, #color-picker { display: none; }
-      .tile, .contact-btn { backdrop-filter: none; -webkit-backdrop-filter: none; }
+      .contact-btn { backdrop-filter: none; -webkit-backdrop-filter: none; }
     }
 
     .burst {
@@ -763,7 +1282,7 @@
       pointer-events: auto;
       cursor: pointer;
       opacity: 1;
-      filter: drop-shadow(0 0 8px var(--pac-glow, rgba(255, 255, 0, 0.5)));
+      filter: drop-shadow(0 0 6px var(--pac-glow, rgba(100, 255, 218, 0.7))) drop-shadow(0 0 14px var(--pac-glow, rgba(100, 255, 218, 0.7)));
       transition: opacity 0.4s, filter 0.3s;
       animation: pac-float 3s ease-in-out infinite;
     }
@@ -794,7 +1313,7 @@
       position: absolute;
       width: 100%; height: 50%;
       left: 0;
-      background: var(--pac-color, #FFE135);
+      background: var(--pac-color, #64ffda);
       overflow: hidden;
       transition: background 0.3s;
     }
@@ -876,21 +1395,34 @@
       .sidebar-nav { display: none; }
       .content { padding: 2rem 0 6rem; }
       .section-label { display: block; }
-
-      .bento { grid-template-columns: repeat(2, 1fr); }
-      .tile.span2 { grid-column: span 2; }
-      .tile.span3 { grid-column: span 2; }
     }
 
     @media (max-width: 680px) {
-      .bento { grid-template-columns: 1fr; }
-      .tile.span2, .tile.span3 { grid-column: span 1; }
+      .stack { columns: 1; }
+      .stack-stats { gap: 0.5rem; }
+      .stack-stats > div { padding: 0.75rem 0.8rem; }
 
       .proj-card { grid-template-columns: 1fr; }
       .proj-thumb { display: none; }
 
       .exp-card { grid-template-columns: 1fr; }
       .exp-date { padding-top: 0; }
+
+      .oss-featured { grid-template-columns: minmax(0, 1fr); }
+      .oss-tabs {
+        flex-direction: row;
+        overflow-x: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+        scrollbar-width: none;
+      }
+      .oss-tabs::-webkit-scrollbar { display: none; }
+      .oss-tab { flex: 0 0 200px; border-bottom: 0; border-right: 1px solid var(--border); }
+      .oss-tab:last-child { border-right: 0; }
+      .oss-tab[aria-selected="true"]::before { top: auto; right: 0; width: auto; height: 2px; }
+      .oss-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+      .oss-chip { flex-shrink: 0; }
+      .oss-grid, .writing-grid { grid-template-columns: 1fr; }
     }
   </style>
 
@@ -944,7 +1476,9 @@
             <li><a href="#about"      class="nav-link active"><span class="nav-line"></span>About</a></li>
             <li><a href="#skills"     class="nav-link"><span class="nav-line"></span>Skills</a></li>
             <li><a href="#projects"   class="nav-link"><span class="nav-line"></span>Projects</a></li>
+            <li><a href="#open-source" class="nav-link"><span class="nav-line"></span>Open source</a></li>
             <li><a href="#experience" class="nav-link"><span class="nav-line"></span>Experience</a></li>
+            <li><a href="#writing"    class="nav-link"><span class="nav-line"></span>Writing</a></li>
             <li><a href="#contact"    class="nav-link"><span class="nav-line"></span>Contact</a></li>
           </ul>
         </nav>
@@ -959,6 +1493,9 @@
         </a>
         <a href="mailto:saiteja.chada2000@gmail.com" class="social-link" aria-label="Email">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9 6 9-6M3 8v10a2 2 0 002 2h14a2 2 0 002-2V8M3 8l9-4 9 4"/></svg>
+        </a>
+        <a href="https://chadasaiteja.is-a.dev/blog/" class="social-link" aria-label="Blog">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
         </a>
       </div>
     </header>
@@ -999,120 +1536,200 @@
       <section id="skills" aria-labelledby="skills-heading">
         <div class="section-label">Tech Stack</div>
         <h2 id="skills-heading" class="visually-hidden">Tech Stack & Skills</h2>
-        <div class="bento reveal">
-
-          <!-- Languages - wide -->
-          <div class="tile span2">
-            <div class="tile-badge">01 - Languages</div>
-            <div class="tile-heading">What I code in</div>
-            <div class="tags">
-              <span class="tag tag-teal">TypeScript</span>
-              <span class="tag tag-teal">JavaScript</span>
-              <span class="tag tag-teal">Python</span>
-              <span class="tag tag-teal">Java</span>
-            </div>
-          </div>
-
-          <!-- Currently working at -->
-          <div class="tile">
-            <div class="tile-badge">Currently</div>
-            <div class="current-company">Dhan AI</div>
-            <div class="current-meta">SDE-II &nbsp;·&nbsp; May 2023 - Present</div>
-            <div class="tags">
-              <span class="tag tag-teal">Backend</span>
-              <span class="tag tag-purple">AI Engineering</span>
-              <span class="tag tag-grey">Distributed Systems</span>
-            </div>
-          </div>
-
-          <!-- Backend frameworks -->
-          <div class="tile">
-            <div class="tile-badge">02 - Backend</div>
-            <div class="tile-heading">Frameworks & Runtime</div>
-            <div class="tags">
-              <span class="tag tag-teal">Node.js</span>
-              <span class="tag tag-teal">Spring Boot</span>
-              <span class="tag tag-teal">GraphQL</span>
-              <span class="tag tag-teal">Kafka</span>
-              <span class="tag tag-teal">REST APIs</span>
-            </div>
-          </div>
-
-          <!-- Databases -->
-          <div class="tile">
-            <div class="tile-badge">03 - Data Layer</div>
-            <div class="tile-heading">Databases & Caching</div>
-            <div class="tags">
-              <span class="tag tag-blue">PostgreSQL</span>
-              <span class="tag tag-blue">MongoDB</span>
-              <span class="tag tag-blue">Redis</span>
-              <span class="tag tag-blue">Firebase</span>
-            </div>
-          </div>
-
-          <!-- Stats -->
-          <div class="tile">
-            <div class="tile-badge">By the numbers</div>
-            <div class="stats-col">
-              <div>
-                <div class="stat-num">3+</div>
-                <div class="stat-lbl">Years Experience</div>
-              </div>
-              <div>
-                <div class="stat-num">15</div>
-                <div class="stat-lbl">Microservices Shipped</div>
-              </div>
-              <div>
-                <div class="stat-num">30%</div>
-                <div class="stat-lbl">API Response Speedup</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Cloud & DevOps -->
-          <div class="tile">
-            <div class="tile-badge">04 - Cloud & DevOps</div>
-            <div class="tile-heading">Infrastructure</div>
-            <div class="tags">
-              <span class="tag tag-orange">AWS</span>
-              <span class="tag tag-orange">Docker</span>
-              <span class="tag tag-orange">Kubernetes</span>
-              <span class="tag tag-orange">CI/CD</span>
-            </div>
-          </div>
-
-          <!-- Architecture & Patterns -->
-          <div class="tile span2">
-            <div class="tile-badge">05 - Architecture & Patterns</div>
-            <div class="tile-heading">How I design systems</div>
-            <div class="tags">
-              <span class="tag tag-purple">System Design</span>
-              <span class="tag tag-purple">Microservices</span>
-              <span class="tag tag-purple">Event-Driven Architecture</span>
-              <span class="tag tag-grey">Salesforce</span>
-              <span class="tag tag-grey">Dynamics 365</span>
-              <span class="tag tag-grey">Angular</span>
-            </div>
-          </div>
-
-          <!-- AI & ML - dedicated tile -->
-          <div class="tile span3">
-            <div class="tile-badge">06 - AI & ML</div>
-            <div class="tile-heading">What I'm building with</div>
-            <div class="tags">
-              <span class="tag tag-purple">LLMs</span>
-              <span class="tag tag-purple">RAG</span>
-              <span class="tag tag-purple">Prompt Engineering</span>
-              <span class="tag tag-purple">AI Agents</span>
-              <span class="tag tag-purple">LangChain</span>
-              <span class="tag tag-blue">OpenAI API</span>
-              <span class="tag tag-blue">Vector Databases</span>
-              <span class="tag tag-blue">Hugging Face</span>
-              <span class="tag tag-teal">Python ML</span>
-            </div>
-          </div>
-
+        <p class="oss-intro reveal">Technologies I work with, from the services I ship at work to what I build on the side.</p>
+        <div class="stack-stats reveal">
+          <div><span class="stack-stat-num">3+</span><span class="stack-stat-lbl">Years experience</span></div>
+          <div><span class="stack-stat-num">15</span><span class="stack-stat-lbl">Microservices shipped</span></div>
+          <div><span class="stack-stat-num">30%</span><span class="stack-stat-lbl">API response speedup</span></div>
         </div>
+        <!-- GENERATED:STACK:START -->
+        <div class="stack reveal">
+        <div class="stack-group">
+          <div class="stack-head">
+            <h3 class="stack-title">Languages</h3>
+            <span class="stack-count">04</span>
+          </div>
+          <ul class="stack-items">
+            <li class="stack-item" style="--brand:#3178C6">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#typescript"/></svg>
+              <span>TypeScript</span>
+            </li>
+            <li class="stack-item" style="--brand:#F7DF1E">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#javascript"/></svg>
+              <span>JavaScript</span>
+            </li>
+            <li class="stack-item" style="--brand:#3776AB">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#python"/></svg>
+              <span>Python</span>
+            </li>
+            <li class="stack-item" style="--brand:#c9d1d9">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#openjdk"/></svg>
+              <span>Java</span>
+            </li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <div class="stack-head">
+            <h3 class="stack-title">AI &amp; ML</h3>
+            <span class="stack-count">09</span>
+          </div>
+          <ul class="stack-items">
+            <li class="stack-item" style="--brand:#a78bfa">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-chip"/></svg>
+              <span>LLMs</span>
+            </li>
+            <li class="stack-item" style="--brand:#a78bfa">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-search-doc"/></svg>
+              <span>RAG</span>
+            </li>
+            <li class="stack-item" style="--brand:#a78bfa">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-bot"/></svg>
+              <span>AI Agents</span>
+            </li>
+            <li class="stack-item" style="--brand:#a78bfa">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-terminal"/></svg>
+              <span>Prompt Engineering</span>
+            </li>
+            <li class="stack-item" style="--brand:#7FC8FF">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#langchain"/></svg>
+              <span>LangChain</span>
+            </li>
+            <li class="stack-item" style="--brand:#e6edf3">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-sparkles"/></svg>
+              <span>OpenAI API</span>
+            </li>
+            <li class="stack-item" style="--brand:#a78bfa">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-vector"/></svg>
+              <span>Vector Databases</span>
+            </li>
+            <li class="stack-item" style="--brand:#FFD21E">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#huggingface"/></svg>
+              <span>Hugging Face</span>
+            </li>
+            <li class="stack-item" style="--brand:#3776AB">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#python"/></svg>
+              <span>Python ML</span>
+            </li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <div class="stack-head">
+            <h3 class="stack-title">Backend</h3>
+            <span class="stack-count">05</span>
+          </div>
+          <ul class="stack-items">
+            <li class="stack-item" style="--brand:#5FA04E">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#nodedotjs"/></svg>
+              <span>Node.js</span>
+            </li>
+            <li class="stack-item" style="--brand:#6DB33F">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#springboot"/></svg>
+              <span>Spring Boot</span>
+            </li>
+            <li class="stack-item" style="--brand:#E10098">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#graphql"/></svg>
+              <span>GraphQL</span>
+            </li>
+            <li class="stack-item" style="--brand:#c9d1d9">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#apachekafka"/></svg>
+              <span>Kafka</span>
+            </li>
+            <li class="stack-item" style="--brand:#6BA539">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#openapiinitiative"/></svg>
+              <span>REST APIs</span>
+            </li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <div class="stack-head">
+            <h3 class="stack-title">Data</h3>
+            <span class="stack-count">04</span>
+          </div>
+          <ul class="stack-items">
+            <li class="stack-item" style="--brand:#4169E1">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#postgresql"/></svg>
+              <span>PostgreSQL</span>
+            </li>
+            <li class="stack-item" style="--brand:#47A248">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#mongodb"/></svg>
+              <span>MongoDB</span>
+            </li>
+            <li class="stack-item" style="--brand:#FF4438">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#redis"/></svg>
+              <span>Redis</span>
+            </li>
+            <li class="stack-item" style="--brand:#DD2C00">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#firebase"/></svg>
+              <span>Firebase</span>
+            </li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <div class="stack-head">
+            <h3 class="stack-title">Cloud &amp; DevOps</h3>
+            <span class="stack-count">04</span>
+          </div>
+          <ul class="stack-items">
+            <li class="stack-item" style="--brand:#FF9900">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-cloud"/></svg>
+              <span>AWS</span>
+            </li>
+            <li class="stack-item" style="--brand:#2496ED">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#docker"/></svg>
+              <span>Docker</span>
+            </li>
+            <li class="stack-item" style="--brand:#326CE5">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#kubernetes"/></svg>
+              <span>Kubernetes</span>
+            </li>
+            <li class="stack-item" style="--brand:#64ffda">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-workflow"/></svg>
+              <span>CI/CD</span>
+            </li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <div class="stack-head">
+            <h3 class="stack-title">Architecture</h3>
+            <span class="stack-count">03</span>
+          </div>
+          <ul class="stack-items">
+            <li class="stack-item" style="--brand:#64ffda">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-layout"/></svg>
+              <span>System Design</span>
+            </li>
+            <li class="stack-item" style="--brand:#64ffda">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-boxes"/></svg>
+              <span>Microservices</span>
+            </li>
+            <li class="stack-item" style="--brand:#64ffda">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-zap"/></svg>
+              <span>Event-Driven Architecture</span>
+            </li>
+          </ul>
+        </div>
+        <div class="stack-group">
+          <div class="stack-head">
+            <h3 class="stack-title">Platforms &amp; Frontend</h3>
+            <span class="stack-count">03</span>
+          </div>
+          <ul class="stack-items">
+            <li class="stack-item" style="--brand:#00A1E0">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-cloud"/></svg>
+              <span>Salesforce</span>
+            </li>
+            <li class="stack-item" style="--brand:#0078D4">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#g-grid"/></svg>
+              <span>Dynamics 365</span>
+            </li>
+            <li class="stack-item" style="--brand:#c9d1d9">
+              <svg class="stack-icon" aria-hidden="true"><use href="assets/icons/stack.svg#angular"/></svg>
+              <span>Angular</span>
+            </li>
+          </ul>
+        </div>
+        </div>
+        <!-- GENERATED:STACK:END -->
       </section>
 
       <!-- PROJECTS -->
@@ -1186,6 +1803,321 @@
 
       </section>
 
+      <!-- OPEN SOURCE -->
+      <section id="open-source" aria-labelledby="open-source-heading">
+        <div class="section-label">Open source</div>
+        <h2 id="open-source-heading" class="visually-hidden">Open source</h2>
+        <p class="oss-intro reveal">Things I build outside work to understand how systems really work, most with a write-up on the blog.</p>
+        <!-- GENERATED:OSS:START -->
+        <div class="oss" data-oss>
+          <div class="oss-featured reveal">
+            <div class="oss-tabs" role="tablist" aria-label="Featured projects">
+              <button type="button" role="tab" class="oss-tab" id="oss-tab-0" aria-controls="oss-panel-0" aria-selected="true" tabindex="0" data-lang="Python" data-cat="AI &amp; RAG" data-title="RAG From Scratch" data-featured>
+                <span class="oss-tab-num">01</span>
+                <span class="oss-tab-body">
+                  <span class="oss-tab-title">RAG From Scratch</span>
+                  <span class="oss-tab-sub"><i class="oss-dot" style="background:#3572A5"></i>Python &middot; AI &amp; RAG</span>
+                </span>
+              </button>
+              <button type="button" role="tab" class="oss-tab" id="oss-tab-1" aria-controls="oss-panel-1" aria-selected="false" tabindex="-1" data-lang="Rust" data-cat="Tools" data-title="SpaceOps" data-featured>
+                <span class="oss-tab-num">02</span>
+                <span class="oss-tab-body">
+                  <span class="oss-tab-title">SpaceOps</span>
+                  <span class="oss-tab-sub"><i class="oss-dot" style="background:#dea584"></i>Rust &middot; Tools</span>
+                </span>
+              </button>
+              <button type="button" role="tab" class="oss-tab" id="oss-tab-2" aria-controls="oss-panel-2" aria-selected="false" tabindex="-1" data-lang="TypeScript" data-cat="Systems from scratch" data-title="HyperLogLog Unique Counter" data-featured>
+                <span class="oss-tab-num">03</span>
+                <span class="oss-tab-body">
+                  <span class="oss-tab-title">HyperLogLog Unique Counter</span>
+                  <span class="oss-tab-sub"><i class="oss-dot" style="background:#3178c6"></i>TypeScript &middot; Systems from scratch</span>
+                </span>
+              </button>
+              <button type="button" role="tab" class="oss-tab" id="oss-tab-3" aria-controls="oss-panel-3" aria-selected="false" tabindex="-1" data-lang="JavaScript" data-cat="Systems from scratch" data-title="HTTP Server From TCP" data-featured>
+                <span class="oss-tab-num">04</span>
+                <span class="oss-tab-body">
+                  <span class="oss-tab-title">HTTP Server From TCP</span>
+                  <span class="oss-tab-sub"><i class="oss-dot" style="background:#f1e05a"></i>JavaScript &middot; Systems from scratch</span>
+                </span>
+              </button>
+            </div>
+            <div class="oss-panel" role="tabpanel" id="oss-panel-0" aria-labelledby="oss-tab-0">
+              <div class="oss-term" aria-hidden="true">
+                <div class="oss-term-bar"><i></i><i></i><i></i><span>~/rag-from-scratch</span></div>
+                <div class="oss-term-body">
+                  <div><span class="oss-term-prompt">$</span> git clone github.com/ChadaSaiteja/rag-from-scratch</div>
+                  <div><span class="oss-term-prompt">$</span> cat README.md</div>
+                  <div class="oss-term-head"># Raw docs -&gt; chunks -&gt; embeddings -&gt; cited answer</div>
+                  <div><span class="oss-term-arrow">&rarr;</span> Hybrid retrieval: BM25 + vector search, fused</div>
+                  <div><span class="oss-term-arrow">&rarr;</span> Multi-query expansion for phrasing gaps</div>
+                  <div><span class="oss-term-arrow">&rarr;</span> Answers cite sources or say &quot;I don't know&quot;</div>
+                </div>
+              </div>
+              <div class="oss-panel-body">
+                <div class="proj-category" style="color:var(--accent)">AI &amp; RAG</div>
+                <h3 class="oss-panel-title"><a href="https://github.com/ChadaSaiteja/rag-from-scratch" target="_blank" rel="noopener">RAG From Scratch</a></h3>
+                <p class="proj-desc">A working Python RAG pipeline: chunking, embeddings, ChromaDB, hybrid search, cited answers and evaluation.</p>
+                <div class="tags">
+                  <span class="tag tag-grey">LangChain</span>
+                  <span class="tag tag-grey">ChromaDB</span>
+                  <span class="tag tag-grey">BM25</span>
+                  <span class="tag tag-grey">Gemini</span>
+                </div>
+                <div class="oss-meta">
+                  <span class="oss-lang-name"><i class="oss-dot" style="background:#3572A5"></i>Python</span>
+                  <span>Updated Oct 2026</span>
+                </div>
+                <div class="oss-links">
+                  <a href="https://github.com/ChadaSaiteja/rag-from-scratch" target="_blank" rel="noopener" class="oss-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>Code</a>
+                  <a href="https://chadasaiteja.is-a.dev/blog/rag-from-scratch/" class="oss-link oss-link-accent"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 013 3v13a2 2 0 00-2-2H2zM22 4h-7a3 3 0 00-3 3v13a2 2 0 012-2h8z"/></svg>Read the write-up</a>
+                </div>
+              </div>
+            </div>
+            <div class="oss-panel" role="tabpanel" id="oss-panel-1" aria-labelledby="oss-tab-1" hidden>
+              <div class="oss-term" aria-hidden="true">
+                <div class="oss-term-bar"><i></i><i></i><i></i><span>~/SpaceOps</span></div>
+                <div class="oss-term-body">
+                  <div><span class="oss-term-prompt">$</span> git clone github.com/ChadaSaiteja/SpaceOps</div>
+                  <div><span class="oss-term-prompt">$</span> cat README.md</div>
+                  <div class="oss-term-head"># Understand your storage. Clean it safely.</div>
+                  <div><span class="oss-term-arrow">&rarr;</span> Rust engine scans the disk in parallel</div>
+                  <div><span class="oss-term-arrow">&rarr;</span> Flags caches, duplicates and build leftovers</div>
+                  <div><span class="oss-term-arrow">&rarr;</span> Review before anything is deleted</div>
+                </div>
+              </div>
+              <div class="oss-panel-body">
+                <div class="proj-category" style="color:var(--orange)">Tools</div>
+                <h3 class="oss-panel-title"><a href="https://github.com/ChadaSaiteja/SpaceOps" target="_blank" rel="noopener">SpaceOps</a></h3>
+                <p class="proj-desc">Open-source storage intelligence for Windows. A high-speed Rust scan engine behind a WinUI 3 interface.</p>
+                <div class="tags">
+                  <span class="tag tag-grey">Rust</span>
+                  <span class="tag tag-grey">WinUI 3</span>
+                  <span class="tag tag-grey">Windows</span>
+                </div>
+                <div class="oss-meta">
+                  <span class="oss-lang-name"><i class="oss-dot" style="background:#dea584"></i>Rust</span>
+                  <span>Updated Oct 2026</span>
+                </div>
+                <div class="oss-links">
+                  <a href="https://github.com/ChadaSaiteja/SpaceOps" target="_blank" rel="noopener" class="oss-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>Code</a>
+                </div>
+              </div>
+            </div>
+            <div class="oss-panel" role="tabpanel" id="oss-panel-2" aria-labelledby="oss-tab-2" hidden>
+              <div class="oss-term" aria-hidden="true">
+                <div class="oss-term-bar"><i></i><i></i><i></i><span>~/Hyperloglog</span></div>
+                <div class="oss-term-body">
+                  <div><span class="oss-term-prompt">$</span> git clone github.com/ChadaSaiteja/Hyperloglog</div>
+                  <div><span class="oss-term-prompt">$</span> cat README.md</div>
+                  <div class="oss-term-head"># How many distinct users have I seen?</div>
+                  <div><span class="oss-term-arrow">&rarr;</span> Fixed ~12 KB memory, any input size</div>
+                  <div><span class="oss-term-arrow">&rarr;</span> Around 0.81% standard error</div>
+                  <div><span class="oss-term-arrow">&rarr;</span> Compared against an exact Set baseline</div>
+                </div>
+              </div>
+              <div class="oss-panel-body">
+                <div class="proj-category" style="color:var(--purple)">Systems from scratch</div>
+                <h3 class="oss-panel-title"><a href="https://github.com/ChadaSaiteja/Hyperloglog" target="_blank" rel="noopener">HyperLogLog Unique Counter</a></h3>
+                <p class="proj-desc">An Express API that estimates unique users at scale with HyperLogLog, in about 12 KB of memory.</p>
+                <div class="tags">
+                  <span class="tag tag-grey">TypeScript</span>
+                  <span class="tag tag-grey">Express</span>
+                  <span class="tag tag-grey">Probabilistic DS</span>
+                </div>
+                <div class="oss-meta">
+                  <span class="oss-lang-name"><i class="oss-dot" style="background:#3178c6"></i>TypeScript</span>
+                  <span>Updated Oct 2026</span>
+                </div>
+                <div class="oss-links">
+                  <a href="https://github.com/ChadaSaiteja/Hyperloglog" target="_blank" rel="noopener" class="oss-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>Code</a>
+                  <a href="https://chadasaiteja.is-a.dev/blog/hyperloglog-counting-billions-of-users/" class="oss-link oss-link-accent"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 013 3v13a2 2 0 00-2-2H2zM22 4h-7a3 3 0 00-3 3v13a2 2 0 012-2h8z"/></svg>Read the write-up</a>
+                </div>
+              </div>
+            </div>
+            <div class="oss-panel" role="tabpanel" id="oss-panel-3" aria-labelledby="oss-tab-3" hidden>
+              <div class="oss-term" aria-hidden="true">
+                <div class="oss-term-bar"><i></i><i></i><i></i><span>~/Build_your_own_http-server</span></div>
+                <div class="oss-term-body">
+                  <div><span class="oss-term-prompt">$</span> git clone github.com/ChadaSaiteja/Build_your_own_http-server</div>
+                  <div><span class="oss-term-prompt">$</span> cat README.md</div>
+                  <div class="oss-term-head"># HTTP/1.1 on a raw TCP socket</div>
+                  <div><span class="oss-term-arrow">&rarr;</span> Hand-parsed request line and headers</div>
+                  <div><span class="oss-term-arrow">&rarr;</span> GET and POST file routes</div>
+                  <div><span class="oss-term-arrow">&rarr;</span> gzip via Accept-Encoding</div>
+                </div>
+              </div>
+              <div class="oss-panel-body">
+                <div class="proj-category" style="color:var(--purple)">Systems from scratch</div>
+                <h3 class="oss-panel-title"><a href="https://github.com/ChadaSaiteja/Build_your_own_http-server" target="_blank" rel="noopener">HTTP Server From TCP</a></h3>
+                <p class="proj-desc">An HTTP/1.1 server on raw TCP sockets in Node.js: routing, file serving, uploads and gzip.</p>
+                <div class="tags">
+                  <span class="tag tag-grey">Node.js</span>
+                  <span class="tag tag-grey">TCP</span>
+                  <span class="tag tag-grey">HTTP/1.1</span>
+                </div>
+                <div class="oss-meta">
+                  <span class="oss-lang-name"><i class="oss-dot" style="background:#f1e05a"></i>JavaScript</span>
+                  <span>Updated Jun 2025</span>
+                </div>
+                <div class="oss-links">
+                  <a href="https://github.com/ChadaSaiteja/Build_your_own_http-server" target="_blank" rel="noopener" class="oss-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>Code</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="oss-controls reveal">
+            <div class="oss-chips" role="group" aria-label="Filter projects by category">
+              <button type="button" class="oss-chip" aria-pressed="true" data-cat="">All <span class="oss-count">10</span></button>
+              <button type="button" class="oss-chip" aria-pressed="false" data-cat="AI &amp; RAG"><i class="oss-dot" style="background:var(--accent)"></i>AI &amp; RAG <span class="oss-count">1</span></button>
+              <button type="button" class="oss-chip" aria-pressed="false" data-cat="Systems from scratch"><i class="oss-dot" style="background:var(--purple)"></i>Systems from scratch <span class="oss-count">3</span></button>
+              <button type="button" class="oss-chip" aria-pressed="false" data-cat="Backend APIs"><i class="oss-dot" style="background:var(--blue)"></i>Backend APIs <span class="oss-count">4</span></button>
+              <button type="button" class="oss-chip" aria-pressed="false" data-cat="Tools"><i class="oss-dot" style="background:var(--orange)"></i>Tools <span class="oss-count">2</span></button>
+            </div>
+            <div class="oss-lang">
+              <div class="oss-lang-head"><span>Languages</span><span>by project count</span></div>
+              <div class="oss-bar">
+                <span class="oss-bar-seg" data-lang="TypeScript" style="flex-grow:4;background:#3178c6" title="TypeScript: 4 projects"></span>
+                <span class="oss-bar-seg" data-lang="JavaScript" style="flex-grow:3;background:#f1e05a" title="JavaScript: 3 projects"></span>
+                <span class="oss-bar-seg" data-lang="Java" style="flex-grow:1;background:#b07219" title="Java: 1 project"></span>
+                <span class="oss-bar-seg" data-lang="Python" style="flex-grow:1;background:#3572A5" title="Python: 1 project"></span>
+                <span class="oss-bar-seg" data-lang="Rust" style="flex-grow:1;background:#dea584" title="Rust: 1 project"></span>
+              </div>
+              <div class="oss-legend" role="group" aria-label="Filter projects by language">
+                <button type="button" class="oss-legend-item" aria-pressed="false" data-lang="TypeScript"><i class="oss-dot" style="background:#3178c6"></i>TypeScript <span class="oss-pct">40%</span></button>
+                <button type="button" class="oss-legend-item" aria-pressed="false" data-lang="JavaScript"><i class="oss-dot" style="background:#f1e05a"></i>JavaScript <span class="oss-pct">30%</span></button>
+                <button type="button" class="oss-legend-item" aria-pressed="false" data-lang="Java"><i class="oss-dot" style="background:#b07219"></i>Java <span class="oss-pct">10%</span></button>
+                <button type="button" class="oss-legend-item" aria-pressed="false" data-lang="Python"><i class="oss-dot" style="background:#3572A5"></i>Python <span class="oss-pct">10%</span></button>
+                <button type="button" class="oss-legend-item" aria-pressed="false" data-lang="Rust"><i class="oss-dot" style="background:#dea584"></i>Rust <span class="oss-pct">10%</span></button>
+              </div>
+            </div>
+            <p class="oss-summary" aria-live="polite">10 projects across 5 languages</p>
+          </div>
+
+          <div class="oss-grid">
+            <article class="oss-card" data-lang="JavaScript" data-cat="Systems from scratch" data-title="DNS Server">
+              <div class="oss-card-top">
+                <span class="oss-card-cat"><i class="oss-dot" style="background:var(--purple)"></i>Systems from scratch</span>
+                <a href="https://github.com/ChadaSaiteja/dns_server" target="_blank" rel="noopener" class="oss-card-gh" aria-label="DNS Server on GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+              </div>
+              <h3 class="oss-card-title"><a href="https://github.com/ChadaSaiteja/dns_server" target="_blank" rel="noopener">DNS Server</a></h3>
+              <div class="oss-card-repo">ChadaSaiteja/dns_server</div>
+              <p class="oss-card-desc">A minimal DNS server and client in Node.js over UDP sockets.</p>
+              <div class="tags">
+                <span class="tag tag-grey">Node.js</span>
+                <span class="tag tag-grey">UDP</span>
+                <span class="tag tag-grey">dgram</span>
+              </div>
+              <div class="oss-card-foot">
+                <span class="oss-lang-name"><i class="oss-dot" style="background:#f1e05a"></i>JavaScript</span>
+                <span class="oss-card-date">Dec 2024</span>
+
+              </div>
+            </article>
+            <article class="oss-card" data-lang="Java" data-cat="Backend APIs" data-title="Task Management API">
+              <div class="oss-card-top">
+                <span class="oss-card-cat"><i class="oss-dot" style="background:var(--blue)"></i>Backend APIs</span>
+                <a href="https://github.com/ChadaSaiteja/Task_Management" target="_blank" rel="noopener" class="oss-card-gh" aria-label="Task Management API on GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+              </div>
+              <h3 class="oss-card-title"><a href="https://github.com/ChadaSaiteja/Task_Management" target="_blank" rel="noopener">Task Management API</a></h3>
+              <div class="oss-card-repo">ChadaSaiteja/Task_Management</div>
+              <p class="oss-card-desc">A REST API for tasks with Spring Boot, Spring Data JPA and MySQL.</p>
+              <div class="tags">
+                <span class="tag tag-grey">Spring Boot</span>
+                <span class="tag tag-grey">JPA</span>
+                <span class="tag tag-grey">MySQL</span>
+              </div>
+              <div class="oss-card-foot">
+                <span class="oss-lang-name"><i class="oss-dot" style="background:#b07219"></i>Java</span>
+                <span class="oss-card-date">Sep 2026</span>
+
+              </div>
+            </article>
+            <article class="oss-card" data-lang="TypeScript" data-cat="Backend APIs" data-title="Employee Management API">
+              <div class="oss-card-top">
+                <span class="oss-card-cat"><i class="oss-dot" style="background:var(--blue)"></i>Backend APIs</span>
+                <a href="https://github.com/ChadaSaiteja/Mini_Project" target="_blank" rel="noopener" class="oss-card-gh" aria-label="Employee Management API on GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+              </div>
+              <h3 class="oss-card-title"><a href="https://github.com/ChadaSaiteja/Mini_Project" target="_blank" rel="noopener">Employee Management API</a></h3>
+              <div class="oss-card-repo">ChadaSaiteja/Mini_Project</div>
+              <p class="oss-card-desc">Employees, locations and projects over Express and TypeORM on SQL Server, with migrations and validation.</p>
+              <div class="tags">
+                <span class="tag tag-grey">Express</span>
+                <span class="tag tag-grey">TypeORM</span>
+                <span class="tag tag-grey">SQL Server</span>
+              </div>
+              <div class="oss-card-foot">
+                <span class="oss-lang-name"><i class="oss-dot" style="background:#3178c6"></i>TypeScript</span>
+                <span class="oss-card-date">Sep 2026</span>
+
+              </div>
+            </article>
+            <article class="oss-card" data-lang="TypeScript" data-cat="Backend APIs" data-title="Socket.IO Mongo Adapter">
+              <div class="oss-card-top">
+                <span class="oss-card-cat"><i class="oss-dot" style="background:var(--blue)"></i>Backend APIs</span>
+                <a href="https://github.com/ChadaSaiteja/socket-mongo-adapter" target="_blank" rel="noopener" class="oss-card-gh" aria-label="Socket.IO Mongo Adapter on GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+              </div>
+              <h3 class="oss-card-title"><a href="https://github.com/ChadaSaiteja/socket-mongo-adapter" target="_blank" rel="noopener">Socket.IO Mongo Adapter</a></h3>
+              <div class="oss-card-repo">ChadaSaiteja/socket-mongo-adapter</div>
+              <p class="oss-card-desc">Scaling Socket.IO across server instances with the MongoDB adapter and emitter, tested with multiple clients.</p>
+              <div class="tags">
+                <span class="tag tag-grey">Socket.IO</span>
+                <span class="tag tag-grey">MongoDB</span>
+                <span class="tag tag-grey">Express</span>
+              </div>
+              <div class="oss-card-foot">
+                <span class="oss-lang-name"><i class="oss-dot" style="background:#3178c6"></i>TypeScript</span>
+                <span class="oss-card-date">Apr 2024</span>
+
+              </div>
+            </article>
+            <article class="oss-card" data-lang="TypeScript" data-cat="Backend APIs" data-title="GraphQL API Wrapper">
+              <div class="oss-card-top">
+                <span class="oss-card-cat"><i class="oss-dot" style="background:var(--blue)"></i>Backend APIs</span>
+                <a href="https://github.com/ChadaSaiteja/express_wrapper" target="_blank" rel="noopener" class="oss-card-gh" aria-label="GraphQL API Wrapper on GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+              </div>
+              <h3 class="oss-card-title"><a href="https://github.com/ChadaSaiteja/express_wrapper" target="_blank" rel="noopener">GraphQL API Wrapper</a></h3>
+              <div class="oss-card-repo">ChadaSaiteja/express_wrapper</div>
+              <p class="oss-card-desc">A GraphQL layer on Apollo Server with TypeORM entities for books, characters and houses.</p>
+              <div class="tags">
+                <span class="tag tag-grey">Apollo Server</span>
+                <span class="tag tag-grey">GraphQL</span>
+                <span class="tag tag-grey">TypeORM</span>
+              </div>
+              <div class="oss-card-foot">
+                <span class="oss-lang-name"><i class="oss-dot" style="background:#3178c6"></i>TypeScript</span>
+                <span class="oss-card-date">Jun 2023</span>
+
+              </div>
+            </article>
+            <article class="oss-card" data-lang="JavaScript" data-cat="Tools" data-title="Habit Tracker">
+              <div class="oss-card-top">
+                <span class="oss-card-cat"><i class="oss-dot" style="background:var(--orange)"></i>Tools</span>
+                <a href="https://github.com/ChadaSaiteja/habit_tracker" target="_blank" rel="noopener" class="oss-card-gh" aria-label="Habit Tracker on GitHub"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+              </div>
+              <h3 class="oss-card-title"><a href="https://github.com/ChadaSaiteja/habit_tracker" target="_blank" rel="noopener">Habit Tracker</a></h3>
+              <div class="oss-card-repo">ChadaSaiteja/habit_tracker</div>
+              <p class="oss-card-desc">A monthly habit grid with streaks and a live progress chart.</p>
+              <div class="tags">
+                <span class="tag tag-grey">JavaScript</span>
+                <span class="tag tag-grey">SVG</span>
+              </div>
+              <div class="oss-card-foot">
+                <span class="oss-lang-name"><i class="oss-dot" style="background:#f1e05a"></i>JavaScript</span>
+                <span class="oss-card-date">Sep 2026</span>
+                <a href="https://chadasaiteja.is-a.dev/habit_tracker/" target="_blank" rel="noopener" class="oss-link"><svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>Demo</a>
+              </div>
+            </article>
+          </div>
+          <p class="oss-note" hidden></p>
+          <div class="oss-footer">
+            <button type="button" class="oss-more" hidden></button>
+            <a href="https://github.com/ChadaSaiteja?tab=repositories" target="_blank" rel="noopener" class="oss-all">View all repositories on GitHub <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg></a>
+          </div>
+        </div>
+        <!-- GENERATED:OSS:END -->
+      </section>
+
       <!-- EXPERIENCE -->
       <section id="experience" aria-labelledby="experience-heading">
         <div class="section-label">Experience</div>
@@ -1247,6 +2179,72 @@
           </div>
         </div>
 
+      </section>
+
+      <!-- WRITING -->
+      <section id="writing" aria-labelledby="writing-heading">
+        <div class="section-label">Writing</div>
+        <h2 id="writing-heading" class="visually-hidden">Writing</h2>
+        <p class="oss-intro reveal">Notes on backend systems, distributed architecture and AI engineering.</p>
+        <!-- GENERATED:WRITING:START -->
+        <div class="writing-grid">
+          <article class="post-card reveal">
+            <div class="tags">
+              <span class="tag tag-teal">rag</span>
+              <span class="tag tag-teal">llm</span>
+              <span class="tag tag-teal">embeddings</span>
+            </div>
+            <h3 class="post-title"><a href="https://chadasaiteja.is-a.dev/blog/rag-from-scratch/">RAG From Scratch: Every Step From Raw Documents to a Cited Answer</a></h3>
+            <p class="post-desc">A beginner-friendly walkthrough of RAG: cleaning, chunking, embedding and storing data, then multi-query, hybrid search, fusion, reranking and cited answers.</p>
+            <div class="post-meta">
+              <time datetime="2026-10-18">Oct 18, 2026</time>
+              <span>24 min read</span>
+              <a href="https://github.com/ChadaSaiteja/rag-from-scratch" target="_blank" rel="noopener" class="oss-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>Code: rag-from-scratch</a>
+            </div>
+          </article>
+          <article class="post-card reveal">
+            <div class="tags">
+              <span class="tag tag-teal">ai</span>
+              <span class="tag tag-teal">github</span>
+              <span class="tag tag-teal">spec-kit</span>
+            </div>
+            <h3 class="post-title"><a href="https://chadasaiteja.is-a.dev/blog/spec-driven-development-guide/">Stop Guessing: Master AI Coding with Spec-Driven Development</a></h3>
+            <p class="post-desc">A guide to Spec-Driven Development with GitHub Spec Kit: the workflow, setup for new and existing repos, every speckit command, and agent integrations.</p>
+            <div class="post-meta">
+              <time datetime="2026-10-05">Oct 5, 2026</time>
+              <span>16 min read</span>
+            </div>
+          </article>
+          <article class="post-card reveal">
+            <div class="tags">
+              <span class="tag tag-teal">hyperloglog</span>
+              <span class="tag tag-teal">redis</span>
+              <span class="tag tag-teal">algorithms</span>
+            </div>
+            <h3 class="post-title"><a href="https://chadasaiteja.is-a.dev/blog/hyperloglog-counting-billions-of-users/">HyperLogLog: How Google and Reddit Count Billions of Unique Users Using Just 12 KB</a></h3>
+            <p class="post-desc">How HyperLogLog counts billions of unique users in 12 KB, why it beats sets and Bloom filters for cardinality, and when you should not use it.</p>
+            <div class="post-meta">
+              <time datetime="2026-10-04">Oct 4, 2026</time>
+              <span>7 min read</span>
+              <a href="https://github.com/ChadaSaiteja/Hyperloglog" target="_blank" rel="noopener" class="oss-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>Code: Hyperloglog</a>
+            </div>
+          </article>
+          <article class="post-card reveal">
+            <div class="tags">
+              <span class="tag tag-teal">llm-tokens</span>
+              <span class="tag tag-teal">ai-agents</span>
+              <span class="tag tag-teal">claude-code</span>
+            </div>
+            <h3 class="post-title"><a href="https://chadasaiteja.is-a.dev/blog/cut-coding-agent-token-bill/">Cut Your Coding Agent's Token Bill in Three Places: Graphify, Ponytail, Caveman</a></h3>
+            <p class="post-desc">Where an agent's tokens actually go, one tool for each of the three leaks, and what an independent benchmark measured versus what each tool advertises.</p>
+            <div class="post-meta">
+              <time datetime="2026-09-26">Sep 26, 2026</time>
+              <span>12 min read</span>
+            </div>
+          </article>
+        </div>
+        <a href="https://chadasaiteja.is-a.dev/blog/" class="writing-all">Read all 9 posts <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg></a>
+        <!-- GENERATED:WRITING:END -->
       </section>
 
       <!-- CONTACT -->
@@ -1535,8 +2533,8 @@
        PAC-MAN COLOR CYCLE ON CLICK
        ================================================== */
     const pacColors = [
+      { color: '#64ffda', glow: 'rgba(100, 255, 218, 0.7)' },  // Neon teal (matches accent, default)
       { color: '#FFE135', glow: 'rgba(255, 225, 53, 0.5)'  },  // Classic yellow
-      { color: '#64ffda', glow: 'rgba(100, 255, 218, 0.5)' },  // Teal (matches accent)
       { color: '#ff6eb4', glow: 'rgba(255, 110, 180, 0.5)' },  // Pink
       { color: '#ff9f43', glow: 'rgba(255, 159, 67, 0.5)'  },  // Orange
       { color: '#a29bfe', glow: 'rgba(162, 155, 254, 0.5)' },  // Lavender
@@ -1619,5 +2617,6 @@
       setTimeout(() => eatDot(dots, i + 1), 110);
     }
   </script>
+  <script src="js/oss.js" defer></script>
 </body>
 </html>

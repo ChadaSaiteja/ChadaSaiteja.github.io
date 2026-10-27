@@ -1,0 +1,192 @@
+{
+  "github": "ChadaSaiteja",
+  "blog": "https://chadasaiteja.is-a.dev/blog",
+  "postsToShow": 4,
+  "categories": [
+    "AI & RAG",
+    "Systems from scratch",
+    "Backend APIs",
+    "Tools"
+  ],
+  "projects": [
+    {
+      "repo": "rag-from-scratch",
+      "title": "RAG From Scratch",
+      "url": "https://github.com/ChadaSaiteja/rag-from-scratch",
+      "language": "Python",
+      "category": "AI & RAG",
+      "featured": true,
+      "updated": "2026-10-23",
+      "blurb": "A working Python RAG pipeline: chunking, embeddings, ChromaDB, hybrid search, cited answers and evaluation.",
+      "stack": [
+        "LangChain",
+        "ChromaDB",
+        "BM25",
+        "Gemini"
+      ],
+      "writeup": "rag-from-scratch",
+      "terminal": {
+        "heading": "Raw docs -> chunks -> embeddings -> cited answer",
+        "points": [
+          "Hybrid retrieval: BM25 + vector search, fused",
+          "Multi-query expansion for phrasing gaps",
+          "Answers cite sources or say \"I don't know\""
+        ]
+      }
+    },
+    {
+      "repo": "SpaceOps",
+      "title": "SpaceOps",
+      "url": "https://github.com/ChadaSaiteja/SpaceOps",
+      "language": "Rust",
+      "category": "Tools",
+      "featured": true,
+      "updated": "2026-10-23",
+      "blurb": "Open-source storage intelligence for Windows. A high-speed Rust scan engine behind a WinUI 3 interface.",
+      "stack": [
+        "Rust",
+        "WinUI 3",
+        "Windows"
+      ],
+      "terminal": {
+        "heading": "Understand your storage. Clean it safely.",
+        "points": [
+          "Rust engine scans the disk in parallel",
+          "Flags caches, duplicates and build leftovers",
+          "Review before anything is deleted"
+        ]
+      }
+    },
+    {
+      "repo": "Hyperloglog",
+      "title": "HyperLogLog Unique Counter",
+      "url": "https://github.com/ChadaSaiteja/Hyperloglog",
+      "language": "TypeScript",
+      "category": "Systems from scratch",
+      "featured": true,
+      "updated": "2026-10-04",
+      "blurb": "An Express API that estimates unique users at scale with HyperLogLog, in about 12 KB of memory.",
+      "stack": [
+        "TypeScript",
+        "Express",
+        "Probabilistic DS"
+      ],
+      "writeup": "hyperloglog-counting-billions-of-users",
+      "terminal": {
+        "heading": "How many distinct users have I seen?",
+        "points": [
+          "Fixed ~12 KB memory, any input size",
+          "Around 0.81% standard error",
+          "Compared against an exact Set baseline"
+        ]
+      }
+    },
+    {
+      "repo": "Build_your_own_http-server",
+      "title": "HTTP Server From TCP",
+      "url": "https://github.com/ChadaSaiteja/Build_your_own_http-server",
+      "language": "JavaScript",
+      "category": "Systems from scratch",
+      "featured": true,
+      "updated": "2025-06-17",
+      "blurb": "An HTTP/1.1 server on raw TCP sockets in Node.js: routing, file serving, uploads and gzip.",
+      "stack": [
+        "Node.js",
+        "TCP",
+        "HTTP/1.1"
+      ],
+      "terminal": {
+        "heading": "HTTP/1.1 on a raw TCP socket",
+        "points": [
+          "Hand-parsed request line and headers",
+          "GET and POST file routes",
+          "gzip via Accept-Encoding"
+        ]
+      }
+    },
+    {
+      "repo": "dns_server",
+      "title": "DNS Server",
+      "url": "https://github.com/ChadaSaiteja/dns_server",
+      "language": "JavaScript",
+      "category": "Systems from scratch",
+      "updated": "2024-12-28",
+      "blurb": "A minimal DNS server and client in Node.js over UDP sockets.",
+      "stack": [
+        "Node.js",
+        "UDP",
+        "dgram"
+      ]
+    },
+    {
+      "repo": "Task_Management",
+      "title": "Task Management API",
+      "url": "https://github.com/ChadaSaiteja/Task_Management",
+      "language": "Java",
+      "category": "Backend APIs",
+      "updated": "2026-09-21",
+      "blurb": "A REST API for tasks with Spring Boot, Spring Data JPA and MySQL.",
+      "stack": [
+        "Spring Boot",
+        "JPA",
+        "MySQL"
+      ]
+    },
+    {
+      "repo": "Mini_Project",
+      "title": "Employee Management API",
+      "url": "https://github.com/ChadaSaiteja/Mini_Project",
+      "language": "TypeScript",
+      "category": "Backend APIs",
+      "updated": "2026-09-21",
+      "blurb": "Employees, locations and projects over Express and TypeORM on SQL Server, with migrations and validation.",
+      "stack": [
+        "Express",
+        "TypeORM",
+        "SQL Server"
+      ]
+    },
+    {
+      "repo": "socket-mongo-adapter",
+      "title": "Socket.IO Mongo Adapter",
+      "url": "https://github.com/ChadaSaiteja/socket-mongo-adapter",
+      "language": "TypeScript",
+      "category": "Backend APIs",
+      "updated": "2024-04-15",
+      "blurb": "Scaling Socket.IO across server instances with the MongoDB adapter and emitter, tested with multiple clients.",
+      "stack": [
+        "Socket.IO",
+        "MongoDB",
+        "Express"
+      ]
+    },
+    {
+      "repo": "express_wrapper",
+      "title": "GraphQL API Wrapper",
+      "url": "https://github.com/ChadaSaiteja/express_wrapper",
+      "language": "TypeScript",
+      "category": "Backend APIs",
+      "updated": "2023-06-20",
+      "blurb": "A GraphQL layer on Apollo Server with TypeORM entities for books, characters and houses.",
+      "stack": [
+        "Apollo Server",
+        "GraphQL",
+        "TypeORM"
+      ]
+    },
+    {
+      "repo": "habit_tracker",
+      "title": "Habit Tracker",
+      "url": "https://github.com/ChadaSaiteja/habit_tracker",
+      "language": "JavaScript",
+      "category": "Tools",
+      "updated": "2026-09-22",
+      "blurb": "A monthly habit grid with streaks and a live progress chart.",
+      "stack": [
+        "JavaScript",
+        "SVG"
+      ],
+      "demo": "https://chadasaiteja.is-a.dev/habit_tracker/"
+    }
+  ]
+}
